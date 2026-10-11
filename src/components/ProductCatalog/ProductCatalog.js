@@ -42,7 +42,6 @@ export default function ProductCatalog() {
     return products.filter((p) => {
       return (
         p.name?.toLowerCase().includes(q) ||
-        p.category?.toLowerCase().includes(q) ||
         p.description?.toLowerCase().includes(q)
       );
     });
@@ -84,7 +83,7 @@ export default function ProductCatalog() {
                 placeholder="Search products…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                aria-label="Search products by title or category"
+                aria-label="Search products by name or description"
               />
               {searchQuery && (
                 <button

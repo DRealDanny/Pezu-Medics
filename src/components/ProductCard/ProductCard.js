@@ -19,7 +19,7 @@ function PlaceholderImage({ name }) {
  * @param {{ product: object, view: "grid" | "list" }} props
  */
 export default function ProductCard({ product, view }) {
-  const { id, name, price, category, description } = product || {};
+  const { id, name, price, description } = product || {};
   const formattedPrice = `₦${Number(price || 0).toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -37,7 +37,6 @@ export default function ProductCard({ product, view }) {
         </div>
         <div className={styles.cardListBody}>
           <div className={styles.cardListInfo}>
-            <span className={styles.category}>{category}</span>
             <h2 className={styles.name}>{name}</h2>
             {description ? <p className={styles.description}>{description}</p> : null}
           </div>
@@ -63,7 +62,6 @@ export default function ProductCard({ product, view }) {
         )}
       </div>
       <div className={styles.cardBody}>
-        <span className={styles.category}>{category}</span>
         <h2 className={styles.name}>{name}</h2>
         {description ? <p className={styles.description}>{description}</p> : null}
         <div className={styles.cardFooter}>

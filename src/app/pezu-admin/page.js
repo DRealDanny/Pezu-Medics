@@ -4,17 +4,6 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import styles from "./admin.module.css";
 
-/* ── Standard category choices for convenience ── */
-const PRESET_CATEGORIES = [
-  "Diagnostics",
-  "PPE",
-  "Monitoring",
-  "Equipment",
-  "Respiratory",
-  "First Aid",
-  "Waste Management",
-  "Surgical",
-];
 
 /* ── Medical Cross Logo Icon ── */
 function BrandLogoIcon({ size = 32 }) {
@@ -137,7 +126,6 @@ export default function PezuAdminPage() {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("all");
 
   /* ── Modal & Form State ── */
   const [modalOpen, setModalOpen] = useState(false);
@@ -145,7 +133,6 @@ export default function PezuAdminPage() {
   const [activeProductId, setActiveProductId] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
-    category: "Diagnostics",
     price: "",
     description: "",
     image: "",
@@ -254,7 +241,6 @@ export default function PezuAdminPage() {
     setActiveProductId(null);
     setFormData({
       name: "",
-      category: "Diagnostics",
       price: "",
       description: "",
       image: "",
@@ -277,7 +263,6 @@ export default function PezuAdminPage() {
 
     setFormData({
       name: prod.name || "",
-      category: prod.category || "General Equipment",
       price: initialPrice,
       description: prod.description || "",
       image: prod.image || "",
@@ -376,7 +361,7 @@ export default function PezuAdminPage() {
 
     const payload = {
       name: formData.name.trim(),
-      category: formData.category.trim(),
+      category: "",
       price: cleanNum,
       description: formData.description ? formData.description.trim() : "",
       image: formData.image ? formData.image.trim() : "",
@@ -452,26 +437,18 @@ export default function PezuAdminPage() {
 
   /* ── 10. Filtered Products & Stats ── */
   const filteredProducts = useMemo(() => {
+    if (!searchTerm.trim()) return products;
+    const term = searchTerm.toLowerCase().trim();
     return products.filter((p) => {
-      const matchesSearch =
-        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.description?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory =
-        categoryFilter === "all" || p.category?.toLowerCase() === categoryFilter.toLowerCase();
-      return matchesSearch && matchesCategory;
+      return (
+        p.name?.toLowerCase().includes(term) ||
+        p.description?.toLowerCase().includes(term)
+      );
     });
-  }, [products, searchTerm, categoryFilter]);
+  }, [products, searchTerm]);
 
   const stats = useMemo(() => {
-    const total = products.length;
-    const categories = new Set(products.map((p) => p.category)).size;
-    return { total, categories };
-  }, [products]);
-
-  const allCategories = useMemo(() => {
-    const set = new Set(products.map((p) => p.category).filter(Boolean));
-    return Array.from(set);
+    return { total: products.length };
   }, [products]);
 
   /* ── Loading state while checking auth ── */
@@ -614,21 +591,16 @@ export default function PezuAdminPage() {
 
       {/* ── Main Dashboard Body ── */}
       <main className={`container ${styles.dashboardMain}`}>
-        {/* KPI Stats Grid (Total Products & Categories only) */}
+        {/* KPI Stats Grid (Total Products) */}
         <section className={styles.statsGrid} aria-label="CMS Overview Statistics">
           <div className={styles.statCard}>
             <span className={styles.statLabel}>Total Products</span>
             <span className={styles.statValue}>{stats.total}</span>
             <span className={styles.statDesc}>Listed in live catalog</span>
           </div>
-          <div className={styles.statCard}>
-            <span className={styles.statLabel}>Active Categories</span>
-            <span className={styles.statValue}>{stats.categories}</span>
-            <span className={styles.statDesc}>Medical product sectors</span>
-          </div>
         </section>
 
-        {/* Controls Bar: Search, Category Filter & Add Product */}
+        {/* Controls Bar: Search & Add Product */}
         <section className={styles.controlsBar}>
           <div className={styles.searchFilterGroup}>
             <div className={styles.searchInputWrap}>
@@ -641,25 +613,11 @@ export default function PezuAdminPage() {
               <input
                 type="text"
                 className={styles.searchInput}
-                placeholder="Search products by title, category, or description…"
+                placeholder="Search products by title or description…"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-
-            <select
-              className={styles.filterSelect}
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-              aria-label="Filter by category"
-            >
-              <option value="all">All Categories ({products.length})</option>
-              {allCategories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
           </div>
 
           <button onClick={openAddModal} className={styles.addBtn} id="btn-add-product">
@@ -680,8 +638,8 @@ export default function PezuAdminPage() {
               </div>
               <h3>No products found</h3>
               <p>
-                {searchTerm || categoryFilter !== "all"
-                  ? "Try clearing your filters or search keywords."
+                {searchTerm
+                  ? "Try clearing your search keywords."
                   : "Click 'Add New Product' to start populating your catalog."}
               </p>
             </div>
@@ -694,7 +652,6 @@ export default function PezuAdminPage() {
                     <tr>
                       <th style={{ width: "70px" }}>Image</th>
                       <th>Product Details</th>
-                      <th>Category</th>
                       <th>Price (Naira)</th>
                       <th>Media Source</th>
                       <th style={{ textAlign: "right" }}>Actions</th>
@@ -723,9 +680,6 @@ export default function PezuAdminPage() {
                               </div>
                             )}
                           </div>
-                        </td>
-                        <td>
-                          <span className={styles.categoryTag}>{p.category}</span>
                         </td>
                         <td className={styles.priceTag}>
                           ₦{Number(p.price || 0).toLocaleString("en-US", {
@@ -799,7 +753,6 @@ export default function PezuAdminPage() {
                         )}
                       </div>
                       <div className={styles.mobileCardInfo}>
-                        <span className={styles.categoryTag}>{p.category}</span>
                         <h4 className={styles.mobileCardTitle}>{p.name}</h4>
                         {p.description && (
                           <p className={styles.mobileCardDesc}>{p.description}</p>
@@ -873,27 +826,6 @@ export default function PezuAdminPage() {
                 />
               </div>
 
-              {/* Category */}
-              <div className={styles.formGroup}>
-                <label htmlFor="prod-category" className={styles.label}>
-                  Category *
-                </label>
-                <input
-                  id="prod-category"
-                  type="text"
-                  className={styles.input}
-                  list="categories-list"
-                  placeholder="e.g. Diagnostics, PPE, Monitoring"
-                  value={formData.category}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, category: e.target.value }))}
-                  required
-                />
-                <datalist id="categories-list">
-                  {PRESET_CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat} />
-                  ))}
-                </datalist>
-              </div>
 
               {/* Price in Naira with Commas, .00 & Scale Indicator */}
               <div className={styles.formGroup}>

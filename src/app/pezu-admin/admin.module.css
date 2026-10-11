@@ -373,11 +373,9 @@
   flex: 1;
 }
 
-/* ── Stats Grid (Total Products & Categories) ── */
+/* ── Stats (Total Products) ── */
 .statsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-md);
+  display: flex;
   margin-bottom: var(--space-xl);
 }
 
@@ -385,11 +383,12 @@
   background: #ffffff;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 22px 24px;
+  padding: 22px 28px;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 260px;
 }
 
 .statLabel {
