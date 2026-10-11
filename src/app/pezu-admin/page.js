@@ -161,11 +161,23 @@ export default function PezuAdminPage() {
     }, 3500);
   };
 
+  /* ── Helper: Handle Session Expiry Seamlessly ── */
+  const handleSessionExpired = () => {
+    setAuthState({ checking: false, loggedIn: false, user: null });
+    setModalOpen(false);
+    setDeleteModalOpen(false);
+    setLoginError("Your session has expired or requires sign in. Please enter your credentials.");
+    showToast("Session expired. Please sign in again.", "error");
+  };
+
   /* ── 1. Check Session on Mount ── */
   useEffect(() => {
     async function checkAuth() {
       try {
-        const res = await fetch("/api/auth/status");
+        const res = await fetch("/api/auth/status", {
+          cache: "no-store",
+          credentials: "same-origin",
+        });
         if (res.ok) {
           const data = await res.json();
           setAuthState({ checking: false, loggedIn: true, user: data.user });
@@ -184,7 +196,14 @@ export default function PezuAdminPage() {
   async function fetchProducts() {
     setLoadingProducts(true);
     try {
-      const res = await fetch("/api/products");
+      const res = await fetch("/api/products", {
+        cache: "no-store",
+        credentials: "same-origin",
+      });
+      if (res.status === 401) {
+        handleSessionExpired();
+        return;
+      }
       if (res.ok) {
         const data = await res.json();
         setProducts(data);
@@ -207,11 +226,12 @@ export default function PezuAdminPage() {
     try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
+        credentials: "same-origin",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginForm),
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
         setAuthState({ checking: false, loggedIn: true, user: data.user });
         showToast("Welcome back! Signed in to Pezu Medics CMS.");
@@ -229,7 +249,10 @@ export default function PezuAdminPage() {
   /* ── 4. Handle Logout ── */
   async function handleLogout() {
     try {
-      await fetch("/api/auth/logout", { method: "POST" });
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "same-origin",
+      });
     } catch {
       // ignore
     }
@@ -319,6 +342,12 @@ export default function PezuAdminPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    if (file.size > 25 * 1024 * 1024) {
+      setFormError("Selected image exceeds 25MB limit. Please choose a smaller file.");
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
+
     setUploadingImage(true);
     setFormError("");
 
@@ -328,20 +357,31 @@ export default function PezuAdminPage() {
     try {
       const res = await fetch("/api/upload", {
         method: "POST",
+        credentials: "same-origin",
         body: data,
       });
-      const result = await res.json();
-      if (res.ok) {
+
+      if (res.status === 401) {
+        handleSessionExpired();
+        return;
+      }
+
+      const result = await res.json().catch(() => ({}));
+      if (res.ok && result.success) {
         setFormData((prev) => ({ ...prev, image: result.url }));
         const sizeNote = result.optimizedSize ? ` (${result.optimizedSize})` : "";
         showToast(`Image converted to WebP${sizeNote} successfully!`);
       } else {
-        setFormError(result.error || "Failed to upload image.");
+        setFormError(result.error || `Failed to upload and convert image (status ${res.status}).`);
       }
-    } catch {
-      setFormError("Error uploading image file.");
+    } catch (err) {
+      console.error("Upload fetch error:", err);
+      setFormError("Error uploading image file. Please check server connection.");
     } finally {
       setUploadingImage(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     }
   }
 
@@ -374,36 +414,51 @@ export default function PezuAdminPage() {
       if (modalMode === "create") {
         const res = await fetch("/api/products", {
           method: "POST",
+          credentials: "same-origin",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
-        const resData = await res.json();
-        if (res.ok) {
+
+        if (res.status === 401) {
+          handleSessionExpired();
+          return;
+        }
+
+        const resData = await res.json().catch(() => ({}));
+        if (res.ok && resData.success) {
           setProducts((prev) => [resData.product, ...prev]);
           setModalOpen(false);
           showToast(`"${payload.name}" added to catalog!`);
         } else {
-          setFormError(resData.error || "Failed to add product.");
+          setFormError(resData.error || `Failed to add product (status ${res.status}).`);
         }
       } else {
         const res = await fetch("/api/products", {
           method: "PUT",
+          credentials: "same-origin",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: activeProductId, ...payload }),
         });
-        const resData = await res.json();
-        if (res.ok) {
+
+        if (res.status === 401) {
+          handleSessionExpired();
+          return;
+        }
+
+        const resData = await res.json().catch(() => ({}));
+        if (res.ok && resData.success) {
           setProducts((prev) =>
             prev.map((p) => (String(p.id) === String(activeProductId) ? resData.product : p))
           );
           setModalOpen(false);
           showToast(`"${payload.name}" updated successfully!`);
         } else {
-          setFormError(resData.error || "Failed to update product.");
+          setFormError(resData.error || `Failed to update product (status ${res.status}).`);
         }
       }
-    } catch {
-      setFormError("Network error while saving product.");
+    } catch (err) {
+      console.error("Save product error:", err);
+      setFormError("Network error while saving product. Please try again.");
     } finally {
       setSavingProduct(false);
     }
@@ -421,13 +476,20 @@ export default function PezuAdminPage() {
     try {
       const res = await fetch(`/api/products?id=${productToDelete.id}`, {
         method: "DELETE",
+        credentials: "same-origin",
       });
-      if (res.ok) {
+
+      if (res.status === 401) {
+        handleSessionExpired();
+        return;
+      }
+
+      const resData = await res.json().catch(() => ({}));
+      if (res.ok && resData.success) {
         setProducts((prev) => prev.filter((p) => String(p.id) !== String(productToDelete.id)));
         setDeleteModalOpen(false);
         showToast(`"${productToDelete.name}" and associated media removed completely.`);
       } else {
-        const resData = await res.json();
         showToast(resData.error || "Failed to delete product.", "error");
       }
     } catch {

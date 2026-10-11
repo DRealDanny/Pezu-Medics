@@ -6,7 +6,7 @@ import { verifyAdminSession } from "@/lib/auth";
 
 export async function POST(request) {
   if (!verifyAdminSession(request)) {
-    return NextResponse.json({ error: "Unauthorized. Please sign in." }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized. Please sign in to the CMS." }, { status: 401 });
   }
 
   try {
@@ -21,7 +21,7 @@ export async function POST(request) {
     const buffer = Buffer.from(bytes);
 
     if (buffer.length === 0) {
-      return NextResponse.json({ error: "Uploaded image is empty." }, { status: 400 });
+      return NextResponse.json({ error: "Uploaded image file is empty." }, { status: 400 });
     }
 
     // Convert all uploaded images to WebP format with sharp
@@ -37,16 +37,32 @@ export async function POST(request) {
           withoutEnlargement: true,
         })
         .webp({
-          quality: 80, // Crisp high-definition visual quality, minimum file size
-          effort: 4,   // Optimal compression effort
+          quality: 80,
+          effort: 4,
         })
         .toBuffer();
-    } catch (conversionErr) {
-      console.error("Image WebP conversion error:", conversionErr);
-      return NextResponse.json(
-        { error: "Invalid image format. Please upload a standard image file (PNG, JPG, WEBP, etc.)." },
-        { status: 400 }
-      );
+    } catch (primaryErr) {
+      console.warn("Primary Sharp conversion with rotate failed, trying fallback:", primaryErr.message);
+      try {
+        // Fallback: convert without rotate or complex effort settings
+        webpBuffer = await sharp(buffer)
+          .resize({
+            width: 1200,
+            height: 1200,
+            fit: "inside",
+            withoutEnlargement: true,
+          })
+          .webp({ quality: 80 })
+          .toBuffer();
+      } catch (fallbackErr) {
+        console.error("Image WebP conversion completely failed:", fallbackErr);
+        return NextResponse.json(
+          {
+            error: `Image conversion failed: ${fallbackErr.message || "Invalid or unsupported image file"}. Please upload a standard image (PNG, JPG, JPEG, WEBP).`,
+          },
+          { status: 400 }
+        );
+      }
     }
 
     // Sanitize and create unique WebP filename
@@ -80,9 +96,9 @@ export async function POST(request) {
       optimizedSize: `${optimizedKb} KB`,
     });
   } catch (error) {
-    console.error("File upload error:", error);
+    console.error("File upload route error:", error);
     return NextResponse.json(
-      { error: "Failed to upload and convert image. Please try again." },
+      { error: `Upload error: ${error.message || "Failed to process image."}` },
       { status: 500 }
     );
   }
