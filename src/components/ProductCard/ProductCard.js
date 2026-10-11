@@ -26,7 +26,11 @@ export default function ProductCard({ product, view }) {
     return (
       <article className={styles.cardList} id={`product-${id}`} aria-label={name}>
         <div className={styles.imageWrapperList}>
-          <PlaceholderImage name={name} />
+          {product.image ? (
+            <img src={product.image} alt={name} className={styles.productImage} />
+          ) : (
+            <PlaceholderImage name={name} />
+          )}
         </div>
         <div className={styles.cardListBody}>
           <div className={styles.cardListInfo}>
@@ -48,7 +52,11 @@ export default function ProductCard({ product, view }) {
   return (
     <article className={styles.cardGrid} id={`product-${id}`} aria-label={name}>
       <div className={styles.imageWrapper}>
-        <PlaceholderImage name={name} />
+        {product.image ? (
+          <img src={product.image} alt={name} className={styles.productImage} />
+        ) : (
+          <PlaceholderImage name={name} />
+        )}
       </div>
       <div className={styles.cardBody}>
         <span className={styles.category}>{category}</span>
