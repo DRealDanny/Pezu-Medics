@@ -333,7 +333,8 @@ export default function PezuAdminPage() {
       const result = await res.json();
       if (res.ok) {
         setFormData((prev) => ({ ...prev, image: result.url }));
-        showToast("Image uploaded successfully!");
+        const sizeNote = result.optimizedSize ? ` (${result.optimizedSize})` : "";
+        showToast(`Image converted to WebP${sizeNote} successfully!`);
       } else {
         setFormError(result.error || "Failed to upload image.");
       }
@@ -997,10 +998,10 @@ export default function PezuAdminPage() {
                         <line x1="12" y1="3" x2="12" y2="15"/>
                       </svg>
                       <p style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--color-text-primary)" }}>
-                        {uploadingImage ? "Uploading image…" : "Click to select and upload product image"}
+                        {uploadingImage ? "Converting & optimizing WebP…" : "Click to select and upload product image"}
                       </p>
                       <p style={{ fontSize: "0.75rem", color: "var(--color-text-tertiary)" }}>
-                        PNG, JPG, WEBP, or SVG
+                        Automatically converted to lightweight, high-quality WebP
                       </p>
                     </div>
                   </div>

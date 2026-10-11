@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
+import sharp from "sharp";
 import { verifyAdminSession } from "@/lib/auth";
 
 export async function POST(request) {
@@ -19,32 +20,69 @@ export async function POST(request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Sanitize and create unique filename
-    const originalName = file.name || "product-image.jpg";
-    const extension = path.extname(originalName).toLowerCase() || ".jpg";
-    const cleanBase = path
-      .basename(originalName, extension)
-      .replace(/[^a-zA-Z0-9_-]/g, "_")
-      .slice(0, 30);
-    const uniqueFilename = `${Date.now()}-${cleanBase}${extension}`;
+    if (buffer.length === 0) {
+      return NextResponse.json({ error: "Uploaded image is empty." }, { status: 400 });
+    }
+
+    // Convert all uploaded images to WebP format with sharp
+    // Downscale if dimension exceeds 1200x1200px and compress to lightweight, high-quality WebP
+    let webpBuffer;
+    try {
+      webpBuffer = await sharp(buffer)
+        .rotate() // Auto-orient based on EXIF
+        .resize({
+          width: 1200,
+          height: 1200,
+          fit: "inside",
+          withoutEnlargement: true,
+        })
+        .webp({
+          quality: 80, // Crisp high-definition visual quality, minimum file size
+          effort: 4,   // Optimal compression effort
+        })
+        .toBuffer();
+    } catch (conversionErr) {
+      console.error("Image WebP conversion error:", conversionErr);
+      return NextResponse.json(
+        { error: "Invalid image format. Please upload a standard image file (PNG, JPG, WEBP, etc.)." },
+        { status: 400 }
+      );
+    }
+
+    // Sanitize and create unique WebP filename
+    const originalName = file.name || "product-image";
+    const originalExt = path.extname(originalName);
+    const cleanBase =
+      path
+        .basename(originalName, originalExt)
+        .replace(/[^a-zA-Z0-9_-]/g, "_")
+        .slice(0, 30) || "product";
+
+    const uniqueFilename = `${Date.now()}-${cleanBase}.webp`;
 
     const uploadsDir = path.join(process.cwd(), "public", "uploads");
     await mkdir(uploadsDir, { recursive: true });
 
     const filePath = path.join(uploadsDir, uniqueFilename);
-    await writeFile(filePath, buffer);
+    await writeFile(filePath, webpBuffer);
 
     const publicUrl = `/uploads/${uniqueFilename}`;
+
+    const originalKb = Math.round(buffer.length / 1024);
+    const optimizedKb = Math.round(webpBuffer.length / 1024);
 
     return NextResponse.json({
       success: true,
       url: publicUrl,
       filename: uniqueFilename,
+      format: "webp",
+      originalSize: `${originalKb} KB`,
+      optimizedSize: `${optimizedKb} KB`,
     });
   } catch (error) {
     console.error("File upload error:", error);
     return NextResponse.json(
-      { error: "Failed to upload image. Please try again." },
+      { error: "Failed to upload and convert image. Please try again." },
       { status: 500 }
     );
   }
