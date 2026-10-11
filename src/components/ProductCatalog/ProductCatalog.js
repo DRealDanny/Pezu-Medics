@@ -35,15 +35,12 @@ export default function ProductCatalog() {
     };
   }, []);
 
-  /* ── Filter products by search query ── */
+  /* ── Filter products by search query (product name only) ── */
   const filteredProducts = useMemo(() => {
     if (!searchQuery.trim()) return products;
     const q = searchQuery.toLowerCase().trim();
     return products.filter((p) => {
-      return (
-        p.name?.toLowerCase().includes(q) ||
-        p.description?.toLowerCase().includes(q)
-      );
+      return p.name?.toLowerCase().includes(q);
     });
   }, [products, searchQuery]);
 
@@ -55,7 +52,7 @@ export default function ProductCatalog() {
           <div className={styles.toolbarLeft}>
             <h1>Our Product Prices</h1>
             {status === "success" && (
-              <p>Browse our full range of medical equipment and consumables.</p>
+              <p>Browse our full range of medical equipment and prices.</p>
             )}
           </div>
           <div className={styles.toolbarRight}>
@@ -83,7 +80,7 @@ export default function ProductCatalog() {
                 placeholder="Search products…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                aria-label="Search products by name or description"
+                aria-label="Search products by name"
               />
               {searchQuery && (
                 <button

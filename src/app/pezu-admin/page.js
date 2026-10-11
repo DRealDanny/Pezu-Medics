@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
+import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import styles from "./admin.module.css";
 
 
@@ -126,6 +127,7 @@ export default function PezuAdminPage() {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   /* ── Modal & Form State ── */
   const [modalOpen, setModalOpen] = useState(false);
@@ -435,15 +437,12 @@ export default function PezuAdminPage() {
     }
   }
 
-  /* ── 10. Filtered Products & Stats ── */
+  /* ── 10. Filtered Products & Stats (Product Name Only) ── */
   const filteredProducts = useMemo(() => {
     if (!searchTerm.trim()) return products;
     const term = searchTerm.toLowerCase().trim();
     return products.filter((p) => {
-      return (
-        p.name?.toLowerCase().includes(term) ||
-        p.description?.toLowerCase().includes(term)
-      );
+      return p.name?.toLowerCase().includes(term);
     });
   }, [products, searchTerm]);
 
@@ -567,6 +566,7 @@ export default function PezuAdminPage() {
             </span>
           </div>
 
+          {/* Desktop Nav Actions */}
           <div className={styles.navActions}>
             <Link href="/" target="_blank" className={styles.viewStoreBtn} title="Open Live Store in New Tab">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -586,7 +586,77 @@ export default function PezuAdminPage() {
               Sign Out
             </button>
           </div>
+
+          {/* Mobile Hamburger Menu Toggle */}
+          <button
+            type="button"
+            className={styles.hamburgerBtn}
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
+            id="admin-mobile-menu-toggle"
+          >
+            {mobileMenuOpen ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            )}
+          </button>
         </div>
+
+        {/* Mobile Dropdown Drawer */}
+        {mobileMenuOpen && (
+          <div className={styles.mobileNavDropdown} id="admin-mobile-menu-dropdown">
+            <div className={styles.mobileNavStatus}>
+              <span className={styles.mobileNavUser}>
+                Signed in as <strong>{authState.user?.username || authState.user?.email || "Admin"}</strong>
+              </span>
+              <span className={styles.navBadge}>
+                <span className={styles.badgePulse} />
+                Live Sync
+              </span>
+            </div>
+
+            <div className={styles.mobileNavActions}>
+              <Link
+                href="/"
+                target="_blank"
+                className={styles.mobileViewStoreBtn}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                View Live Store
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleLogout();
+                }}
+                className={styles.mobileLogoutBtn}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                  <polyline points="16 17 21 12 16 7"/>
+                  <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Sign Out
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* ── Main Dashboard Body ── */}
@@ -613,7 +683,7 @@ export default function PezuAdminPage() {
               <input
                 type="text"
                 className={styles.searchInput}
-                placeholder="Search products by title or description…"
+                placeholder="Search products by name…"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -1060,6 +1130,8 @@ export default function PezuAdminPage() {
           </div>
         ))}
       </div>
+
+      <ScrollToTop />
     </div>
   );
 }

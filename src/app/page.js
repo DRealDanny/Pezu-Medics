@@ -1,6 +1,7 @@
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import ProductCatalog from "@/components/ProductCatalog/ProductCatalog";
+import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 
 export default function HomePage() {
   return (
@@ -10,6 +11,7 @@ export default function HomePage() {
         <ProductCatalog />
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 }

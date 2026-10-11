@@ -367,6 +367,30 @@
   background: #fee2e2;
 }
 
+/* ── Mobile Hamburger Button & Drawer ── */
+.hamburgerBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.hamburgerBtn:hover {
+  background: #f1f5f9;
+  border-color: var(--color-border-hover);
+}
+
+.mobileNavDropdown {
+  display: none;
+}
+
 /* ── Main Dashboard Content ── */
 .dashboardMain {
   padding-block: var(--space-xl);
@@ -1040,8 +1064,101 @@
   }
 }
 
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ── Responsive Queries ── */
 @media (max-width: 768px) {
+  .hamburgerBtn {
+    display: inline-flex;
+  }
+
+  .navActions {
+    display: none;
+  }
+
+  .navBrand .navBadge {
+    display: none;
+  }
+
+  .mobileNavDropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--color-border);
+    padding: 16px 20px 20px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    animation: slideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .mobileNavStatus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .mobileNavUser {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+  }
+
+  .mobileNavActions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobileViewStoreBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: #f0f7ff;
+    border: 1.5px solid rgba(0, 113, 227, 0.2);
+    padding: 11px 16px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+
+  .mobileViewStoreBtn:hover {
+    background: #e0effe;
+  }
+
+  .mobileLogoutBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #dc2626;
+    background: #fef2f2;
+    border: 1.5px solid #fee2e2;
+    padding: 11px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  .mobileLogoutBtn:hover {
+    background: #fee2e2;
+  }
+
   .tableWrap {
     display: none;
   }
