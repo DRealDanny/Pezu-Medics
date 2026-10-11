@@ -11,6 +11,16 @@ export default function ProductCatalog() {
   const [status, setStatus] = useState("loading"); // "loading" | "success" | "error"
   const [searchQuery, setSearchQuery] = useState("");
 
+  /* ── Default view mode on mobile startup: List not Grid ── */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isMobile = window.matchMedia("(max-width: 640px)").matches || window.innerWidth <= 640;
+      if (isMobile) {
+        setView("list");
+      }
+    }
+  }, []);
+
   useEffect(() => {
     let cancelled = false;
 
