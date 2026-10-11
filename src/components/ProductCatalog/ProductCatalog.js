@@ -53,7 +53,7 @@ export default function ProductCatalog() {
         {/* Toolbar */}
         <div className={styles.toolbar}>
           <div className={styles.toolbarLeft}>
-            <h1>Our Product prices</h1>
+            <h1>Our Product Prices</h1>
             {status === "success" && (
               <p>Browse our full range of medical equipment and consumables.</p>
             )}
