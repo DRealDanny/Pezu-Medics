@@ -1,0 +1,35 @@
+/* ViewToggle */
+.toggle {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-border-light);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  gap: 2px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 32px;
+  border-radius: 6px;
+  color: var(--color-text-tertiary);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  position: relative;
+}
+
+.btn:hover {
+  color: var(--color-text-secondary);
+}
+
+.btn.active {
+  background-color: var(--color-surface);
+  color: var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn svg {
+  pointer-events: none;
+}
