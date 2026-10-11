@@ -1,33 +1,10 @@
 import { NextResponse } from "next/server";
-import { readFile, writeFile, unlink } from "node:fs/promises";
-import path from "node:path";
 import { verifyAdminSession } from "@/lib/auth";
-
-const PRODUCTS_FILE = path.join(process.cwd(), "src", "data", "products.json");
-
-/**
- * Helper to read current products list from disk
- */
-async function getProducts() {
-  try {
-    const raw = await readFile(PRODUCTS_FILE, "utf-8");
-    return JSON.parse(raw);
-  } catch (error) {
-    console.error("Error reading products file:", error);
-    return [];
-  }
-}
-
-/**
- * Helper to write products list to disk
- */
-async function saveProducts(products) {
-  await writeFile(PRODUCTS_FILE, JSON.stringify(products, null, 2), "utf-8");
-}
+import { getProducts, saveProducts, deleteStoredImage } from "@/lib/storage";
 
 /**
  * GET /api/products
- * Returns the current list of products from disk.
+ * Returns the current list of products from Vercel Blob or disk.
  */
 export async function GET() {
   const products = await getProducts();
@@ -81,7 +58,10 @@ export async function POST(request) {
     return NextResponse.json({ success: true, product: newProduct }, { status: 201 });
   } catch (error) {
     console.error("Error creating product:", error);
-    return NextResponse.json({ error: "Failed to create product." }, { status: 500 });
+    return NextResponse.json(
+      { error: `Failed to create product: ${error.message || "Storage error"}` },
+      { status: 500 }
+    );
   }
 }
 
@@ -124,14 +104,9 @@ export async function PUT(request) {
     const oldImage = products[index].image;
     const newImage = image !== undefined ? (image ? image.trim() : "") : oldImage || "";
 
-    // If local uploaded image was replaced or cleared, remove old image file
-    if (oldImage && oldImage.startsWith("/uploads/") && oldImage !== newImage) {
-      try {
-        const oldFile = path.basename(oldImage);
-        await unlink(path.join(process.cwd(), "public", "uploads", oldFile));
-      } catch (err) {
-        console.warn("Could not remove replaced image:", err.message);
-      }
+    // If image was replaced or cleared, remove previous image from storage
+    if (oldImage && oldImage !== newImage) {
+      await deleteStoredImage(oldImage);
     }
 
     const updatedProduct = {
@@ -149,14 +124,17 @@ export async function PUT(request) {
     return NextResponse.json({ success: true, product: updatedProduct });
   } catch (error) {
     console.error("Error updating product:", error);
-    return NextResponse.json({ error: "Failed to update product." }, { status: 500 });
+    return NextResponse.json(
+      { error: `Failed to update product: ${error.message || "Storage error"}` },
+      { status: 500 }
+    );
   }
 }
 
 /**
  * DELETE /api/products
  * Delete a product by ID (Admin authenticated).
- * Also completely deletes associated uploaded image file from public/uploads/.
+ * Also completely deletes associated uploaded image file from Vercel Blob or disk.
  */
 export async function DELETE(request) {
   if (!verifyAdminSession(request)) {
@@ -183,15 +161,9 @@ export async function DELETE(request) {
       return NextResponse.json({ error: "Product not found." }, { status: 404 });
     }
 
-    // Completely remove uploaded image from public/uploads if it's a local file
-    if (productToDelete.image && productToDelete.image.startsWith("/uploads/")) {
-      try {
-        const filename = path.basename(productToDelete.image);
-        const imagePath = path.join(process.cwd(), "public", "uploads", filename);
-        await unlink(imagePath);
-      } catch (err) {
-        console.warn("Could not delete image file from disk (file may already be removed):", err.message);
-      }
+    // Completely remove uploaded image from storage
+    if (productToDelete.image) {
+      await deleteStoredImage(productToDelete.image);
     }
 
     const filteredProducts = products.filter((p) => String(p.id) !== String(id));
@@ -204,6 +176,9 @@ export async function DELETE(request) {
     });
   } catch (error) {
     console.error("Error deleting product:", error);
-    return NextResponse.json({ error: "Failed to delete product." }, { status: 500 });
+    return NextResponse.json(
+      { error: `Failed to delete product: ${error.message || "Storage error"}` },
+      { status: 500 }
+    );
   }
 }

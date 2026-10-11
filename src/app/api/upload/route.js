@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import { verifyAdminSession } from "@/lib/auth";
+import { saveUploadedImage } from "@/lib/storage";
 
 export async function POST(request) {
   if (!verifyAdminSession(request)) {
@@ -76,13 +76,12 @@ export async function POST(request) {
 
     const uniqueFilename = `${Date.now()}-${cleanBase}.webp`;
 
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadsDir, { recursive: true });
-
-    const filePath = path.join(uploadsDir, uniqueFilename);
-    await writeFile(filePath, webpBuffer);
-
-    const publicUrl = `/uploads/${uniqueFilename}`;
+    // Save to Vercel Blob (in cloud) or local disk (in dev)
+    const publicUrl = await saveUploadedImage({
+      filename: uniqueFilename,
+      buffer: webpBuffer,
+      contentType: "image/webp",
+    });
 
     const originalKb = Math.round(buffer.length / 1024);
     const optimizedKb = Math.round(webpBuffer.length / 1024);
