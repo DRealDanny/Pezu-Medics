@@ -1,9 +1,9 @@
 export const ADMIN_CONFIG = {
-  email: "admin@pezumedics.com",
-  username: "admin",
-  password: "admin123",
-  cookieName: "pezucms_session",
-  tokenValue: "pezu_authenticated_admin_session_valid",
+  email: (process.env.ADMIN_EMAIL || "").trim(),
+  username: (process.env.ADMIN_USERNAME || "").trim(),
+  password: process.env.ADMIN_PASSWORD || "",
+  cookieName: process.env.ADMIN_COOKIE_NAME || "pezucms_session",
+  tokenValue: process.env.ADMIN_SESSION_SECRET || "",
 };
 
 /**
@@ -13,6 +13,7 @@ export const ADMIN_CONFIG = {
  */
 export function verifyAdminSession(request) {
   try {
+    if (!ADMIN_CONFIG.tokenValue) return false;
     const cookieHeader = request.headers.get("cookie") || "";
     const cookies = Object.fromEntries(
       cookieHeader
@@ -21,7 +22,7 @@ export function verifyAdminSession(request) {
         .filter(([k]) => Boolean(k))
     );
     const token = cookies[ADMIN_CONFIG.cookieName];
-    return token === ADMIN_CONFIG.tokenValue;
+    return Boolean(token && token === ADMIN_CONFIG.tokenValue);
   } catch {
     return false;
   }

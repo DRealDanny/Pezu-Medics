@@ -8,9 +8,11 @@ export async function POST(request) {
 
     const trimmedId = (identifier || "").trim().toLowerCase();
     const isIdentifierValid =
-      trimmedId === ADMIN_CONFIG.email.toLowerCase() ||
-      trimmedId === ADMIN_CONFIG.username.toLowerCase();
-    const isPasswordValid = password === ADMIN_CONFIG.password;
+      Boolean(trimmedId) &&
+      ((ADMIN_CONFIG.email && trimmedId === ADMIN_CONFIG.email.toLowerCase()) ||
+        (ADMIN_CONFIG.username && trimmedId === ADMIN_CONFIG.username.toLowerCase()));
+    const isPasswordValid =
+      Boolean(password) && Boolean(ADMIN_CONFIG.password) && password === ADMIN_CONFIG.password;
 
     if (!isIdentifierValid || !isPasswordValid) {
       return NextResponse.json(

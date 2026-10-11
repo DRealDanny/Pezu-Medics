@@ -119,7 +119,7 @@ function getPriceScale(num) {
 export default function PezuAdminPage() {
   /* ── Auth State ── */
   const [authState, setAuthState] = useState({ checking: true, loggedIn: false, user: null });
-  const [loginForm, setLoginForm] = useState({ identifier: "admin@pezumedics.com", password: "admin123" });
+  const [loginForm, setLoginForm] = useState({ identifier: "", password: "" });
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
 
@@ -492,7 +492,7 @@ export default function PezuAdminPage() {
                 onChange={(e) =>
                   setLoginForm((prev) => ({ ...prev, identifier: e.target.value }))
                 }
-                placeholder="admin@pezumedics.com"
+                placeholder="Enter email or username"
                 required
               />
             </div>
@@ -519,26 +519,6 @@ export default function PezuAdminPage() {
             </button>
           </form>
 
-          {/* Quick Demo Helper */}
-          <div className={styles.demoBox}>
-            <div className={styles.demoBoxTitle}>
-              <span>Default Credentials</span>
-              <button
-                type="button"
-                className={styles.demoFillBtn}
-                onClick={() =>
-                  setLoginForm({ identifier: "admin@pezumedics.com", password: "admin123" })
-                }
-              >
-                Auto-fill
-              </button>
-            </div>
-            <p className={styles.demoCreds}>
-              User: <strong>admin@pezumedics.com</strong>
-              <br />
-              Pass: <strong>admin123</strong>
-            </p>
-          </div>
 
           <Link href="/" className={styles.loginBackLink}>
             ← Back to Public Product Catalog
