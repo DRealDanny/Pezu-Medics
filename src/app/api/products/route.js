@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, unlink } from "node:fs/promises";
 import path from "node:path";
 import { verifyAdminSession } from "@/lib/auth";
 
@@ -121,13 +121,26 @@ export async function PUT(request) {
       return NextResponse.json({ error: "Product not found." }, { status: 404 });
     }
 
+    const oldImage = products[index].image;
+    const newImage = image !== undefined ? (image ? image.trim() : "") : oldImage || "";
+
+    // If local uploaded image was replaced or cleared, remove old image file
+    if (oldImage && oldImage.startsWith("/uploads/") && oldImage !== newImage) {
+      try {
+        const oldFile = path.basename(oldImage);
+        await unlink(path.join(process.cwd(), "public", "uploads", oldFile));
+      } catch (err) {
+        console.warn("Could not remove replaced image:", err.message);
+      }
+    }
+
     const updatedProduct = {
       ...products[index],
       name: name.trim(),
       price: numericPrice,
       category: (category && category.trim()) || products[index].category || "General Equipment",
       description: description !== undefined ? (description ? description.trim() : "") : products[index].description || "",
-      image: image !== undefined ? (image ? image.trim() : "") : products[index].image || "",
+      image: newImage,
     };
 
     products[index] = updatedProduct;
@@ -143,6 +156,7 @@ export async function PUT(request) {
 /**
  * DELETE /api/products
  * Delete a product by ID (Admin authenticated).
+ * Also completely deletes associated uploaded image file from public/uploads/.
  */
 export async function DELETE(request) {
   if (!verifyAdminSession(request)) {
@@ -163,17 +177,29 @@ export async function DELETE(request) {
     }
 
     const products = await getProducts();
-    const filteredProducts = products.filter((p) => String(p.id) !== String(id));
+    const productToDelete = products.find((p) => String(p.id) === String(id));
 
-    if (filteredProducts.length === products.length) {
+    if (!productToDelete) {
       return NextResponse.json({ error: "Product not found." }, { status: 404 });
     }
 
+    // Completely remove uploaded image from public/uploads if it's a local file
+    if (productToDelete.image && productToDelete.image.startsWith("/uploads/")) {
+      try {
+        const filename = path.basename(productToDelete.image);
+        const imagePath = path.join(process.cwd(), "public", "uploads", filename);
+        await unlink(imagePath);
+      } catch (err) {
+        console.warn("Could not delete image file from disk (file may already be removed):", err.message);
+      }
+    }
+
+    const filteredProducts = products.filter((p) => String(p.id) !== String(id));
     await saveProducts(filteredProducts);
 
     return NextResponse.json({
       success: true,
-      message: "Product deleted successfully.",
+      message: "Product and associated image completely deleted.",
       deletedId: id,
     });
   } catch (error) {

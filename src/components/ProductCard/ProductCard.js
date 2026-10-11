@@ -19,8 +19,11 @@ function PlaceholderImage({ name }) {
  * @param {{ product: object, view: "grid" | "list" }} props
  */
 export default function ProductCard({ product, view }) {
-  const { id, name, price, category, description } = product;
-  const formattedPrice = `₦${price.toFixed(2)}`;
+  const { id, name, price, category, description } = product || {};
+  const formattedPrice = `₦${Number(price || 0).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 
   if (view === "list") {
     return (

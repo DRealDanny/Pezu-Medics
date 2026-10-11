@@ -136,6 +136,50 @@
   padding-left: 32px !important;
 }
 
+/* ── Price Scale Indicator Box ── */
+.priceScaleBox {
+  margin-top: 8px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: slideUp 0.15s ease;
+}
+
+.priceScaleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.priceScaleBadge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 12px;
+  color: #ffffff;
+}
+
+.priceScaleFormatted {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: monospace;
+}
+
+.priceScaleWords {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
 .loginBtn {
   margin-top: 6px;
   height: 46px;
@@ -545,11 +589,9 @@
 .productDescSnippet {
   font-size: 0.75rem;
   color: var(--color-text-secondary);
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: 1.45;
+  white-space: pre-line;
+  max-width: 320px;
 }
 
 .categoryTag {

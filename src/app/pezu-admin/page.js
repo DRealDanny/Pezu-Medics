@@ -45,6 +45,87 @@ function PlaceholderIcon({ size = 20 }) {
   );
 }
 
+/* ── Convert Number to Words in Nigerian Naira ── */
+function numberToNairaWords(num) {
+  if (isNaN(num) || num <= 0) return "";
+  const ones = [
+    "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
+    "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
+    "Seventeen", "Eighteen", "Nineteen",
+  ];
+  const tens = [
+    "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety",
+  ];
+
+  function convertGroup(n) {
+    let str = "";
+    if (n >= 100) {
+      str += ones[Math.floor(n / 100)] + " Hundred ";
+      n %= 100;
+      if (n > 0) str += "and ";
+    }
+    if (n >= 20) {
+      str += tens[Math.floor(n / 10)] + (n % 10 > 0 ? "-" + ones[n % 10] : "") + " ";
+    } else if (n > 0) {
+      str += ones[n] + " ";
+    }
+    return str.trim();
+  }
+
+  const intPart = Math.floor(num);
+  if (intPart === 0) return "Zero Naira";
+
+  const billions = Math.floor(intPart / 1000000000);
+  const millions = Math.floor((intPart % 1000000000) / 1000000);
+  const thousands = Math.floor((intPart % 1000000) / 1000);
+  const remainder = intPart % 1000;
+
+  const parts = [];
+  if (billions > 0) parts.push(convertGroup(billions) + " Billion");
+  if (millions > 0) parts.push(convertGroup(millions) + " Million");
+  if (thousands > 0) parts.push(convertGroup(thousands) + " Thousand");
+  if (remainder > 0) parts.push(convertGroup(remainder));
+
+  return parts.join(", ") + " Naira";
+}
+
+/* ── Get Scale & Denomination breakdown for price ── */
+function getPriceScale(num) {
+  if (isNaN(num) || num <= 0) return null;
+  let scale = "";
+  let badgeColor = "";
+
+  if (num < 100) {
+    scale = "Units / Tens";
+    badgeColor = "#64748b";
+  } else if (num < 1000) {
+    scale = "Hundreds";
+    badgeColor = "#2563eb"; // Blue
+  } else if (num < 100000) {
+    scale = "Thousands";
+    badgeColor = "#0284c7"; // Sky Blue
+  } else if (num < 1000000) {
+    scale = "Hundred Thousands";
+    badgeColor = "#7c3aed"; // Purple
+  } else if (num < 1000000000) {
+    scale = "Millions";
+    badgeColor = "#059669"; // Emerald
+  } else {
+    scale = "Billions";
+    badgeColor = "#d97706"; // Amber
+  }
+
+  return {
+    scale,
+    badgeColor,
+    words: numberToNairaWords(num),
+    formatted: `₦${Number(num).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`,
+  };
+}
+
 export default function PezuAdminPage() {
   /* ── Auth State ── */
   const [authState, setAuthState] = useState({ checking: true, loggedIn: false, user: null });
@@ -186,10 +267,18 @@ export default function PezuAdminPage() {
   function openEditModal(prod) {
     setModalMode("edit");
     setActiveProductId(prod.id);
+    const initialPrice =
+      prod.price !== undefined && prod.price !== null
+        ? Number(prod.price).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+        : "";
+
     setFormData({
       name: prod.name || "",
       category: prod.category || "General Equipment",
-      price: prod.price !== undefined ? String(prod.price) : "",
+      price: initialPrice,
       description: prod.description || "",
       image: prod.image || "",
     });
@@ -197,6 +286,46 @@ export default function PezuAdminPage() {
     setFormError("");
     setModalOpen(true);
   }
+
+  /* ── Real-time Price Input Formatting with Commas & Scale ── */
+  function handlePriceChange(e) {
+    const raw = e.target.value;
+    if (!raw.trim()) {
+      setFormData((prev) => ({ ...prev, price: "" }));
+      return;
+    }
+    // Remove non-numeric characters except single decimal point
+    const clean = raw.replace(/[^0-9.]/g, "");
+    const parts = clean.split(".");
+    const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const decimalPart = parts.length > 1 ? "." + parts.slice(1).join("").slice(0, 2) : "";
+
+    setFormData((prev) => ({ ...prev, price: integerPart + decimalPart }));
+  }
+
+  /* ── On Blur: Ensure Price ends with .00 ── */
+  function handlePriceBlur() {
+    if (!formData.price || !formData.price.trim()) return;
+    const cleanNumber = parseFloat(formData.price.replace(/,/g, ""));
+    if (!isNaN(cleanNumber) && cleanNumber >= 0) {
+      const formatted = cleanNumber.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      setFormData((prev) => ({ ...prev, price: formatted }));
+    }
+  }
+
+  /* ── Reactive Scale Indicator for Current Input ── */
+  const priceNumericValue = useMemo(() => {
+    if (!formData.price) return 0;
+    const num = parseFloat(String(formData.price).replace(/,/g, ""));
+    return isNaN(num) ? 0 : num;
+  }, [formData.price]);
+
+  const activePriceScale = useMemo(() => {
+    return getPriceScale(priceNumericValue);
+  }, [priceNumericValue]);
 
   /* ── 7. Handle Image Upload ── */
   async function handleFileUpload(e) {
@@ -235,8 +364,9 @@ export default function PezuAdminPage() {
       setFormError("Product name is required.");
       return;
     }
-    const numPrice = parseFloat(formData.price);
-    if (isNaN(numPrice) || numPrice < 0) {
+
+    const cleanNum = parseFloat(String(formData.price).replace(/,/g, ""));
+    if (isNaN(cleanNum) || cleanNum < 0) {
       setFormError("Please enter a valid price in Naira (₦).");
       return;
     }
@@ -247,7 +377,7 @@ export default function PezuAdminPage() {
     const payload = {
       name: formData.name.trim(),
       category: formData.category.trim(),
-      price: numPrice,
+      price: cleanNum,
       description: formData.description ? formData.description.trim() : "",
       image: formData.image ? formData.image.trim() : "",
     };
@@ -291,7 +421,7 @@ export default function PezuAdminPage() {
     }
   }
 
-  /* ── 9. Delete Product Flow ── */
+  /* ── 9. Delete Product Flow (Removes from DB and disk completely) ── */
   function confirmDelete(prod) {
     setProductToDelete(prod);
     setDeleteModalOpen(true);
@@ -307,7 +437,7 @@ export default function PezuAdminPage() {
       if (res.ok) {
         setProducts((prev) => prev.filter((p) => String(p.id) !== String(productToDelete.id)));
         setDeleteModalOpen(false);
-        showToast(`"${productToDelete.name}" removed from catalog.`);
+        showToast(`"${productToDelete.name}" and associated media removed completely.`);
       } else {
         const resData = await res.json();
         showToast(resData.error || "Failed to delete product.", "error");
@@ -588,16 +718,21 @@ export default function PezuAdminPage() {
                           <div className={styles.productTitleCell}>
                             <span className={styles.productNameText}>{p.name}</span>
                             {p.description && (
-                              <span className={styles.productDescSnippet} title={p.description}>
+                              <div className={styles.productDescSnippet} title={p.description}>
                                 {p.description}
-                              </span>
+                              </div>
                             )}
                           </div>
                         </td>
                         <td>
                           <span className={styles.categoryTag}>{p.category}</span>
                         </td>
-                        <td className={styles.priceTag}>₦{Number(p.price).toFixed(2)}</td>
+                        <td className={styles.priceTag}>
+                          ₦{Number(p.price || 0).toLocaleString("en-US", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                        </td>
                         <td>
                           {p.image ? (
                             <span className={styles.statusCustom}>
@@ -669,7 +804,12 @@ export default function PezuAdminPage() {
                         {p.description && (
                           <p className={styles.mobileCardDesc}>{p.description}</p>
                         )}
-                        <span className={styles.priceTag}>₦{Number(p.price).toFixed(2)}</span>
+                        <span className={styles.priceTag}>
+                          ₦{Number(p.price || 0).toLocaleString("en-US", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                        </span>
                       </div>
                     </div>
                     <div className={styles.mobileCardBottom}>
@@ -755,7 +895,7 @@ export default function PezuAdminPage() {
                 </datalist>
               </div>
 
-              {/* Price in Naira */}
+              {/* Price in Naira with Commas, .00 & Scale Indicator */}
               <div className={styles.formGroup}>
                 <label htmlFor="prod-price" className={styles.label}>
                   Price (₦ Naira by Default) *
@@ -764,19 +904,37 @@ export default function PezuAdminPage() {
                   <span className={styles.prefixSymbol}>₦</span>
                   <input
                     id="prod-price"
-                    type="number"
-                    step="0.01"
-                    min="0"
+                    type="text"
+                    inputMode="decimal"
                     className={`${styles.input} ${styles.inputWithPrefix}`}
                     placeholder="0.00"
                     value={formData.price}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, price: e.target.value }))}
+                    onChange={handlePriceChange}
+                    onBlur={handlePriceBlur}
                     required
                   />
                 </div>
+
+                {/* Real-time Scale & Denomination Indicator */}
+                {activePriceScale && (
+                  <div className={styles.priceScaleBox} aria-live="polite">
+                    <div className={styles.priceScaleHeader}>
+                      <span
+                        className={styles.priceScaleBadge}
+                        style={{ backgroundColor: activePriceScale.badgeColor }}
+                      >
+                        {activePriceScale.scale}
+                      </span>
+                      <span className={styles.priceScaleFormatted}>
+                        {activePriceScale.formatted}
+                      </span>
+                    </div>
+                    <p className={styles.priceScaleWords}>{activePriceScale.words}</p>
+                  </div>
+                )}
               </div>
 
-              {/* Product Description */}
+              {/* Product Description with Multi-line Line Breaks */}
               <div className={styles.formGroup}>
                 <label htmlFor="prod-desc" className={styles.label}>
                   Product Description
@@ -784,11 +942,14 @@ export default function PezuAdminPage() {
                 <textarea
                   id="prod-desc"
                   className={styles.textarea}
-                  placeholder="Enter details, clinical specs, or usage instructions…"
+                  placeholder={"100 pieces per pack\n40 packs per carton"}
                   value={formData.description}
                   onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
-                  rows={3}
+                  rows={4}
                 />
+                <p style={{ fontSize: "0.72rem", color: "var(--color-text-tertiary)", marginTop: "2px" }}>
+                  ↵ Press Enter to add line breaks — they will appear on separate lines on the public website.
+                </p>
               </div>
 
               {/* Product Image Input */}
@@ -915,9 +1076,9 @@ export default function PezuAdminPage() {
             </div>
 
             <p style={{ fontSize: "0.875rem", lineHeight: 1.5, color: "var(--color-text-secondary)" }}>
-              Are you sure you want to delete <strong>{productToDelete.name}</strong> (₦{Number(productToDelete.price).toFixed(2)})?
+              Are you sure you want to delete <strong>{productToDelete.name}</strong> (₦{Number(productToDelete.price || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })})?
               <br />
-              This will immediately remove it from the live catalog.
+              This will immediately and completely remove the product and its uploaded media files from the database and storage.
             </p>
 
             <div className={styles.modalActions} style={{ marginTop: "20px" }}>
