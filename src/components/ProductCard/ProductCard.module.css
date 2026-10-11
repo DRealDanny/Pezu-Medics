@@ -94,10 +94,16 @@
 .description {
   font-size: 0.8125rem;
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
   margin-top: 6px;
   white-space: pre-line;
   word-break: break-word;
+  min-height: 2.6em;
+}
+
+.emptyDescription {
+  color: var(--color-text-tertiary);
+  opacity: 0.85;
 }
 
 .cardFooter {
@@ -189,11 +195,17 @@
     font-size: 1.0625rem;
   }
 
+  .description {
+    font-size: 0.775rem;
+    line-height: 1.45;
+    min-height: 2.5em;
+  }
+
   .cardGrid .cardFooter {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
-    margin-top: var(--space-sm);
+    margin-top: auto;
     padding-top: var(--space-sm);
   }
 
@@ -220,14 +232,15 @@
     padding: var(--space-md) var(--space-lg);
     flex-direction: column;
     align-items: stretch;
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
   .cardListInfo {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
+    min-height: 48px;
   }
 
   .cardListMeta {

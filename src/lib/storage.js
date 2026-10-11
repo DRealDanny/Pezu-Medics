@@ -23,19 +23,39 @@ async function getSeedProducts() {
   }
 }
 
+let inMemoryProductsCache = null;
+let cacheTimestamp = 0;
+
 /**
  * Get products list from Vercel Blob or local disk
  */
 export async function getProducts() {
+  // If memory cache is recent (< 10s), return immediately for instantaneous updates
+  if (inMemoryProductsCache && Date.now() - cacheTimestamp < 10000) {
+    return inMemoryProductsCache;
+  }
+
   if (isVercelBlobEnabled()) {
     try {
       const { list } = await import("@vercel/blob");
       const { blobs } = await list({ prefix: "data/products.json", limit: 1 });
       if (blobs && blobs.length > 0) {
-        const res = await fetch(blobs[0].url, { cache: "no-store" });
+        // Append timestamp query parameter to bypass Vercel Edge CDN caching
+        const cacheBustedUrl = `${blobs[0].url}?t=${Date.now()}`;
+        const res = await fetch(cacheBustedUrl, {
+          cache: "no-store",
+          headers: {
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            Pragma: "no-cache",
+          },
+        });
         if (res.ok) {
           const data = await res.json();
-          if (Array.isArray(data)) return data;
+          if (Array.isArray(data)) {
+            inMemoryProductsCache = data;
+            cacheTimestamp = Date.now();
+            return data;
+          }
         }
       }
     } catch (err) {
@@ -44,13 +64,20 @@ export async function getProducts() {
   }
 
   // Fallback to local filesystem
-  return getSeedProducts();
+  const seed = await getSeedProducts();
+  inMemoryProductsCache = seed;
+  cacheTimestamp = Date.now();
+  return seed;
 }
 
 /**
  * Save products list to Vercel Blob and/or local disk
  */
 export async function saveProducts(products) {
+  // Immediately update in-memory cache so subsequent reads are instantaneous
+  inMemoryProductsCache = products;
+  cacheTimestamp = Date.now();
+
   if (isVercelBlobEnabled()) {
     try {
       const { put } = await import("@vercel/blob");

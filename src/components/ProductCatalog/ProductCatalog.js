@@ -26,7 +26,13 @@ export default function ProductCatalog() {
 
     async function fetchProducts() {
       try {
-        const res = await fetch("/api/products");
+        const res = await fetch(`/api/products?t=${Date.now()}`, {
+          cache: "no-store",
+          headers: {
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+          },
+        });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (!cancelled) {
@@ -40,8 +46,25 @@ export default function ProductCatalog() {
     }
 
     fetchProducts();
+
+    // Re-sync instantly whenever user switches back to this tab/window after CMS edits
+    function handleVisibilityOrFocus() {
+      if (typeof document !== "undefined" && document.visibilityState === "visible") {
+        fetchProducts();
+      }
+    }
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("focus", handleVisibilityOrFocus);
+      document.addEventListener("visibilitychange", handleVisibilityOrFocus);
+    }
+
     return () => {
       cancelled = true;
+      if (typeof window !== "undefined") {
+        window.removeEventListener("focus", handleVisibilityOrFocus);
+        document.removeEventListener("visibilitychange", handleVisibilityOrFocus);
+      }
     };
   }, []);
 
