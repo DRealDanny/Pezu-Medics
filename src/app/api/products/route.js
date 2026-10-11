@@ -55,8 +55,9 @@ export async function POST(request) {
       image: image && image.trim() ? image.trim() : "",
     };
 
-    // Prepend to top of catalog
-    const updatedProducts = [newProduct, ...products];
+    // Prepend to top of catalog, ensuring unique IDs
+    const cleanExisting = products.filter((p) => String(p.id) !== newProduct.id);
+    const updatedProducts = [newProduct, ...cleanExisting];
     await saveProducts(updatedProducts);
 
     return NextResponse.json({ success: true, product: newProduct }, { status: 201 });

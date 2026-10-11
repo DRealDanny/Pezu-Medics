@@ -23,8 +23,11 @@ export default function ProductCatalog() {
 
   useEffect(() => {
     let cancelled = false;
+    let activeFetchId = 0;
+    let debounceTimer = null;
 
     async function fetchProducts() {
+      const fetchId = ++activeFetchId;
       try {
         const res = await fetch(`/api/products?t=${Date.now()}`, {
           cache: "no-store",
@@ -35,13 +38,20 @@ export default function ProductCatalog() {
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
-        if (!cancelled) {
-          setProducts(data);
+        if (!cancelled && fetchId === activeFetchId && Array.isArray(data)) {
+          // Strictly deduplicate by product id
+          const seen = new Set();
+          const cleanList = data.filter((p) => {
+            if (!p || !p.id || seen.has(String(p.id))) return false;
+            seen.add(String(p.id));
+            return true;
+          });
+          setProducts(cleanList);
           setStatus("success");
         }
       } catch (err) {
         console.error("Failed to load products:", err);
-        if (!cancelled) setStatus("error");
+        if (!cancelled && fetchId === activeFetchId) setStatus("error");
       }
     }
 
@@ -50,7 +60,10 @@ export default function ProductCatalog() {
     // Re-sync instantly whenever user switches back to this tab/window after CMS edits
     function handleVisibilityOrFocus() {
       if (typeof document !== "undefined" && document.visibilityState === "visible") {
-        fetchProducts();
+        if (debounceTimer) clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          fetchProducts();
+        }, 120);
       }
     }
 
@@ -61,6 +74,7 @@ export default function ProductCatalog() {
 
     return () => {
       cancelled = true;
+      if (debounceTimer) clearTimeout(debounceTimer);
       if (typeof window !== "undefined") {
         window.removeEventListener("focus", handleVisibilityOrFocus);
         document.removeEventListener("visibilitychange", handleVisibilityOrFocus);

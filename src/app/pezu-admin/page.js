@@ -388,6 +388,7 @@ export default function PezuAdminPage() {
   /* ── 8. Save Product (Add or Edit) ── */
   async function handleSaveProduct(e) {
     e.preventDefault();
+    if (savingProduct) return;
     if (!formData.name.trim()) {
       setFormError("Product name is required.");
       return;
@@ -426,7 +427,10 @@ export default function PezuAdminPage() {
 
         const resData = await res.json().catch(() => ({}));
         if (res.ok && resData.success) {
-          setProducts((prev) => [resData.product, ...prev]);
+          setProducts((prev) => [
+            resData.product,
+            ...prev.filter((p) => String(p.id) !== String(resData.product.id)),
+          ]);
           setModalOpen(false);
           showToast(`"${payload.name}" added to catalog!`);
         } else {

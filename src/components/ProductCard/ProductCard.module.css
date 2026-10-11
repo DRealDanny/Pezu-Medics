@@ -101,9 +101,9 @@
   min-height: 2.6em;
 }
 
-.emptyDescription {
-  color: var(--color-text-tertiary);
-  opacity: 0.85;
+.descriptionSpacer {
+  min-height: 2.6em;
+  margin-top: 6px;
 }
 
 .cardFooter {
@@ -201,6 +201,11 @@
     min-height: 2.5em;
   }
 
+  .descriptionSpacer {
+    min-height: 2.5em;
+    margin-top: 4px;
+  }
+
   .cardGrid .cardFooter {
     flex-direction: column;
     align-items: stretch;
@@ -239,6 +244,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 4px;
     min-height: 48px;
   }

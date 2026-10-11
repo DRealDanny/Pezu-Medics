@@ -23,25 +23,49 @@ async function getSeedProducts() {
   }
 }
 
-let inMemoryProductsCache = null;
-let cacheTimestamp = 0;
+function sanitizeAndDeduplicate(list) {
+  if (!Array.isArray(list)) return [];
+  const seenIds = new Set();
+  const result = [];
+  for (const item of list) {
+    if (!item || typeof item !== "object") continue;
+    const idStr = String(item.id || "").trim();
+    if (!idStr || seenIds.has(idStr)) continue;
+    seenIds.add(idStr);
+    result.push({
+      id: idStr,
+      name: String(item.name || "").trim(),
+      price: typeof item.price === "number" ? item.price : parseFloat(item.price) || 0,
+      category: String(item.category || "General Equipment").trim(),
+      description: item.description ? String(item.description).trim() : "",
+      image: item.image ? String(item.image).trim() : "",
+    });
+  }
+  return result;
+}
+
+let knownBlobUrl = null;
 
 /**
  * Get products list from Vercel Blob or local disk
  */
 export async function getProducts() {
-  // If memory cache is recent (< 10s), return immediately for instantaneous updates
-  if (inMemoryProductsCache && Date.now() - cacheTimestamp < 10000) {
-    return inMemoryProductsCache;
-  }
-
   if (isVercelBlobEnabled()) {
     try {
       const { list } = await import("@vercel/blob");
-      const { blobs } = await list({ prefix: "data/products.json", limit: 1 });
-      if (blobs && blobs.length > 0) {
-        // Append timestamp query parameter to bypass Vercel Edge CDN caching
-        const cacheBustedUrl = `${blobs[0].url}?t=${Date.now()}`;
+
+      // Resolve known blob URL if not already cached in this process
+      if (!knownBlobUrl) {
+        const { blobs } = await list({ prefix: "data/products.json" });
+        if (blobs && blobs.length > 0) {
+          const exact = blobs.find((b) => b.pathname === "data/products.json") || blobs[0];
+          knownBlobUrl = exact.url;
+        }
+      }
+
+      if (knownBlobUrl) {
+        // Fetch directly from Vercel Blob with cache-busting timestamp
+        const cacheBustedUrl = `${knownBlobUrl}?t=${Date.now()}`;
         const res = await fetch(cacheBustedUrl, {
           cache: "no-store",
           headers: {
@@ -49,12 +73,11 @@ export async function getProducts() {
             Pragma: "no-cache",
           },
         });
+
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data)) {
-            inMemoryProductsCache = data;
-            cacheTimestamp = Date.now();
-            return data;
+            return sanitizeAndDeduplicate(data);
           }
         }
       }
@@ -65,29 +88,26 @@ export async function getProducts() {
 
   // Fallback to local filesystem
   const seed = await getSeedProducts();
-  inMemoryProductsCache = seed;
-  cacheTimestamp = Date.now();
-  return seed;
+  return sanitizeAndDeduplicate(seed);
 }
 
 /**
  * Save products list to Vercel Blob and/or local disk
  */
 export async function saveProducts(products) {
-  // Immediately update in-memory cache so subsequent reads are instantaneous
-  inMemoryProductsCache = products;
-  cacheTimestamp = Date.now();
+  const cleanProducts = sanitizeAndDeduplicate(products);
 
   if (isVercelBlobEnabled()) {
     try {
       const { put } = await import("@vercel/blob");
-      await put("data/products.json", JSON.stringify(products, null, 2), {
+      const blob = await put("data/products.json", JSON.stringify(cleanProducts, null, 2), {
         access: "public",
         contentType: "application/json",
         addRandomSuffix: false,
         allowOverwrite: true,
         cacheControlMaxAge: 0,
       });
+      knownBlobUrl = blob.url;
     } catch (blobErr) {
       console.error("Failed to save products to Vercel Blob:", blobErr);
       throw blobErr;
@@ -96,7 +116,7 @@ export async function saveProducts(products) {
 
   // Also attempt to sync to local disk if running in writable environment
   try {
-    await writeFile(LOCAL_PRODUCTS_FILE, JSON.stringify(products, null, 2), "utf-8");
+    await writeFile(LOCAL_PRODUCTS_FILE, JSON.stringify(cleanProducts, null, 2), "utf-8");
   } catch (fsErr) {
     // If on read-only Vercel serverless, disk write will fail but Blob succeeded
     if (!isVercelBlobEnabled()) {

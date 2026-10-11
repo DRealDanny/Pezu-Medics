@@ -26,7 +26,6 @@ export default function ProductCard({ product, view }) {
   })}`;
 
   const cleanDescription = (description || "").trim();
-  const displayDescription = cleanDescription || "Reliable medical supplies & consumables";
 
   if (view === "list") {
     return (
@@ -41,9 +40,9 @@ export default function ProductCard({ product, view }) {
         <div className={styles.cardListBody}>
           <div className={styles.cardListInfo}>
             <h2 className={styles.name}>{name}</h2>
-            <p className={`${styles.description} ${!cleanDescription ? styles.emptyDescription : ""}`}>
-              {displayDescription}
-            </p>
+            {cleanDescription ? (
+              <p className={styles.description}>{cleanDescription}</p>
+            ) : null}
           </div>
           <div className={styles.cardListMeta}>
             <span className={styles.price}>{formattedPrice}</span>
@@ -68,9 +67,11 @@ export default function ProductCard({ product, view }) {
       </div>
       <div className={styles.cardBody}>
         <h2 className={styles.name}>{name}</h2>
-        <p className={`${styles.description} ${!cleanDescription ? styles.emptyDescription : ""}`}>
-          {displayDescription}
-        </p>
+        {cleanDescription ? (
+          <p className={styles.description}>{cleanDescription}</p>
+        ) : (
+          <div className={styles.descriptionSpacer} aria-hidden="true" />
+        )}
         <div className={styles.cardFooter}>
           <span className={styles.price}>{formattedPrice}</span>
           <button className={styles.cta} aria-label={`Enquire about ${name}`}>
