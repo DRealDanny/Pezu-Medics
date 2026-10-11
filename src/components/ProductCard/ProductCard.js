@@ -36,6 +36,7 @@ export default function ProductCard({ product, view }) {
           <div className={styles.cardListInfo}>
             <span className={styles.category}>{category}</span>
             <h2 className={styles.name}>{name}</h2>
+            {description ? <p className={styles.description}>{description}</p> : null}
           </div>
           <div className={styles.cardListMeta}>
             <span className={styles.price}>{formattedPrice}</span>
@@ -61,6 +62,7 @@ export default function ProductCard({ product, view }) {
       <div className={styles.cardBody}>
         <span className={styles.category}>{category}</span>
         <h2 className={styles.name}>{name}</h2>
+        {description ? <p className={styles.description}>{description}</p> : null}
         <div className={styles.cardFooter}>
           <span className={styles.price}>{formattedPrice}</span>
           <button className={styles.cta} aria-label={`Enquire about ${name}`}>

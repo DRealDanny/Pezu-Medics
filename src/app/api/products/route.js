@@ -49,7 +49,7 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { name, price, category, image } = body;
+    const { name, price, category, image, description } = body;
 
     if (!name || typeof name !== "string" || !name.trim()) {
       return NextResponse.json({ error: "Product name is required." }, { status: 400 });
@@ -70,6 +70,7 @@ export async function POST(request) {
       name: name.trim(),
       price: numericPrice,
       category: (category && category.trim()) || "General Equipment",
+      description: (description && description.trim()) || "",
       image: image && image.trim() ? image.trim() : "",
     };
 
@@ -95,7 +96,7 @@ export async function PUT(request) {
 
   try {
     const body = await request.json();
-    const { id, name, price, category, image } = body;
+    const { id, name, price, category, image, description } = body;
 
     if (!id) {
       return NextResponse.json({ error: "Product ID is required for editing." }, { status: 400 });
@@ -125,6 +126,7 @@ export async function PUT(request) {
       name: name.trim(),
       price: numericPrice,
       category: (category && category.trim()) || products[index].category || "General Equipment",
+      description: description !== undefined ? (description ? description.trim() : "") : products[index].description || "",
       image: image !== undefined ? (image ? image.trim() : "") : products[index].image || "",
     };
 

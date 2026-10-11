@@ -1,86 +1,10 @@
 [
   {
     "id": "1",
-    "name": "Precision Diagnostic Kit",
-    "price": 149.99,
+    "name": "1ml Syringe",
+    "price": 12000,
     "category": "Diagnostics",
-    "description": "Hospital-grade diagnostic tools for accurate patient assessment."
-  },
-  {
-    "id": "2",
-    "name": "Sterile Surgical Gloves (100pk)",
-    "price": 34.99,
-    "category": "PPE",
-    "description": "Latex-free, powder-free sterile gloves for surgical procedures."
-  },
-  {
-    "id": "3",
-    "name": "Digital Blood Pressure Monitor",
-    "price": 89.99,
-    "category": "Monitoring",
-    "description": "Automatic arm cuff monitor with memory recall and irregular heartbeat detection."
-  },
-  {
-    "id": "4",
-    "name": "Pulse Oximeter Pro",
-    "price": 59.99,
-    "category": "Monitoring",
-    "description": "Fingertip SpO2 and pulse rate sensor with OLED display."
-  },
-  {
-    "id": "5",
-    "name": "Examination Light Panel",
-    "price": 219.99,
-    "category": "Equipment",
-    "description": "LED shadowless examination lamp with adjustable arm and brightness control."
-  },
-  {
-    "id": "6",
-    "name": "Clinical Thermometer Set",
-    "price": 24.99,
-    "category": "Diagnostics",
-    "description": "Non-contact infrared thermometer with fever alarm and silent mode."
-  },
-  {
-    "id": "7",
-    "name": "Disposable Face Masks (50pk)",
-    "price": 12.99,
-    "category": "PPE",
-    "description": "3-ply fluid-resistant face masks certified to Type IIR standard."
-  },
-  {
-    "id": "8",
-    "name": "Portable Nebuliser",
-    "price": 74.99,
-    "category": "Respiratory",
-    "description": "Compact mesh nebuliser for aerosol drug delivery, rechargeable."
-  },
-  {
-    "id": "9",
-    "name": "Wound Care Dressing Kit",
-    "price": 39.99,
-    "category": "First Aid",
-    "description": "Comprehensive sterile dressings, swabs, and closure strips."
-  },
-  {
-    "id": "10",
-    "name": "Stethoscope – Cardiology Grade",
-    "price": 129.99,
-    "category": "Diagnostics",
-    "description": "Dual-head acoustic stethoscope with noise-cancelling tubing."
-  },
-  {
-    "id": "11",
-    "name": "IV Infusion Stand (Adjustable)",
-    "price": 184.99,
-    "category": "Equipment",
-    "description": "Stainless-steel IV pole with 5-hook carousel and lockable castors."
-  },
-  {
-    "id": "12",
-    "name": "Sharps Disposal Container (5L)",
-    "price": 9.99,
-    "category": "Waste Management",
-    "description": "Compliant sharps bin with tamper-evident lid for safe needle disposal."
+    "description": "100 pieces per pack\n40 packs per carton",
+    "image": "/uploads/1791721232399-Danny-Anime.jpg"
   }
 ]

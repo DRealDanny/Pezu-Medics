@@ -45,7 +45,7 @@ function PlaceholderIcon({ size = 20 }) {
   );
 }
 
-export default function AdminPage() {
+export default function PezuAdminPage() {
   /* ── Auth State ── */
   const [authState, setAuthState] = useState({ checking: true, loggedIn: false, user: null });
   const [loginForm, setLoginForm] = useState({ identifier: "admin@pezumedics.com", password: "admin123" });
@@ -66,6 +66,7 @@ export default function AdminPage() {
     name: "",
     category: "Diagnostics",
     price: "",
+    description: "",
     image: "",
   });
   const [imageInputMode, setImageInputMode] = useState("upload"); // "upload" | "url"
@@ -143,7 +144,7 @@ export default function AdminPage() {
       const data = await res.json();
       if (res.ok) {
         setAuthState({ checking: false, loggedIn: true, user: data.user });
-        showToast("Welcome back! Signed in to Headless CMS.");
+        showToast("Welcome back! Signed in to Pezu Medics CMS.");
         fetchProducts();
       } else {
         setLoginError(data.error || "Authentication failed.");
@@ -174,6 +175,7 @@ export default function AdminPage() {
       name: "",
       category: "Diagnostics",
       price: "",
+      description: "",
       image: "",
     });
     setFormError("");
@@ -188,6 +190,7 @@ export default function AdminPage() {
       name: prod.name || "",
       category: prod.category || "General Equipment",
       price: prod.price !== undefined ? String(prod.price) : "",
+      description: prod.description || "",
       image: prod.image || "",
     });
     setImageInputMode(prod.image && prod.image.startsWith("http") ? "url" : "upload");
@@ -245,6 +248,7 @@ export default function AdminPage() {
       name: formData.name.trim(),
       category: formData.category.trim(),
       price: numPrice,
+      description: formData.description ? formData.description.trim() : "",
       image: formData.image ? formData.image.trim() : "",
     };
 
@@ -316,12 +320,13 @@ export default function AdminPage() {
     }
   }
 
-  /* ── 10. Filtered Products & Derived Stats ── */
+  /* ── 10. Filtered Products & Stats ── */
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
       const matchesSearch =
         p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.category?.toLowerCase().includes(searchTerm.toLowerCase());
+        p.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.description?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory =
         categoryFilter === "all" || p.category?.toLowerCase() === categoryFilter.toLowerCase();
       return matchesSearch && matchesCategory;
@@ -331,9 +336,7 @@ export default function AdminPage() {
   const stats = useMemo(() => {
     const total = products.length;
     const categories = new Set(products.map((p) => p.category)).size;
-    const avgPrice = total > 0 ? products.reduce((acc, p) => acc + (p.price || 0), 0) / total : 0;
-    const withCustomImages = products.filter((p) => Boolean(p.image)).length;
-    return { total, categories, avgPrice, withCustomImages };
+    return { total, categories };
   }, [products]);
 
   const allCategories = useMemo(() => {
@@ -363,7 +366,7 @@ export default function AdminPage() {
             </div>
             <h1 className={styles.loginTitle}>Pezu Medics CMS</h1>
             <p className={styles.loginSubtitle}>
-              Sign in to manage product inventory, pricing (₦), and media.
+              Sign in to manage product inventory, pricing (₦), descriptions, and media.
             </p>
           </div>
 
@@ -481,7 +484,7 @@ export default function AdminPage() {
 
       {/* ── Main Dashboard Body ── */}
       <main className={`container ${styles.dashboardMain}`}>
-        {/* KPI Stats Grid */}
+        {/* KPI Stats Grid (Total Products & Categories only) */}
         <section className={styles.statsGrid} aria-label="CMS Overview Statistics">
           <div className={styles.statCard}>
             <span className={styles.statLabel}>Total Products</span>
@@ -489,23 +492,9 @@ export default function AdminPage() {
             <span className={styles.statDesc}>Listed in live catalog</span>
           </div>
           <div className={styles.statCard}>
-            <span className={styles.statLabel}>Categories</span>
+            <span className={styles.statLabel}>Active Categories</span>
             <span className={styles.statValue}>{stats.categories}</span>
-            <span className={styles.statDesc}>Active product sectors</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statLabel}>Average Price</span>
-            <span className={styles.statValue}>₦{stats.avgPrice.toFixed(2)}</span>
-            <span className={styles.statDesc}>Standard catalog unit price</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statLabel}>Media Assets</span>
-            <span className={styles.statValue}>
-              {stats.withCustomImages} <span style={{ fontSize: "1rem", fontWeight: 400, color: "var(--color-text-secondary)" }}>/ {stats.total}</span>
-            </span>
-            <span className={styles.statDesc}>
-              {stats.total - stats.withCustomImages} using placeholder icon
-            </span>
+            <span className={styles.statDesc}>Medical product sectors</span>
           </div>
         </section>
 
@@ -522,7 +511,7 @@ export default function AdminPage() {
               <input
                 type="text"
                 className={styles.searchInput}
-                placeholder="Search products by title or category…"
+                placeholder="Search products by title, category, or description…"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -574,7 +563,7 @@ export default function AdminPage() {
                   <thead>
                     <tr>
                       <th style={{ width: "70px" }}>Image</th>
-                      <th>Product Name</th>
+                      <th>Product Details</th>
                       <th>Category</th>
                       <th>Price (Naira)</th>
                       <th>Media Source</th>
@@ -595,7 +584,16 @@ export default function AdminPage() {
                             )}
                           </div>
                         </td>
-                        <td className={styles.productTitleCell}>{p.name}</td>
+                        <td>
+                          <div className={styles.productTitleCell}>
+                            <span className={styles.productNameText}>{p.name}</span>
+                            {p.description && (
+                              <span className={styles.productDescSnippet} title={p.description}>
+                                {p.description}
+                              </span>
+                            )}
+                          </div>
+                        </td>
                         <td>
                           <span className={styles.categoryTag}>{p.category}</span>
                         </td>
@@ -668,6 +666,9 @@ export default function AdminPage() {
                       <div className={styles.mobileCardInfo}>
                         <span className={styles.categoryTag}>{p.category}</span>
                         <h4 className={styles.mobileCardTitle}>{p.name}</h4>
+                        {p.description && (
+                          <p className={styles.mobileCardDesc}>{p.description}</p>
+                        )}
                         <span className={styles.priceTag}>₦{Number(p.price).toFixed(2)}</span>
                       </div>
                     </div>
@@ -773,6 +774,21 @@ export default function AdminPage() {
                     required
                   />
                 </div>
+              </div>
+
+              {/* Product Description */}
+              <div className={styles.formGroup}>
+                <label htmlFor="prod-desc" className={styles.label}>
+                  Product Description
+                </label>
+                <textarea
+                  id="prod-desc"
+                  className={styles.textarea}
+                  placeholder="Enter details, clinical specs, or usage instructions…"
+                  value={formData.description}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
+                  rows={3}
+                />
               </div>
 
               {/* Product Image Input */}
