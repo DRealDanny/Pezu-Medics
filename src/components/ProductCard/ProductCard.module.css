@@ -72,15 +72,17 @@
 .category {
   display: inline-block;
   font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  background-color: var(--color-accent-light);
-  padding: 2px 8px;
-  border-radius: 20px;
-  margin-bottom: 2px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 3px 9px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  margin-bottom: 4px;
   width: fit-content;
+  max-width: 100%;
+  white-space: normal;
+  word-break: normal;
+  line-height: 1.25;
 }
 
 .name {

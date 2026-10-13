@@ -36,7 +36,7 @@ function sanitizeAndDeduplicate(list) {
       id: idStr,
       name: String(item.name || "").trim(),
       price: typeof item.price === "number" ? item.price : parseFloat(item.price) || 0,
-      category: String(item.category || "General Equipment").trim(),
+      category: String(item.category || "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES").trim(),
       description: item.description ? String(item.description).trim() : "",
       image: item.image ? String(item.image).trim() : "",
     });

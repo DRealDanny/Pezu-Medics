@@ -1,5 +1,21 @@
 [
   {
+    "id": "1791896350957",
+    "name": "Patient Monitor Multiparameter",
+    "price": 420000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "12.1 inch color TFT display\nECG, SpO2, NIBP, RESP, 2-TEMP, PR",
+    "image": ""
+  },
+  {
+    "id": "1791896018986",
+    "name": "Digital Centrifuge Machine",
+    "price": 185000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "Speed up to 4000 RPM\nHigh precision digital display",
+    "image": ""
+  },
+  {
     "id": "1",
     "name": "1ml Syringe",
     "price": 12000,

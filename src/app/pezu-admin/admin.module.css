@@ -495,6 +495,66 @@
   background: #ffffff;
 }
 
+.categoryFilterWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 260px;
+  max-width: 380px;
+  flex: 1;
+}
+
+.categoryFilterIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-accent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.categoryFilterSelect {
+  width: 100%;
+  height: 40px;
+  padding: 8px 34px 8px 34px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: #fbfbfd;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--color-text-primary);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.categoryFilterSelect:focus {
+  border-color: var(--color-accent);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.12);
+}
+
+.categoryFilterWrap::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--color-text-tertiary);
+  pointer-events: none;
+}
+
 .filterSelect {
   height: 40px;
   padding: 8px 12px;
@@ -623,13 +683,11 @@
 .categoryTag {
   display: inline-block;
   font-size: 0.6875rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-accent);
-  background: var(--color-accent-light);
-  padding: 3px 9px;
-  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 3px 10px;
+  border-radius: 14px;
+  line-height: 1.25;
 }
 
 .priceTag {
@@ -773,6 +831,23 @@
   width: 48px;
   height: 48px;
   color: var(--color-text-tertiary);
+}
+
+.clearSearchBtn {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  border: 1px solid rgba(0, 113, 227, 0.2);
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.clearSearchBtn:hover {
+  background: var(--color-accent);
+  color: #ffffff;
 }
 
 /* ── Modal Dialog ── */
@@ -1175,6 +1250,16 @@
   }
 
   .searchFilterGroup {
+    max-width: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchInputWrap,
+  .categoryFilterWrap {
+    width: 100%;
+    min-width: 100%;
     max-width: 100%;
   }
 

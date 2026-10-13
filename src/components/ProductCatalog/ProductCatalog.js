@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import ViewToggle from "@/components/ViewToggle/ViewToggle";
+import { PRODUCT_CATEGORIES, getCategoryBadge } from "@/lib/categories";
 import styles from "./ProductCatalog.module.css";
 
 export default function ProductCatalog() {
@@ -10,6 +11,7 @@ export default function ProductCatalog() {
   const [view, setView] = useState("grid"); // "grid" | "list"
   const [status, setStatus] = useState("loading"); // "loading" | "success" | "error"
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   /* ── Default view mode on mobile startup: List not Grid ── */
   useEffect(() => {
@@ -82,14 +84,29 @@ export default function ProductCatalog() {
     };
   }, []);
 
-  /* ── Filter products by search query (product name only) ── */
+  /* ── Filter products by category & search query ── */
   const filteredProducts = useMemo(() => {
-    if (!searchQuery.trim()) return products;
-    const q = searchQuery.toLowerCase().trim();
     return products.filter((p) => {
-      return p.name?.toLowerCase().includes(q);
+      // Category filter
+      if (selectedCategory !== "all") {
+        const badge = getCategoryBadge(p.category);
+        if (badge.full !== selectedCategory && badge.id !== selectedCategory) {
+          return false;
+        }
+      }
+
+      // Search query filter
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchName = p.name?.toLowerCase().includes(q);
+        const matchCat = p.category?.toLowerCase().includes(q);
+        const matchDesc = p.description?.toLowerCase().includes(q);
+        if (!matchName && !matchCat && !matchDesc) return false;
+      }
+
+      return true;
     });
-  }, [products, searchQuery]);
+  }, [products, selectedCategory, searchQuery]);
 
   return (
     <section className={styles.catalog} aria-label="Product catalog">
@@ -103,6 +120,58 @@ export default function ProductCatalog() {
             )}
           </div>
           <div className={styles.toolbarRight}>
+            {/* Category Dropdown Filter */}
+            <div className={styles.categorySelectWrap}>
+              <svg
+                className={styles.categorySelectIcon}
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+              </svg>
+              <select
+                id="frontend-category-filter"
+                className={styles.categorySelect}
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                aria-label="Filter products by category"
+              >
+                <option value="all">All Categories ({products.length})</option>
+                {PRODUCT_CATEGORIES.map((cat) => {
+                  const count = products.filter((p) => {
+                    const b = getCategoryBadge(p.category);
+                    return b.full === cat.full || b.id === cat.id;
+                  }).length;
+                  return (
+                    <option key={cat.id} value={cat.full}>
+                      {cat.full} ({count})
+                    </option>
+                  );
+                })}
+              </select>
+              <svg
+                className={styles.selectChevron}
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+
             {/* Frontend Search Bar */}
             <div className={styles.searchBarWrap}>
               <svg
@@ -127,7 +196,7 @@ export default function ProductCatalog() {
                 placeholder="Search products…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                aria-label="Search products by name"
+                aria-label="Search products"
               />
               {searchQuery && (
                 <button
@@ -181,19 +250,34 @@ export default function ProductCatalog() {
                     <line x1="8" y1="11" x2="14" y2="11" />
                   </svg>
                 </div>
-                <h2 className={styles.notAvailableHeading}>Not Available</h2>
+                <h2 className={styles.notAvailableHeading}>No Products Found</h2>
                 <p className={styles.notAvailableText}>
-                  No product matching &ldquo;{searchQuery}&rdquo; was found in our catalog.
+                  {selectedCategory !== "all" && searchQuery
+                    ? `No matching products in "${selectedCategory}" matching "${searchQuery}".`
+                    : selectedCategory !== "all"
+                    ? `No products currently listed under "${selectedCategory}".`
+                    : `No product matching "${searchQuery}" was found in our catalog.`}
                 </p>
-                {searchQuery && (
-                  <button
-                    type="button"
-                    className={styles.clearSearchBtn}
-                    onClick={() => setSearchQuery("")}
-                  >
-                    Clear Search
-                  </button>
-                )}
+                <div style={{ display: "flex", gap: "8px", justifyContent: "center", marginTop: "12px", flexWrap: "wrap" }}>
+                  {selectedCategory !== "all" && (
+                    <button
+                      type="button"
+                      className={styles.clearSearchBtn}
+                      onClick={() => setSelectedCategory("all")}
+                    >
+                      Show All Categories
+                    </button>
+                  )}
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      className={styles.clearSearchBtn}
+                      onClick={() => setSearchQuery("")}
+                    >
+                      Clear Search
+                    </button>
+                  )}
+                </div>
               </div>
             ) : (
               <div

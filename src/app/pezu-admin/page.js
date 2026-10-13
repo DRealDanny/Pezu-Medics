@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
+import { PRODUCT_CATEGORIES, DEFAULT_CATEGORY, getCategoryBadge } from "@/lib/categories";
 import styles from "./admin.module.css";
 
 
@@ -123,6 +124,7 @@ export default function PezuAdminPage() {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   /* ── Modal & Form State ── */
@@ -131,6 +133,7 @@ export default function PezuAdminPage() {
   const [activeProductId, setActiveProductId] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
+    category: DEFAULT_CATEGORY,
     price: "",
     description: "",
     image: "",
@@ -262,6 +265,7 @@ export default function PezuAdminPage() {
     setActiveProductId(null);
     setFormData({
       name: "",
+      category: DEFAULT_CATEGORY,
       price: "",
       description: "",
       image: "",
@@ -284,6 +288,7 @@ export default function PezuAdminPage() {
 
     setFormData({
       name: prod.name || "",
+      category: prod.category || DEFAULT_CATEGORY,
       price: initialPrice,
       description: prod.description || "",
       image: prod.image || "",
@@ -401,7 +406,7 @@ export default function PezuAdminPage() {
 
     const payload = {
       name: formData.name.trim(),
-      category: "",
+      category: formData.category ? formData.category.trim() : DEFAULT_CATEGORY,
       price: cleanNum,
       description: formData.description ? formData.description.trim() : "",
       image: formData.image ? formData.image.trim() : "",
@@ -500,14 +505,25 @@ export default function PezuAdminPage() {
     }
   }
 
-  /* ── 10. Filtered Products & Stats (Product Name Only) ── */
+  /* ── 10. Filtered Products & Stats ── */
   const filteredProducts = useMemo(() => {
-    if (!searchTerm.trim()) return products;
-    const term = searchTerm.toLowerCase().trim();
     return products.filter((p) => {
-      return p.name?.toLowerCase().includes(term);
+      if (selectedCategory !== "all") {
+        const badge = getCategoryBadge(p.category);
+        if (badge.full !== selectedCategory && badge.id !== selectedCategory) {
+          return false;
+        }
+      }
+      if (searchTerm.trim()) {
+        const term = searchTerm.toLowerCase().trim();
+        const matchName = p.name?.toLowerCase().includes(term);
+        const matchCat = p.category?.toLowerCase().includes(term);
+        const matchDesc = p.description?.toLowerCase().includes(term);
+        if (!matchName && !matchCat && !matchDesc) return false;
+      }
+      return true;
     });
-  }, [products, searchTerm]);
+  }, [products, searchTerm, selectedCategory]);
 
   const stats = useMemo(() => {
     return { total: products.length };
@@ -713,7 +729,7 @@ export default function PezuAdminPage() {
           </div>
         </section>
 
-        {/* Controls Bar: Search & Add Product */}
+        {/* Controls Bar: Search, Category Filter & Add Product */}
         <section className={styles.controlsBar}>
           <div className={styles.searchFilterGroup}>
             <div className={styles.searchInputWrap}>
@@ -730,6 +746,44 @@ export default function PezuAdminPage() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
+            </div>
+
+            {/* Category Filter Dropdown */}
+            <div className={styles.categoryFilterWrap}>
+              <svg
+                className={styles.categoryFilterIcon}
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+              </svg>
+              <select
+                id="cms-category-filter"
+                className={styles.categoryFilterSelect}
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                aria-label="Filter products by category"
+              >
+                <option value="all">All Categories ({products.length})</option>
+                {PRODUCT_CATEGORIES.map((cat) => {
+                  const count = products.filter((p) => {
+                    const b = getCategoryBadge(p.category);
+                    return b.full === cat.full || b.id === cat.id;
+                  }).length;
+                  return (
+                    <option key={cat.id} value={cat.full}>
+                      {cat.full} ({count})
+                    </option>
+                  );
+                })}
+              </select>
             </div>
           </div>
 
@@ -753,8 +807,23 @@ export default function PezuAdminPage() {
               <p>
                 {searchTerm
                   ? "Try clearing your search keywords."
+                  : selectedCategory !== "all"
+                  ? `No products currently found under "${selectedCategory}".`
                   : "Click 'Add New Product' to start populating your catalog."}
               </p>
+              {(searchTerm || selectedCategory !== "all") && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchTerm("");
+                    setSelectedCategory("all");
+                  }}
+                  className={styles.clearSearchBtn}
+                  style={{ marginTop: "12px" }}
+                >
+                  Clear Filters
+                </button>
+              )}
             </div>
           ) : (
             <>
@@ -765,41 +834,57 @@ export default function PezuAdminPage() {
                     <tr>
                       <th style={{ width: "70px" }}>Image</th>
                       <th>Product Details</th>
+                      <th>Category</th>
                       <th>Price (Naira)</th>
                       <th>Media Source</th>
                       <th style={{ textAlign: "right" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredProducts.map((p) => (
-                      <tr key={p.id} id={`cms-row-${p.id}`}>
-                        <td>
-                          <div className={styles.thumbCell}>
-                            {p.image ? (
-                              <img src={p.image} alt={p.name} className={styles.thumbImg} />
-                            ) : (
-                              <div className={styles.thumbPlaceholder}>
-                                <PlaceholderIcon size={20} />
-                              </div>
-                            )}
-                          </div>
-                        </td>
-                        <td>
-                          <div className={styles.productTitleCell}>
-                            <span className={styles.productNameText}>{p.name}</span>
-                            {p.description && (
-                              <div className={styles.productDescSnippet} title={p.description}>
-                                {p.description}
-                              </div>
-                            )}
-                          </div>
-                        </td>
-                        <td className={styles.priceTag}>
-                          ₦{Number(p.price || 0).toLocaleString("en-US", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </td>
+                    {filteredProducts.map((p) => {
+                      const badge = getCategoryBadge(p.category);
+                      return (
+                        <tr key={p.id} id={`cms-row-${p.id}`}>
+                          <td>
+                            <div className={styles.thumbCell}>
+                              {p.image ? (
+                                <img src={p.image} alt={p.name} className={styles.thumbImg} />
+                              ) : (
+                                <div className={styles.thumbPlaceholder}>
+                                  <PlaceholderIcon size={20} />
+                                </div>
+                              )}
+                            </div>
+                          </td>
+                          <td>
+                            <div className={styles.productTitleCell}>
+                              <span className={styles.productNameText}>{p.name}</span>
+                              {p.description && (
+                                <div className={styles.productDescSnippet} title={p.description}>
+                                  {p.description}
+                                </div>
+                              )}
+                            </div>
+                          </td>
+                          <td>
+                            <span
+                              className={styles.categoryTag}
+                              style={{
+                                color: badge.color,
+                                backgroundColor: badge.bg,
+                                border: `1px solid ${badge.border}`,
+                              }}
+                              title={badge.full}
+                            >
+                              {badge.short}
+                            </span>
+                          </td>
+                          <td className={styles.priceTag}>
+                            ₦{Number(p.price || 0).toLocaleString("en-US", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
+                          </td>
                         <td>
                           {p.image ? (
                             <span className={styles.statusCustom}>
@@ -846,38 +931,55 @@ export default function PezuAdminPage() {
                           </div>
                         </td>
                       </tr>
-                    ))}
-                  </tbody>
+                    );
+                  })}
+                </tbody>
                 </table>
               </div>
 
               {/* Mobile / Tablet Cards View */}
               <div className={styles.mobileCardsList}>
-                {filteredProducts.map((p) => (
-                  <div key={p.id} className={styles.mobileCard} id={`cms-mobile-card-${p.id}`}>
-                    <div className={styles.mobileCardTop}>
-                      <div className={styles.thumbCell}>
-                        {p.image ? (
-                          <img src={p.image} alt={p.name} className={styles.thumbImg} />
-                        ) : (
-                          <div className={styles.thumbPlaceholder}>
-                            <PlaceholderIcon size={20} />
-                          </div>
-                        )}
+                {filteredProducts.map((p) => {
+                  const badge = getCategoryBadge(p.category);
+                  return (
+                    <div key={p.id} className={styles.mobileCard} id={`cms-mobile-card-${p.id}`}>
+                      <div className={styles.mobileCardTop}>
+                        <div className={styles.thumbCell}>
+                          {p.image ? (
+                            <img src={p.image} alt={p.name} className={styles.thumbImg} />
+                          ) : (
+                            <div className={styles.thumbPlaceholder}>
+                              <PlaceholderIcon size={20} />
+                            </div>
+                          )}
+                        </div>
+                        <div className={styles.mobileCardInfo}>
+                          <span
+                            className={styles.categoryTag}
+                            style={{
+                              color: badge.color,
+                              backgroundColor: badge.bg,
+                              border: `1px solid ${badge.border}`,
+                              marginBottom: "4px",
+                              display: "inline-block",
+                              width: "fit-content",
+                            }}
+                            title={badge.full}
+                          >
+                            {badge.short}
+                          </span>
+                          <h4 className={styles.mobileCardTitle}>{p.name}</h4>
+                          {p.description && (
+                            <p className={styles.mobileCardDesc}>{p.description}</p>
+                          )}
+                          <span className={styles.priceTag}>
+                            ₦{Number(p.price || 0).toLocaleString("en-US", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
+                          </span>
+                        </div>
                       </div>
-                      <div className={styles.mobileCardInfo}>
-                        <h4 className={styles.mobileCardTitle}>{p.name}</h4>
-                        {p.description && (
-                          <p className={styles.mobileCardDesc}>{p.description}</p>
-                        )}
-                        <span className={styles.priceTag}>
-                          ₦{Number(p.price || 0).toLocaleString("en-US", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </span>
-                      </div>
-                    </div>
                     <div className={styles.mobileCardBottom}>
                       <div>
                         {p.image ? (
@@ -896,8 +998,9 @@ export default function PezuAdminPage() {
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                );
+              })}
+            </div>
             </>
           )}
         </div>
@@ -939,6 +1042,25 @@ export default function PezuAdminPage() {
                 />
               </div>
 
+              {/* Product Category */}
+              <div className={styles.formGroup}>
+                <label htmlFor="prod-category" className={styles.label}>
+                  Product Category *
+                </label>
+                <select
+                  id="prod-category"
+                  className={styles.select}
+                  value={formData.category}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, category: e.target.value }))}
+                  required
+                >
+                  {PRODUCT_CATEGORIES.map((cat) => (
+                    <option key={cat.id} value={cat.full}>
+                      {cat.full}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
               {/* Price in Naira with Commas, .00 & Scale Indicator */}
               <div className={styles.formGroup}>

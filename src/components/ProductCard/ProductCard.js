@@ -1,4 +1,5 @@
 import styles from "./ProductCard.module.css";
+import { getCategoryBadge } from "@/lib/categories";
 
 /* ── Placeholder image ── */
 function PlaceholderImage({ name }) {
@@ -19,13 +20,14 @@ function PlaceholderImage({ name }) {
  * @param {{ product: object, view: "grid" | "list" }} props
  */
 export default function ProductCard({ product, view }) {
-  const { id, name, price, description } = product || {};
+  const { id, name, price, category, description } = product || {};
   const formattedPrice = `₦${Number(price || 0).toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;
 
   const cleanDescription = (description || "").trim();
+  const categoryBadge = getCategoryBadge(category);
 
   if (view === "list") {
     return (
@@ -39,6 +41,19 @@ export default function ProductCard({ product, view }) {
         </div>
         <div className={styles.cardListBody}>
           <div className={styles.cardListInfo}>
+            {categoryBadge && (
+              <span
+                className={styles.category}
+                style={{
+                  color: categoryBadge.color,
+                  backgroundColor: categoryBadge.bg,
+                  borderColor: categoryBadge.border,
+                }}
+                title={categoryBadge.full}
+              >
+                {categoryBadge.short}
+              </span>
+            )}
             <h2 className={styles.name}>{name}</h2>
             {cleanDescription ? (
               <p className={styles.description}>{cleanDescription}</p>
@@ -66,6 +81,19 @@ export default function ProductCard({ product, view }) {
         )}
       </div>
       <div className={styles.cardBody}>
+        {categoryBadge && (
+          <span
+            className={styles.category}
+            style={{
+              color: categoryBadge.color,
+              backgroundColor: categoryBadge.bg,
+              borderColor: categoryBadge.border,
+            }}
+            title={categoryBadge.full}
+          >
+            {categoryBadge.short}
+          </span>
+        )}
         <h2 className={styles.name}>{name}</h2>
         {cleanDescription ? (
           <p className={styles.description}>{cleanDescription}</p>

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { verifyAdminSession } from "@/lib/auth";
 import { getProducts, saveProducts, deleteStoredImage } from "@/lib/storage";
+import { DEFAULT_CATEGORY } from "@/lib/categories";
 
 /**
  * GET /api/products
@@ -50,7 +51,7 @@ export async function POST(request) {
       id: String(Date.now()),
       name: name.trim(),
       price: numericPrice,
-      category: (category && category.trim()) || "General Equipment",
+      category: (category && category.trim()) || DEFAULT_CATEGORY,
       description: (description && description.trim()) || "",
       image: image && image.trim() ? image.trim() : "",
     };
@@ -118,7 +119,7 @@ export async function PUT(request) {
       ...products[index],
       name: name.trim(),
       price: numericPrice,
-      category: (category && category.trim()) || products[index].category || "General Equipment",
+      category: (category && category.trim()) || products[index].category || DEFAULT_CATEGORY,
       description: description !== undefined ? (description ? description.trim() : "") : products[index].description || "",
       image: newImage,
     };
