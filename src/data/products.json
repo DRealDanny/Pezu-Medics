@@ -190,5 +190,141 @@
     "category": "LABORATORY PRODUCTS",
     "description": "Pack",
     "image": ""
+  },
+  {
+    "id": "eq-01",
+    "name": "Wheel Chair",
+    "price": 140000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-02",
+    "name": "Ward Screen",
+    "price": 80000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-03",
+    "name": "Crutches",
+    "price": 23000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-04",
+    "name": "Mobile Food Tray",
+    "price": 60000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-05",
+    "name": "Oxygen Cylinder",
+    "price": 90000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-06",
+    "name": "Body Bag",
+    "price": 12000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-07",
+    "name": "Pressure Regulator",
+    "price": 30000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-08",
+    "name": "Laryngoscope Kit",
+    "price": 50000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-09",
+    "name": "Vein Finders",
+    "price": 50000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-10",
+    "name": "Breatheralyser",
+    "price": 65000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-11",
+    "name": "Hazardous Wastebin",
+    "price": 35000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "For 20L",
+    "image": ""
+  },
+  {
+    "id": "eq-12",
+    "name": "Hazardous Wastebin",
+    "price": 45000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "For 30L",
+    "image": ""
+  },
+  {
+    "id": "eq-13",
+    "name": "Sharps Containers",
+    "price": 10000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-14",
+    "name": "Suction Machine (Aspirators)",
+    "price": 95000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "Single",
+    "image": ""
+  },
+  {
+    "id": "eq-15",
+    "name": "Suction Machine (Aspirators)",
+    "price": 230000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "Double",
+    "image": ""
+  },
+  {
+    "id": "eq-16",
+    "name": "Micro Heamatocrit Reader",
+    "price": 40000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "eq-17",
+    "name": "Pharmacy / Vaccine Storage Refrigerator",
+    "price": 1400000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
   }
 ]
