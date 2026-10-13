@@ -18,13 +18,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  min-height: 80px;
+  padding-block: var(--space-md);
 }
 
 .logoLink {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
+  padding-block: 4px;
   transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -34,14 +36,19 @@
 }
 
 .brandLogo {
-  height: 40px;
+  height: 42px;
   width: auto;
-  max-width: 220px;
+  max-width: 230px;
   object-fit: contain;
   display: block;
 }
 
 @media (max-width: 480px) {
+  .headerInner {
+    min-height: 68px;
+    padding-block: 12px;
+  }
+
   .brandLogo {
     height: 34px;
     max-width: 180px;
