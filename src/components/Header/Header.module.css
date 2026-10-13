@@ -83,6 +83,43 @@
 .searchToggleBtn svg {
   color: var(--color-accent);
   flex-shrink: 0;
+  transition: color var(--transition-fast);
+}
+
+/* Green when query matches products */
+.searchToggleBtn.toggleMatches {
+  background: #f0fdf4;
+  border-color: #16a34a;
+  color: #15803d;
+}
+
+.searchToggleBtn.toggleMatches svg {
+  color: #16a34a;
+}
+
+.searchToggleBtn.toggleMatches:hover {
+  background: #dcfce7;
+  border-color: #15803d;
+  color: #15803d;
+  box-shadow: 0 2px 10px rgba(22, 163, 74, 0.2);
+}
+
+/* Red when query is not listed on catalog */
+.searchToggleBtn.toggleNoMatches {
+  background: #fef2f2;
+  border-color: #dc2626;
+  color: #b91c1c;
+}
+
+.searchToggleBtn.toggleNoMatches svg {
+  color: #dc2626;
+}
+
+.searchToggleBtn.toggleNoMatches:hover {
+  background: #fee2e2;
+  border-color: #b91c1c;
+  color: #b91c1c;
+  box-shadow: 0 2px 10px rgba(220, 38, 38, 0.2);
 }
 
 .searchBtnText {
@@ -90,8 +127,6 @@
 }
 
 .activeQueryBadge {
-  background: var(--color-accent);
-  color: #ffffff;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -100,7 +135,17 @@
   border-radius: 10px;
 }
 
-/* Expanded Search Form */
+.badgeMatches {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.badgeNoMatches {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+/* Expanded Search Form - Default Blue */
 .searchFormExpanded {
   display: flex;
   align-items: center;
@@ -113,12 +158,52 @@
   box-shadow: 0 4px 20px rgba(0, 113, 227, 0.16);
   animation: expandSearch 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .searchIcon {
   color: var(--color-accent);
   margin-right: 10px;
   flex-shrink: 0;
+  transition: color var(--transition-fast);
+}
+
+/* Expanded Search Form - Green when query matches */
+.searchFormExpanded.expandedMatches {
+  border-color: #16a34a;
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.22);
+}
+
+.searchFormExpanded.expandedMatches .searchIcon {
+  color: #16a34a;
+}
+
+.searchFormExpanded.expandedMatches .clearBtn {
+  color: #16a34a;
+}
+
+.searchFormExpanded.expandedMatches .clearBtn:hover {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/* Expanded Search Form - Red when query not listed */
+.searchFormExpanded.expandedNoMatches {
+  border-color: #dc2626;
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.22);
+}
+
+.searchFormExpanded.expandedNoMatches .searchIcon {
+  color: #dc2626;
+}
+
+.searchFormExpanded.expandedNoMatches .clearBtn {
+  color: #dc2626;
+}
+
+.searchFormExpanded.expandedNoMatches .clearBtn:hover {
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .searchInput {
@@ -138,8 +223,7 @@
   font-size: 0.8125rem;
 }
 
-.clearBtn,
-.closeSearchBtn {
+.clearBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -155,8 +239,7 @@
   flex-shrink: 0;
 }
 
-.clearBtn:hover,
-.closeSearchBtn:hover {
+.clearBtn:hover {
   background: #f1f3f5;
   color: var(--color-text-primary);
 }
@@ -181,6 +264,10 @@
 
 @media (max-width: 640px) {
   .searchBtnText {
+    display: none;
+  }
+
+  .activeQueryBadge {
     display: none;
   }
 

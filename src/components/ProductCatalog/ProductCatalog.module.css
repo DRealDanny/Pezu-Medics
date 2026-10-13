@@ -117,6 +117,36 @@
   box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.12);
 }
 
+/* Green when query matches products */
+.searchMatches .searchInput {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.16);
+}
+
+.searchMatches .searchIcon {
+  color: #16a34a;
+}
+
+.searchMatches .searchClearBtn {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* Red when query is not listed on catalog */
+.searchNoMatches .searchInput {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.16);
+}
+
+.searchNoMatches .searchIcon {
+  color: #dc2626;
+}
+
+.searchNoMatches .searchClearBtn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
 .searchClearBtn {
   position: absolute;
   right: 10px;

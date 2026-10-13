@@ -17,6 +17,9 @@ export default function ProductCatalog() {
     clearSearch,
     selectedCategory,
     setSelectedCategory,
+    setCatalogProducts,
+    searchMatchCount,
+    hasQuery,
   } = useSearch();
 
   /* ── Default view mode on mobile startup: List not Grid ── */
@@ -55,6 +58,7 @@ export default function ProductCatalog() {
             return true;
           });
           setProducts(cleanList);
+          if (setCatalogProducts) setCatalogProducts(cleanList);
           setStatus("success");
         }
       } catch (err) {
@@ -186,7 +190,15 @@ export default function ProductCatalog() {
             </div>
 
             {/* Frontend Search Bar */}
-            <div className={styles.searchBarWrap}>
+            <div
+              className={`${styles.searchBarWrap}${
+                hasQuery
+                  ? searchMatchCount > 0
+                    ? ` ${styles.searchMatches}`
+                    : ` ${styles.searchNoMatches}`
+                  : ""
+              }`}
+            >
               <svg
                 className={styles.searchIcon}
                 width="16"

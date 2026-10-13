@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback } from "react";
+import { createContext, useContext, useState, useMemo, useCallback } from "react";
+import initialProducts from "@/data/products.json";
 
 const SearchContext = createContext({
   searchQuery: "",
@@ -11,12 +12,19 @@ const SearchContext = createContext({
   setIsHeaderSearchOpen: () => {},
   performGlobalSearch: () => {},
   clearSearch: () => {},
+  catalogProducts: [],
+  setCatalogProducts: () => {},
+  searchMatchCount: null,
+  hasQuery: false,
 });
 
 export function SearchProvider({ children }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isHeaderSearchOpen, setIsHeaderSearchOpen] = useState(false);
+  const [catalogProducts, setCatalogProducts] = useState(
+    Array.isArray(initialProducts) ? initialProducts : []
+  );
 
   /**
    * Search across all categories regardless of active category filter.
@@ -35,6 +43,21 @@ export function SearchProvider({ children }) {
     setSearchQuery("");
   }, []);
 
+  const hasQuery = Boolean(searchQuery && searchQuery.trim());
+
+  // Count matches across all categories to determine green (found) vs red (not listed)
+  const searchMatchCount = useMemo(() => {
+    if (!hasQuery) return null;
+    const q = searchQuery.toLowerCase().trim();
+    if (!catalogProducts || catalogProducts.length === 0) return 0;
+    return catalogProducts.filter((p) => {
+      const matchName = p.name?.toLowerCase().includes(q);
+      const matchCat = p.category?.toLowerCase().includes(q);
+      const matchDesc = p.description?.toLowerCase().includes(q);
+      return matchName || matchCat || matchDesc;
+    }).length;
+  }, [hasQuery, searchQuery, catalogProducts]);
+
   return (
     <SearchContext.Provider
       value={{
@@ -46,6 +69,10 @@ export function SearchProvider({ children }) {
         setIsHeaderSearchOpen,
         performGlobalSearch,
         clearSearch,
+        catalogProducts,
+        setCatalogProducts,
+        searchMatchCount,
+        hasQuery,
       }}
     >
       {children}

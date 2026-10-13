@@ -14,6 +14,8 @@ export default function Header() {
     clearSearch,
     isHeaderSearchOpen,
     setIsHeaderSearchOpen,
+    searchMatchCount,
+    hasQuery,
   } = useSearch();
 
   const searchContainerRef = useRef(null);
@@ -112,7 +114,17 @@ export default function Header() {
         {/* Global Search Container */}
         <div ref={searchContainerRef} className={styles.searchContainer}>
           {isHeaderSearchOpen ? (
-            <form onSubmit={handleSubmit} className={styles.searchFormExpanded} role="search">
+            <form
+              onSubmit={handleSubmit}
+              className={`${styles.searchFormExpanded}${
+                hasQuery
+                  ? searchMatchCount > 0
+                    ? ` ${styles.expandedMatches}`
+                    : ` ${styles.expandedNoMatches}`
+                  : ""
+              }`}
+              role="search"
+            >
               <svg
                 className={styles.searchIcon}
                 width="16"
@@ -160,7 +172,13 @@ export default function Header() {
               type="button"
               id="header-search-btn"
               onClick={handleOpenSearch}
-              className={styles.searchToggleBtn}
+              className={`${styles.searchToggleBtn}${
+                hasQuery
+                  ? searchMatchCount > 0
+                    ? ` ${styles.toggleMatches}`
+                    : ` ${styles.toggleNoMatches}`
+                  : ""
+              }`}
               aria-label="Search products across all categories"
               title="Search products across all categories"
             >
@@ -179,10 +197,16 @@ export default function Header() {
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
               <span className={styles.searchBtnText}>
-                {searchQuery ? `Searching: "${searchQuery}"` : "Search all products…"}
+                {hasQuery ? `Searching: "${searchQuery}"` : "Search all products…"}
               </span>
-              {searchQuery && (
-                <span className={styles.activeQueryBadge}>Active</span>
+              {hasQuery && (
+                <span
+                  className={`${styles.activeQueryBadge} ${
+                    searchMatchCount > 0 ? styles.badgeMatches : styles.badgeNoMatches
+                  }`}
+                >
+                  {searchMatchCount > 0 ? `${searchMatchCount} found` : "0 matches"}
+                </span>
               )}
             </button>
           )}
