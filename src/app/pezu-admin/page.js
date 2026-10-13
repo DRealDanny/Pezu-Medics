@@ -6,21 +6,17 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import styles from "./admin.module.css";
 
 
-/* ── Medical Cross Logo Icon ── */
-function BrandLogoIcon({ size = 32 }) {
+/* ── Official Brand Logo Icon ── */
+function BrandLogoIcon({ size = 32, className }) {
   return (
-    <svg
+    <img
+      src="/logo.png"
+      alt="Pezu Medics Logo Mark"
       width={size}
-      height={size}
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <circle cx="16" cy="16" r="15" stroke="currentColor" strokeWidth="2" />
-      <rect x="14" y="8" width="4" height="16" rx="2" fill="currentColor" />
-      <rect x="8" y="14" width="16" height="4" rx="2" fill="currentColor" />
-    </svg>
+      height={Math.round((size * 235) / 308)}
+      className={className}
+      style={{ objectFit: "contain", display: "inline-block", verticalAlign: "middle" }}
+    />
   );
 }
 
@@ -535,7 +531,7 @@ export default function PezuAdminPage() {
         <div className={styles.loginCard}>
           <div className={styles.loginHeader}>
             <div className={styles.loginLogoIcon}>
-              <BrandLogoIcon size={48} />
+              <BrandLogoIcon size={56} />
             </div>
             <h1 className={styles.loginTitle}>Pezu Medics CMS</h1>
             <p className={styles.loginSubtitle}>

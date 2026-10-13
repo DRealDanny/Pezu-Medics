@@ -21,33 +21,29 @@
   height: 64px;
 }
 
-.logoArea {
-  display: flex;
+.logoLink {
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
+  text-decoration: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
-.logoIcon {
-  color: var(--color-accent);
-  flex-shrink: 0;
+.logoLink:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
 }
 
-.brandName {
-  font-size: 1.125rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--color-text-primary);
-}
-
-.brandTagline {
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: var(--color-text-secondary);
-  letter-spacing: 0.01em;
+.brandLogo {
+  height: 40px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
 }
 
 @media (max-width: 480px) {
-  .brandTagline {
-    display: none;
+  .brandLogo {
+    height: 34px;
+    max-width: 180px;
   }
 }

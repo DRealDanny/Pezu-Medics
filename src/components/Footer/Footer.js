@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./Footer.module.css";
 
 const year = new Date().getFullYear();
@@ -9,7 +10,14 @@ export default function Footer() {
         <div className={styles.footerInner}>
           {/* Brand blurb */}
           <div className={styles.footerBrand}>
-            <p className={styles.brandName}>Pezu Medics</p>
+            <Image
+              src="/logo-mark.png"
+              alt="Pezu Standard Medical Concern"
+              width={180}
+              height={37}
+              unoptimized
+              className={styles.footerLogo}
+            />
             <p>
               Supplying clinics, hospitals, and healthcare professionals with
               reliable medical equipment and consumables since 2010.
