@@ -4,14 +4,20 @@ import { useState, useEffect, useMemo } from "react";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import ViewToggle from "@/components/ViewToggle/ViewToggle";
 import { PRODUCT_CATEGORIES, getCategoryBadge } from "@/lib/categories";
+import { useSearch } from "@/context/SearchContext";
 import styles from "./ProductCatalog.module.css";
 
 export default function ProductCatalog() {
   const [products, setProducts] = useState([]);
   const [view, setView] = useState("grid"); // "grid" | "list"
   const [status, setStatus] = useState("loading"); // "loading" | "success" | "error"
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const {
+    searchQuery,
+    performGlobalSearch,
+    clearSearch,
+    selectedCategory,
+    setSelectedCategory,
+  } = useSearch();
 
   /* ── Default view mode on mobile startup: List not Grid ── */
   useEffect(() => {
@@ -87,7 +93,16 @@ export default function ProductCatalog() {
   /* ── Filter products by category & search query ── */
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
-      // Category filter
+      // Search query filter: always searches across ALL categories
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchName = p.name?.toLowerCase().includes(q);
+        const matchCat = p.category?.toLowerCase().includes(q);
+        const matchDesc = p.description?.toLowerCase().includes(q);
+        return matchName || matchCat || matchDesc;
+      }
+
+      // Category filter: applies when there is no active search query
       if (selectedCategory !== "all") {
         const badge = getCategoryBadge(p.category);
         if (badge.full !== selectedCategory && badge.id !== selectedCategory) {
@@ -95,21 +110,12 @@ export default function ProductCatalog() {
         }
       }
 
-      // Search query filter
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase().trim();
-        const matchName = p.name?.toLowerCase().includes(q);
-        const matchCat = p.category?.toLowerCase().includes(q);
-        const matchDesc = p.description?.toLowerCase().includes(q);
-        if (!matchName && !matchCat && !matchDesc) return false;
-      }
-
       return true;
     });
   }, [products, selectedCategory, searchQuery]);
 
   return (
-    <section className={styles.catalog} aria-label="Product catalog">
+    <section id="product-catalog" className={styles.catalog} aria-label="Product catalog">
       <div className="container">
         {/* Toolbar */}
         <div className={styles.toolbar}>
@@ -139,11 +145,18 @@ export default function ProductCatalog() {
               <select
                 id="frontend-category-filter"
                 className={styles.categorySelect}
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
+                value={searchQuery.trim() ? "all" : selectedCategory}
+                onChange={(e) => {
+                  setSelectedCategory(e.target.value);
+                  if (searchQuery) clearSearch();
+                }}
                 aria-label="Filter products by category"
               >
-                <option value="all">All Categories ({products.length})</option>
+                <option value="all">
+                  {searchQuery.trim()
+                    ? `All Categories (${filteredProducts.length} matches)`
+                    : `All Categories (${products.length})`}
+                </option>
                 {PRODUCT_CATEGORIES.map((cat) => {
                   const count = products.filter((p) => {
                     const b = getCategoryBadge(p.category);
@@ -193,16 +206,16 @@ export default function ProductCatalog() {
                 type="text"
                 id="frontend-product-search"
                 className={styles.searchInput}
-                placeholder="Search products…"
+                placeholder="Search products across all categories…"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                aria-label="Search products"
+                onChange={(e) => performGlobalSearch(e.target.value)}
+                aria-label="Search products across all categories"
               />
               {searchQuery && (
                 <button
                   type="button"
                   className={styles.searchClearBtn}
-                  onClick={() => setSearchQuery("")}
+                  onClick={clearSearch}
                   aria-label="Clear search"
                   title="Clear search"
                 >
@@ -252,11 +265,9 @@ export default function ProductCatalog() {
                 </div>
                 <h2 className={styles.notAvailableHeading}>No Products Found</h2>
                 <p className={styles.notAvailableText}>
-                  {selectedCategory !== "all" && searchQuery
-                    ? `No matching products in "${selectedCategory}" matching "${searchQuery}".`
-                    : selectedCategory !== "all"
-                    ? `No products currently listed under "${selectedCategory}".`
-                    : `No product matching "${searchQuery}" was found in our catalog.`}
+                  {searchQuery
+                    ? `No product matching "${searchQuery}" was found in our catalog across all categories.`
+                    : `No products currently listed under "${selectedCategory}".`}
                 </p>
                 <div style={{ display: "flex", gap: "8px", justifyContent: "center", marginTop: "12px", flexWrap: "wrap" }}>
                   {selectedCategory !== "all" && (
@@ -272,7 +283,7 @@ export default function ProductCatalog() {
                     <button
                       type="button"
                       className={styles.clearSearchBtn}
-                      onClick={() => setSearchQuery("")}
+                      onClick={clearSearch}
                     >
                       Clear Search
                     </button>
