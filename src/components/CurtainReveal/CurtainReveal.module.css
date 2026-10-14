@@ -60,19 +60,19 @@
 }
 
 .curtainColumn:nth-child(1) {
-  animation: slideUpGPU 0.85s cubic-bezier(0.76, 0, 0.24, 1) 0.12s both;
+  animation: slideUpGPU 0.70s cubic-bezier(0.76, 0, 0.24, 1) 0.06s both;
 }
 
 .curtainColumn:nth-child(2) {
-  animation: slideUpGPU 0.85s cubic-bezier(0.76, 0, 0.24, 1) 0.24s both;
+  animation: slideUpGPU 0.70s cubic-bezier(0.76, 0, 0.24, 1) 0.14s both;
 }
 
 .curtainColumn:nth-child(3) {
-  animation: slideUpGPU 0.85s cubic-bezier(0.76, 0, 0.24, 1) 0.36s both;
+  animation: slideUpGPU 0.70s cubic-bezier(0.76, 0, 0.24, 1) 0.22s both;
 }
 
 .curtainColumn:nth-child(4) {
-  animation: slideUpGPU 0.85s cubic-bezier(0.76, 0, 0.24, 1) 0.48s both;
+  animation: slideUpGPU 0.70s cubic-bezier(0.76, 0, 0.24, 1) 0.30s both;
 }
 
 /* Accessibility: Instant bypass for users preferring reduced motion */

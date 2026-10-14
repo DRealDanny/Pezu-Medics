@@ -1,0 +1,423 @@
+/* ============================================================
+   HERO SECTION – Centered Editorial + Slideshow
+   GPU-Only compositor transforms • No layout recalculations
+   cubic-bezier(0.76, 0, 0.24, 1) = luxury momentum curve
+   ============================================================ */
+
+/* ── Entrance Keyframes (compositor-only: opacity + translate3d) ── */
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ── Slideshow Keyframes ── */
+@keyframes progressFill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ── Section Wrapper ── */
+.hero {
+  width: 100%;
+  background-color: var(--color-bg);
+  padding-top: clamp(48px, 8vw, 80px);
+  padding-bottom: clamp(40px, 6vw, 64px);
+  overflow: hidden;
+}
+
+/* ── Centered Editorial Block ── */
+.editorial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(12px, 2vw, 20px);
+  max-width: 780px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+/* Entrance animations – staggered offsets synced with curtain */
+.eyebrow {
+  opacity: 0;
+  animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.20s both;
+  will-change: opacity, transform;
+}
+
+.heading {
+  opacity: 0;
+  animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.28s both;
+  will-change: opacity, transform;
+}
+
+.subheading {
+  opacity: 0;
+  animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.35s both;
+  will-change: opacity, transform;
+}
+
+.ctaRow {
+  opacity: 0;
+  animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.42s both;
+  will-change: opacity, transform;
+}
+
+/* ── Eyebrow Pill Badge ── */
+.eyebrowPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--color-accent-light, #e8f0fe);
+  color: var(--color-accent, #0071e3);
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent, #0071e3);
+  flex-shrink: 0;
+}
+
+/* ── Main Heading ── */
+.headingText {
+  font-size: clamp(26px, 4.5vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary, #1d1d1f);
+  max-width: 740px;
+}
+
+.headingAccent {
+  color: var(--color-accent, #0071e3);
+}
+
+/* ── Sub-heading ── */
+.subText {
+  font-size: clamp(14px, 1.8vw, 17px);
+  line-height: 1.65;
+  color: var(--color-text-secondary, #6e6e73);
+  max-width: 620px;
+}
+
+/* ── CTA Action Row ── */
+.ctaRowInner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  background: var(--color-accent, #0071e3);
+  color: #fff;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: background 200ms ease, transform 160ms ease, box-shadow 200ms ease;
+  box-shadow: 0 4px 18px rgba(0, 113, 227, 0.28);
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.ctaPrimary:hover {
+  background: var(--color-accent-hover, #0077ed);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 113, 227, 0.38);
+}
+
+.ctaPrimary:active {
+  transform: translateY(0);
+}
+
+.ctaArrow {
+  transition: transform 200ms ease;
+  display: inline-block;
+}
+
+.ctaPrimary:hover .ctaArrow {
+  transform: translateY(3px);
+}
+
+/* ── Slideshow Section ── */
+.slideshowOuter {
+  opacity: 0;
+  animation: heroFadeUp 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.48s both;
+  will-change: opacity, transform;
+
+  /* Strict layer isolation: prevents any ongoing wipe from touching product cards */
+  isolation: isolate;
+  contain: layout paint;
+  transform: translateZ(0);
+}
+
+.slideshowFrame {
+  position: relative;
+  width: 100%;
+  max-width: 1160px;
+  margin-inline: auto;
+  margin-top: clamp(32px, 5vw, 52px);
+  padding-inline: clamp(16px, 4vw, 40px);
+
+  aspect-ratio: 16 / 8;
+  border-radius: clamp(14px, 2vw, 24px);
+  overflow: hidden;
+
+  background: #0f172a;
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.10), 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--color-border, #e0e0e5);
+
+  cursor: grab;
+  user-select: none;
+}
+
+.slideshowFrame:active {
+  cursor: grabbing;
+}
+
+/* ── Slide Stack ── */
+.slideTrack {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #0f172a;
+  /* GPU transform prep */
+  will-change: transform;
+  transform: translate3d(100%, 0, 0);
+  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.slide.active {
+  transform: translate3d(0, 0, 0);
+}
+
+.slide.exiting {
+  transform: translate3d(-40%, 0, 0);
+}
+
+/* ── Inner Image with Parallax Scale ── */
+.slideImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Parallax scale: incoming = scale(1.06) → scale(1) */
+  will-change: transform;
+  transform: scale(1.06);
+  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.slide.active .slideImage {
+  transform: scale(1);
+}
+
+.slide.exiting .slideImage {
+  transform: scale(1);
+}
+
+/* ── Subtle gradient overlay for caption legibility ── */
+.slideOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.12) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ── Caption Badge (bottom-left corner) ── */
+.captionBadge {
+  position: absolute;
+  bottom: clamp(52px, 8%, 68px);
+  left: clamp(14px, 3%, 28px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 10px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 100px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.captionNumber {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+/* ── Progress Bars (bottom strip) ── */
+.progressBars {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 3px;
+  padding: 0 clamp(14px, 3%, 24px) clamp(12px, 2.5%, 18px);
+  align-items: flex-end;
+}
+
+.progressBar {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.28);
+  overflow: hidden;
+  cursor: pointer;
+  transition: height 0.2s ease;
+}
+
+.progressBar:hover {
+  height: 5px;
+}
+
+.progressBarFill {
+  height: 100%;
+  border-radius: 2px;
+  background: #fff;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.progressBar.done .progressBarFill {
+  transform: scaleX(1);
+}
+
+.progressBar.active .progressBarFill {
+  animation: progressFill var(--progress-duration, 4500ms) linear both;
+}
+
+/* ── Nav Arrow Buttons ── */
+.arrowBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(36px, 5vw, 44px);
+  height: clamp(36px, 5vw, 44px);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 200ms ease, transform 200ms ease;
+  z-index: 10;
+}
+
+.arrowBtn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.arrowBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.arrowPrev {
+  left: clamp(10px, 2%, 18px);
+}
+
+.arrowNext {
+  right: clamp(10px, 2%, 18px);
+}
+
+/* ── Responsive: Tablet ── */
+@media (max-width: 1024px) {
+  .slideshowFrame {
+    aspect-ratio: 16 / 10;
+    padding-inline: 20px;
+  }
+}
+
+/* ── Responsive: Mobile ── */
+@media (max-width: 640px) {
+  .slideshowFrame {
+    aspect-ratio: 4 / 3;
+    padding-inline: 0;
+    border-radius: clamp(12px, 4vw, 18px);
+    margin-inline: 16px;
+    width: calc(100% - 32px);
+  }
+
+  .captionBadge {
+    font-size: 11px;
+    padding: 5px 10px 5px 8px;
+    bottom: 48px;
+  }
+
+  .arrowBtn {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ── Reduced motion: Disable animations entirely, show first slide ── */
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .heading,
+  .subheading,
+  .ctaRow,
+  .slideshowOuter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .slide {
+    transition: none;
+  }
+
+  .slideImage {
+    transition: none;
+    transform: none;
+  }
+
+  .progressBar.active .progressBarFill {
+    animation: none;
+    transform: scaleX(1);
+  }
+}

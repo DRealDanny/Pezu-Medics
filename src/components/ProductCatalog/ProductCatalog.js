@@ -5,14 +5,21 @@ import ProductCard from "@/components/ProductCard/ProductCard";
 import ViewToggle from "@/components/ViewToggle/ViewToggle";
 import { PRODUCT_CATEGORIES, getCategoryBadge } from "@/lib/categories";
 import { useSearch } from "@/context/SearchContext";
+import initialSeedProducts from "@/data/products.json";
 import styles from "./ProductCatalog.module.css";
 
 const ITEMS_PER_PAGE = 20;
 
-export default function ProductCatalog() {
-  const [products, setProducts] = useState([]);
+export default function ProductCatalog({ initialProducts: propProducts }) {
+  const defaultList = useMemo(() => {
+    if (Array.isArray(propProducts) && propProducts.length > 0) return propProducts;
+    if (Array.isArray(initialSeedProducts) && initialSeedProducts.length > 0) return initialSeedProducts;
+    return [];
+  }, [propProducts]);
+
+  const [products, setProducts] = useState(defaultList);
   const [view, setView] = useState("grid"); // "grid" | "list"
-  const [status, setStatus] = useState("loading"); // "loading" | "success" | "error"
+  const [status, setStatus] = useState(defaultList.length > 0 ? "success" : "loading"); // "loading" | "success" | "error"
   const [currentPage, setCurrentPage] = useState(1);
 
   const {
@@ -67,7 +74,9 @@ export default function ProductCatalog() {
         }
       } catch (err) {
         console.error("Failed to load products:", err);
-        if (!cancelled && fetchId === activeFetchId) setStatus("error");
+        if (!cancelled && fetchId === activeFetchId) {
+          setStatus((prev) => (prev === "success" || defaultList.length > 0 ? "success" : "error"));
+        }
       }
     }
 
@@ -152,7 +161,7 @@ export default function ProductCatalog() {
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > totalPages || newPage === currentPage) return;
     setCurrentPage(newPage);
-    const catalogEl = document.getElementById("product-catalog");
+    const catalogEl = document.getElementById("our-product-price");
     if (catalogEl) {
       catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -174,7 +183,7 @@ export default function ProductCatalog() {
 
 
   return (
-    <section id="product-catalog" className={styles.catalog} aria-label="Product catalog">
+    <section id="our-product-price" className={styles.catalog} aria-label="Product catalog" style={{ scrollMarginTop: "80px" }}>
       <div className="container">
         {/* Toolbar */}
         <div className={styles.toolbar}>

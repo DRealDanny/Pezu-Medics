@@ -14,10 +14,10 @@ export default function CurtainReveal() {
       return;
     }
 
-    // Safety fallback timer to guarantee full DOM unmount (0.48s stagger + 0.85s duration = 1.33s)
+    // Safety fallback timer to guarantee full DOM unmount (0.30s stagger + 0.70s duration = 1.00s)
     const timer = setTimeout(() => {
       setIsDone(true);
-    }, 1450);
+    }, 1050);
 
     // Optional event listener to replay curtain reveal on demand for testing
     const handleReplay = () => {

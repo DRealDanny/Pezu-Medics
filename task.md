@@ -1,44 +1,45 @@
-# Task: Implement a Lightweight 4-Column Staggered Curtain Initial Load Reveal (GSAP + Next.js)
+# Task: Implement a Centered Editorial Hero Section with a Rectangular "Smooth Slide Wipe" Slideshow Above "Our Product Price"
 
 ## 1. Context & Codebase Inspection
 
-Before making changes:
+Before writing code, inspect our project structure:
 
-1. Check `package.json` for `gsap` and `@gsap/react`. Install them if missing.
-2. Inspect our styling setup (Tailwind CSS / global CSS) and primary brand palette so the curtain columns use our primary dark/surface background color.
-3. Locate the main entry file (`app/page.tsx` or `app/layout.tsx`) for this one-page site.
+1. Check the main page component (where `CurtainReveal` and the `"Our Product Price"` section live) and inspect our existing styling pattern (`.module.css` / global CSS / Tailwind).
+2. Locate the `"Our Product Price"` section container so we can place the new `<HeroSection />` directly above it and wire up a smooth-scroll anchor (`id="our-product-price"`).
+3. Match our existing brand palette, typography, and the `cubic-bezier(0.76, 0, 0.24, 1)` luxury momentum curve used in `CurtainReveal.module.css`.
 
-## 2. Build `<CurtainReveal />` (`components/CurtainReveal.tsx`)
+## 2. Layout Architecture: Centered Editorial + Wide Rectangular Frame
 
-Create a lightweight client component (`"use client"`) that triggers once every time the page loads or reloads.
+Create `HeroSection.js` and `HeroSection.module.css` using a clean **Centered Editorial** hierarchy:
 
-### Zero-Flash SSR Initial State (Crucial)
+### A. Top Centered Content Block
 
-- Render the 4 vertical columns at their covered starting position (`translateY(0%)`) directly in the initial JSX/CSS so the screen is already covered on Server-Side Render (SSR) from millisecond zero—preventing any Flash of Unstyled Content (FOUC) on page reload before JS hydrates.
+- **Eyebrow Pill Badge:** Subtle clinical badge centered at the top (e.g., `"TRUSTED CLINICAL & LABORATORY SUPPLY PARTNER"`).
+- **Main Heading (`h1`):** High-contrast, authoritative centered headline:
+  `"Certified Medical Equipment & Consumables, Priced Transparently."`
+- **Subheading (`p`):** Centered, constrained width (`max-width: 680px`) for effortless reading:
+  `"Equipping hospitals, diagnostic centers, and clinics with verified surgical instruments, rapid diagnostics, and essential medical supplies—ready for fast dispatch."`
+- **CTA Action Row:**
+  - Primary Button: `"Explore Our Product Prices ↓"` — clicking this smoothly scrolls the user directly to `#our-product-price` (with an appropriate `scroll-margin-top` so the section header lands cleanly in view).
+  - Users can also naturally scroll past the hero straight into the catalog with zero scroll-jacking.
 
-### GSAP Animation Specs
+### B. Bottom Wide Rectangular Slideshow Container
 
-- Use `useGSAP` from `@gsap/react` scoped to the container ref.
-- Animate the 4 columns upward off-screen using GPU-accelerated `yPercent: -100`.
-- **Timing Configuration:**
-  - `duration: 0.85`
-  - `stagger: 0.12` (left-to-right across the 4 cuts)
-  - `delay: 0.1`
-  - `ease: "expo.inOut"`
+- Below the CTA button, render a wide **rectangular landscape frame** (`max-width: 1160px`, `width: 100%`, `aspect-ratio: 16 / 8` on desktop, `aspect-ratio: 16 / 10` on tablet/mobile) with rounded corners (`border-radius: 16px` to `24px`), `overflow: hidden`, and a subtle premium border/elevation.
+- Define an easy-to-edit `HERO_SLIDES` array at the top of `HeroSection.js` with **4 landscape placeholder images** (use clean, high-resolution medical/surgical/laboratory landscape placeholder URLs that I can easily replace with my own rectangular photos later), each with a subtle corner caption badge (e.g., `"01 / Diagnostic & Monitoring Equipment"`, `"02 / Surgical & Theatre Instruments"`, `"03 / Laboratory & Rapid Testing"`, `"04 / Hospital Consumables & Disposables"`).
 
-## 3. Extreme Performance & Complete DOM Unmount
+## 3. Slideshow Mechanics: GPU "Smooth Slide Wipe" Transition
 
-- **Zero Layout Shift:** Style the wrapper with `fixed inset-0 z-[9999] pointer-events-none overflow-hidden grid grid-cols-4 w-full h-[100dvh] min-h-screen`.
-- **Self-Destruct on Complete:** Because this is a one-page website and the animation only runs on initial load/reload, use an `onComplete` callback in the GSAP tween to set `const [isDone, setIsDone] = useState(false)` -> `setIsDone(true)`. When `isDone` is `true`, return `null` so the component completely unmounts from the DOM and uses zero memory or GPU layers afterwards.
-- **Hardware Acceleration:** Apply `will-change-transform` and `backface-visibility: hidden` to each column while active.
-- **Accessibility:** Respect `prefers-reduced-motion: reduce` by immediately unmounting or doing a fast 0.15s opacity fade if enabled.
+- **Smooth Slide Wipe:** Transition between the 4 rectangular slides every `4.5s` using a horizontal wipe/slide transition driven strictly by GPU compositor transforms (`translate3d` + `cubic-bezier(0.76, 0, 0.24, 1)` over `0.85s`).
+- **Inner Parallax Polish:** As the incoming slide wipes across from `translate3d(100%, 0, 0)` to `translate3d(0, 0, 0)`, add a subtle counter-scale/parallax on the inner image (`scale(1.06)` settling to `scale(1)`) so the wipe feels editorial and high-end rather than a flat carousel shift.
+- **Interactive Controls:**
+  - Render 4 sleek segmented progress bars at the bottom of the rectangular image frame that fill smoothly over the `4.5s` interval and allow clicking to jump to any slide.
+  - Include Previous / Next arrow buttons and touch-swipe support on mobile.
+  - Pause the auto-advance timer when the user hovers over the slideshow frame.
 
-## 4. All-Screen Responsiveness & Visual Polish
+## 4. Curtain-to-Hero Choreography & Locked 60–120 FPS Performance
 
-- **Mobile Viewport Fix:** Use `h-[100dvh]` with `min-h-screen` fallback so mobile Safari and Chrome address bars never leave a gap at the bottom of the curtain.
-- **Sub-Pixel Seam Fix:** Apply `scale-x-[1.01]` (or a `-1px` horizontal margin overlap) on each of the 4 columns so high-DPI mobile and Retina displays never show 1px vertical hairline gaps between the cuts before they slide up.
-
-## 5. Integration
-
-- Mount `<CurtainReveal />` at the top of our main page (`app/page.tsx` or `app/layout.tsx`).
-- Verify there are no React hydration warnings or TypeScript errors.
+- **Synchronized Entrance with `CurtainReveal`:** Use pure CSS compositor keyframes (`translate3d` and `opacity` with `cubic-bezier(0.76, 0, 0.24, 1)`) staggered with small `animation-delay` offsets (`0.35s` for eyebrow/heading, `0.45s` for subheading/CTA, `0.55s` for the rectangular slideshow frame) so the Hero glides into place right as the 4 curtain columns lift on page reload.
+- **Strict Layer Isolation (Protect the 319 Product Cards Below):** Apply `isolation: isolate; contain: layout paint; transform: translateZ(0);` to the rectangular slideshow container so the ongoing 4.5-second slide wipes never trigger layout recalculations or repaints on the 319 product cards in `"Our Product Price"` below.
+- **Image Optimization:** Set the first slide image to `loading="eager"` and `fetchPriority="high"` so it is immediately ready when the curtain opens, and lazy-preload slides 2–4.
+- **Responsive Across All Screens:** Ensure fluid typography (`clamp()`), comfortable padding on mobile viewports, and respect `prefers-reduced-motion: reduce`.
