@@ -20,7 +20,7 @@ export default function Footer() {
             />
             <p>
               Supplying clinics, hospitals, and healthcare professionals with
-              reliable medical equipment and consumables since 2010.
+              reliable medical equipment and consumables.
             </p>
           </div>
 
@@ -30,23 +30,23 @@ export default function Footer() {
             <ul>
               <li className={styles.contactItem}>
                 <span className={styles.contactLabel}>Email</span>
-                <span>info@pezumedics.com.ng</span>
+                <span>pezustandardmedicsconcerns@gmail.com</span>
               </li>
               <li className={styles.contactItem}>
                 <span className={styles.contactLabel}>Phone</span>
-                <span>+234 (0) 800 000 0000</span>
+                <span>+234 810 511 7437</span>
               </li>
               <li className={styles.contactItem}>
                 <span className={styles.contactLabel}>Addr.</span>
                 <span>
-                  14 Marina Street, Lagos
+                  24 Alubomimu street, off Imaro Street
                   <br />
-                  Lagos Island, Nigeria
+                  Idumota, Lagos Island, Nigeria
                 </span>
               </li>
               <li className={styles.contactItem}>
                 <span className={styles.contactLabel}>Hours</span>
-                <span>Mon – Fri, 08:00 – 17:00 WAT</span>
+                <span>Mon – Sat, Open 24 hours</span>
               </li>
             </ul>
           </div>
