@@ -1,6 +1,6 @@
 /* ============================================================
    CURTAIN REVEAL - 4-COLUMN STAGGERED LOAD REVEAL
-   Pezu Medics – Lightweight GSAP-powered Reveal
+   Ultra-Smooth Hardware-Accelerated Compositor Animation
    ============================================================ */
 
 .curtainWrapper {
@@ -15,6 +15,17 @@
   height: 100vh;
   height: 100dvh;
   min-height: 100vh;
+
+  /* 
+   * CRITICAL FOR ZERO-LAG:
+   * 1. isolate: prevents repaint triggers on the 300+ items beneath the curtain
+   * 2. contain strict: informs browser engine that this layer is an isolated render tree
+   * 3. translateZ(0): forces a dedicated GPU composite surface
+   */
+  isolation: isolate;
+  contain: strict;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .curtainColumn {
@@ -23,10 +34,45 @@
   margin-left: -1px;
   height: 100%;
   background-color: var(--color-accent, #0071e3);
-  transform: translateY(0%);
+
+  /* Force hardware GPU acceleration layer */
   will-change: transform;
+  transform: translate3d(0, 0%, 0);
+  -webkit-transform: translate3d(0, 0%, 0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* 
+ * Compositor-Thread Keyframe Animation:
+ * Runs on the GPU Compositor thread independently of JavaScript/React hydration.
+ * Even during heavy network/CPU hydration, this never drops a frame.
+ */
+@keyframes slideUpGPU {
+  0% {
+    transform: translate3d(0, 0%, 0);
+  }
+  100% {
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.curtainColumn:nth-child(1) {
+  animation: slideUpGPU 0.85s cubic-bezier(0.76, 0, 0.24, 1) 0.12s both;
+}
+
+.curtainColumn:nth-child(2) {
+  animation: slideUpGPU 0.85s cubic-bezier(0.76, 0, 0.24, 1) 0.24s both;
+}
+
+.curtainColumn:nth-child(3) {
+  animation: slideUpGPU 0.85s cubic-bezier(0.76, 0, 0.24, 1) 0.36s both;
+}
+
+.curtainColumn:nth-child(4) {
+  animation: slideUpGPU 0.85s cubic-bezier(0.76, 0, 0.24, 1) 0.48s both;
 }
 
 /* Accessibility: Instant bypass for users preferring reduced motion */
