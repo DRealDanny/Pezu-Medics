@@ -7,10 +7,14 @@ import { PRODUCT_CATEGORIES, getCategoryBadge } from "@/lib/categories";
 import { useSearch } from "@/context/SearchContext";
 import styles from "./ProductCatalog.module.css";
 
+const ITEMS_PER_PAGE = 20;
+
 export default function ProductCatalog() {
   const [products, setProducts] = useState([]);
   const [view, setView] = useState("grid"); // "grid" | "list"
   const [status, setStatus] = useState("loading"); // "loading" | "success" | "error"
+  const [currentPage, setCurrentPage] = useState(1);
+
   const {
     searchQuery,
     performGlobalSearch,
@@ -117,6 +121,57 @@ export default function ProductCatalog() {
       return true;
     });
   }, [products, selectedCategory, searchQuery]);
+
+  // Is search engine actively used
+  const isSearchActive = Boolean(searchQuery.trim());
+
+  // Reset page when category or search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, searchQuery]);
+
+  // Total pages calculation
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / ITEMS_PER_PAGE));
+
+  // Clamp current page if total pages decreases
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [totalPages, currentPage]);
+
+  // Paginated product slice: SEARCH displays ALL results; Filtered browsing displays 20 per page
+  const displayedProducts = useMemo(() => {
+    if (isSearchActive) {
+      return filteredProducts;
+    }
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredProducts.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredProducts, currentPage, isSearchActive]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages || newPage === currentPage) return;
+    setCurrentPage(newPage);
+    const catalogEl = document.getElementById("product-catalog");
+    if (catalogEl) {
+      catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  // Smart page numbers windowing for desktop/tablet
+  const pageNumbers = useMemo(() => {
+    if (totalPages <= 7) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    if (currentPage <= 4) {
+      return [1, 2, 3, 4, 5, "...", totalPages];
+    }
+    if (currentPage >= totalPages - 3) {
+      return [1, "...", totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+    }
+    return [1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages];
+  }, [currentPage, totalPages]);
+
 
   return (
     <section id="product-catalog" className={styles.catalog} aria-label="Product catalog">
@@ -236,12 +291,24 @@ export default function ProductCatalog() {
               )}
             </div>
 
-            {status === "success" && (
-              <span className={styles.productCount} aria-live="polite">
-                {filteredProducts.length} {filteredProducts.length === 1 ? "product" : "products"}
-              </span>
-            )}
-            <ViewToggle view={view} onChange={setView} />
+            <div className={styles.toolbarActions}>
+              {status === "success" && (
+                <span className={styles.productCount} aria-live="polite">
+                  {isSearchActive
+                    ? `${filteredProducts.length} ${filteredProducts.length === 1 ? "match" : "matches"}`
+                    : `Showing ${
+                        filteredProducts.length === 0
+                          ? 0
+                          : `${(currentPage - 1) * ITEMS_PER_PAGE + 1}–${Math.min(
+                              currentPage * ITEMS_PER_PAGE,
+                              filteredProducts.length
+                            )} of ${filteredProducts.length}`
+                      }`}
+                </span>
+              )}
+
+              <ViewToggle view={view} onChange={setView} />
+            </div>
           </div>
         </div>
 
@@ -303,15 +370,107 @@ export default function ProductCatalog() {
                 </div>
               </div>
             ) : (
-              <div
-                id="product-grid"
-                className={view === "grid" ? styles.gridLayout : styles.listLayout}
-                aria-label={view === "grid" ? "Products in grid view" : "Products in list view"}
-              >
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} view={view} />
-                ))}
-              </div>
+              <>
+                <div
+                  id="product-grid"
+                  className={view === "grid" ? styles.gridLayout : styles.listLayout}
+                  aria-label={view === "grid" ? "Products in grid view" : "Products in list view"}
+                >
+                  {displayedProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} view={view} />
+                  ))}
+                </div>
+
+                {/* Pagination Controls (Active for category / all browsing; bypassed during active search) */}
+                {!isSearchActive && totalPages > 1 && (
+                  <nav className={styles.paginationWrapper} aria-label="Product catalog pagination">
+                    <div className={styles.paginationContainer}>
+                      <button
+                        type="button"
+                        id="pagination-prev-btn"
+                        className={`${styles.pageBtn} ${styles.navBtn}`}
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        aria-label="Go to previous page"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <polyline points="15 18 9 12 15 6" />
+                        </svg>
+                        <span>Prev</span>
+                      </button>
+
+                      {/* Desktop / Tablet Page Numbers */}
+                      <div className={styles.pageNumberList}>
+                        {pageNumbers.map((p, idx) =>
+                          p === "..." ? (
+                            <span key={`ellipsis-${idx}`} className={styles.ellipsis} aria-hidden="true">
+                              …
+                            </span>
+                          ) : (
+                            <button
+                              key={p}
+                              type="button"
+                              className={`${styles.pageBtn}${currentPage === p ? ` ${styles.pageBtnActive}` : ""}`}
+                              onClick={() => handlePageChange(p)}
+                              aria-label={`Go to page ${p}`}
+                              aria-current={currentPage === p ? "page" : undefined}
+                            >
+                              {p}
+                            </button>
+                          )
+                        )}
+                      </div>
+
+                      {/* Mobile Page Indicator */}
+                      <div className={styles.mobilePageIndicator} aria-current="page">
+                        Page {currentPage} of {totalPages}
+                      </div>
+
+                      <button
+                        type="button"
+                        id="pagination-next-btn"
+                        className={`${styles.pageBtn} ${styles.navBtn}`}
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        aria-label="Go to next page"
+                      >
+                        <span>Next</span>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    <div className={styles.paginationInfo}>
+                      <span>Page {currentPage} of {totalPages}</span>
+                      <span>•</span>
+                      <span className={styles.paginationInfoBadge}>
+                        20 products per page
+                      </span>
+                    </div>
+                  </nav>
+                )}
+              </>
             )}
           </>
         )}
