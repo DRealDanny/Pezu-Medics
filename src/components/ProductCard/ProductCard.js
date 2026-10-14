@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import styles from "./ProductCard.module.css";
 import { getCategoryBadge } from "@/lib/categories";
 
@@ -22,6 +23,19 @@ const WHATSAPP_PHONE = "2348105117437";
  * @param {{ product: object, view: "grid" | "list" }} props
  */
 export default function ProductCard({ product, view }) {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    // Detect desktop safely on client mount without SSR mismatch
+    const isMobileDevice =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) ||
+      (window.matchMedia && window.matchMedia("(max-width: 768px)").matches);
+
+    setIsDesktop(!isMobileDevice);
+  }, []);
+
   const { id, name, price, category, description } = product || {};
   const formattedPrice = `₦${Number(price || 0).toLocaleString("en-US", {
     minimumFractionDigits: 2,
@@ -50,6 +64,27 @@ export default function ProductCard({ product, view }) {
   const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
     whatsappMessage
   )}`;
+
+  const handleEnquireClick = (e) => {
+    e.stopPropagation();
+
+    // On mobile devices, direct same-window navigation triggers WhatsApp
+    // immediately without Chrome creating a blank tab or showing a gray preview box.
+    const isMobileDevice =
+      typeof navigator !== "undefined" &&
+      (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) ||
+        (typeof window !== "undefined" &&
+          (window.innerWidth <= 768 ||
+            ("ontouchstart" in window && window.innerWidth <= 1024))));
+
+    if (isMobileDevice) {
+      e.preventDefault();
+      window.location.assign(whatsappUrl);
+    }
+  };
+
 
   if (view === "list") {
     return (
@@ -85,10 +120,10 @@ export default function ProductCard({ product, view }) {
             <span className={styles.price}>{formattedPrice}</span>
             <a
               href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={isDesktop ? "_blank" : undefined}
+              rel={isDesktop ? "noopener noreferrer" : undefined}
               className={styles.cta}
-              onClick={(e) => e.stopPropagation()}
+              onClick={handleEnquireClick}
               aria-label={`Enquire about ${name}`}
             >
               Enquire
@@ -133,10 +168,10 @@ export default function ProductCard({ product, view }) {
           <span className={styles.price}>{formattedPrice}</span>
           <a
             href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={isDesktop ? "_blank" : undefined}
+            rel={isDesktop ? "noopener noreferrer" : undefined}
             className={styles.cta}
-            onClick={(e) => e.stopPropagation()}
+            onClick={handleEnquireClick}
             aria-label={`Enquire about ${name}`}
           >
             Enquire

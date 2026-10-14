@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   transition: box-shadow var(--transition-base), transform var(--transition-base);
-  cursor: pointer;
+  cursor: default;
 }
 
 .cardGrid:hover {
@@ -138,12 +138,22 @@
   justify-content: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
 .cta:hover {
   background-color: var(--color-accent);
   color: #fff;
+}
+
+.cta:active {
+  background-color: var(--color-accent-hover, #0077ed);
+  color: #fff;
+  transform: scale(0.97);
 }
 
 /* ── List card ── */
@@ -155,7 +165,7 @@
   display: flex;
   align-items: stretch;
   transition: box-shadow var(--transition-base);
-  cursor: pointer;
+  cursor: default;
 }
 
 .cardList:hover {
