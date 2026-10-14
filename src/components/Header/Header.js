@@ -106,7 +106,7 @@ export default function Header() {
             width={204}
             height={42}
             priority
-            unoptimized
+            fetchPriority="high"
             className={styles.brandLogo}
           />
         </Link>

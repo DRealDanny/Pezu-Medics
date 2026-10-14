@@ -15,7 +15,6 @@ export default function Footer() {
               alt="Pezu Standard Medical Concern"
               width={180}
               height={37}
-              unoptimized
               className={styles.footerLogo}
             />
             <p className={styles.brandBlurb}>

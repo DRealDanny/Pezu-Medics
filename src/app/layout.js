@@ -1,5 +1,13 @@
+import { Inter } from "next/font/google";
 import "./globals.css";
 import CurtainReveal from "@/components/CurtainReveal";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata = {
   title: "Pezu Medics – Medical Product Catalog",
@@ -14,8 +22,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={inter.variable}>
+      <body className={inter.className}>
         <CurtainReveal />
         {children}
       </body>
