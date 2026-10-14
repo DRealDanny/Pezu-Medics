@@ -15,6 +15,8 @@ function PlaceholderImage({ name }) {
   );
 }
 
+const WHATSAPP_PHONE = "2348105117437";
+
 /**
  * ProductCard
  * @param {{ product: object, view: "grid" | "list" }} props
@@ -28,6 +30,26 @@ export default function ProductCard({ product, view }) {
 
   const cleanDescription = (description || "").trim();
   const categoryBadge = getCategoryBadge(category);
+
+  // Pre-filled WhatsApp message housing Name, Price, and Description
+  const messageLines = [
+    "Hello Pezu Standard Medics, I would like to make an enquiry:",
+    "",
+    `*Product:* ${name || "Medical Product"}`,
+    `*Price:* ${formattedPrice}`,
+  ];
+
+  if (cleanDescription) {
+    messageLines.push(`*Description:* ${cleanDescription}`);
+  }
+
+  messageLines.push("");
+  messageLines.push("Is this product available for order/dispatch?");
+
+  const whatsappMessage = messageLines.join("\n");
+  const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
+    whatsappMessage
+  )}`;
 
   if (view === "list") {
     return (
@@ -61,9 +83,16 @@ export default function ProductCard({ product, view }) {
           </div>
           <div className={styles.cardListMeta}>
             <span className={styles.price}>{formattedPrice}</span>
-            <button className={styles.cta} aria-label={`Enquire about ${name}`}>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.cta}
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`Enquire about ${name}`}
+            >
               Enquire
-            </button>
+            </a>
           </div>
         </div>
       </article>
@@ -102,9 +131,16 @@ export default function ProductCard({ product, view }) {
         )}
         <div className={styles.cardFooter}>
           <span className={styles.price}>{formattedPrice}</span>
-          <button className={styles.cta} aria-label={`Enquire about ${name}`}>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.cta}
+            onClick={(e) => e.stopPropagation()}
+            aria-label={`Enquire about ${name}`}
+          >
             Enquire
-          </button>
+          </a>
         </div>
       </div>
     </article>

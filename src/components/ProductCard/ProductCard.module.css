@@ -133,6 +133,11 @@
   border-radius: 20px;
   border: 1.5px solid var(--color-accent);
   background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
