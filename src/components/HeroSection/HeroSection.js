@@ -16,29 +16,25 @@ const HERO_SLIDES = [
     id: 1,
     src: "/images/hero/hero_01.webp",
     alt: "Pezu Standard Medics Concern - Certified Medical Supplies & Equipment",
-    caption: "Certified Medical Supplies",
-    number: "01",
+    caption: "Certified Medical Suppliers",
   },
   {
     id: 2,
     src: "/images/hero/hero_02.webp",
     alt: "Medical and surgical consumables, syringes, gloves, and theatre instruments",
-    caption: "Medical & Surgical Consumables",
-    number: "02",
+    caption: "Medical & Surgical Disposable",
   },
   {
     id: 3,
     src: "/images/hero/hero_03.webp",
     alt: "Advanced laboratory testing and diagnostic equipment",
-    caption: "Laboratory & Rapid Testing",
-    number: "03",
+    caption: "Laboratory Products",
   },
   {
     id: 4,
     src: "/images/hero/hero_04.webp",
     alt: "Operating theatre and clinical monitoring equipment",
-    caption: "Operating Theatre Equipment",
-    number: "04",
+    caption: "Medical Equipment",
   },
 ];
 
