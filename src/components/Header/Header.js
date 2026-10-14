@@ -85,7 +85,7 @@ export default function Header() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const catalogEl = document.getElementById("product-catalog");
+    const catalogEl = document.getElementById("our-product-price") || document.getElementById("product-catalog");
     if (catalogEl) {
       catalogEl.scrollIntoView({ behavior: "smooth" });
     }

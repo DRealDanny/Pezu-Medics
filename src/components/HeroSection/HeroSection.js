@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import { useSearch } from "@/context/SearchContext";
 import styles from "./HeroSection.module.css";
 
 /* ── ─────────────────────────────────────────────── ──
@@ -44,6 +45,9 @@ const HERO_SLIDES = [
 const SLIDE_DURATION = 4500; // ms per slide
 
 export default function HeroSection() {
+  const { searchQuery } = useSearch();
+  const hasQuery = Boolean(searchQuery && searchQuery.trim().length > 0);
+
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -87,6 +91,11 @@ export default function HeroSection() {
     return () => clearTimeout(t);
   }, [prev]);
 
+  /* ── When a search keyword is entered anywhere in navigation/header, hide hero ── */
+  if (hasQuery) {
+    return null;
+  }
+
   /* ── Touch / swipe support ── */
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -120,14 +129,6 @@ export default function HeroSection() {
       <div className="container">
         {/* ── Centered Editorial Block ── */}
         <div className={styles.editorial}>
-          {/* Eyebrow Pill */}
-          <div className={styles.eyebrow} aria-hidden="false">
-            <span className={styles.eyebrowPill}>
-              <span className={styles.eyebrowDot} aria-hidden="true" />
-              Trusted Clinical &amp; Laboratory Supply Partner
-            </span>
-          </div>
-
           {/* H1 Heading */}
           <h1 className={styles.heading}>
             <span className={styles.headingText}>

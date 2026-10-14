@@ -44,27 +44,21 @@
 }
 
 /* Entrance animations – staggered offsets synced with curtain */
-.eyebrow {
+.heading {
   opacity: 0;
   animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.20s both;
   will-change: opacity, transform;
 }
 
-.heading {
+.subheading {
   opacity: 0;
   animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.28s both;
   will-change: opacity, transform;
 }
 
-.subheading {
-  opacity: 0;
-  animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.35s both;
-  will-change: opacity, transform;
-}
-
 .ctaRow {
   opacity: 0;
-  animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.42s both;
+  animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.35s both;
   will-change: opacity, transform;
 }
 
@@ -163,7 +157,7 @@
 /* ── Slideshow Section ── */
 .slideshowOuter {
   opacity: 0;
-  animation: heroFadeUp 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.48s both;
+  animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.42s both;
   will-change: opacity, transform;
 
   /* Strict layer isolation: prevents any ongoing wipe from touching product cards */
