@@ -46,6 +46,7 @@ export default function HeroSection() {
 
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState(null);
+  const [direction, setDirection] = useState("next");
   const [isPaused, setIsPaused] = useState(false);
   const [progressKey, setProgressKey] = useState(0); // force re-mount of progress bar animation
 
@@ -60,6 +61,7 @@ export default function HeroSection() {
     (index) => {
       if (index === current) return;
       const clamped = ((index % totalSlides) + totalSlides) % totalSlides;
+      setDirection(index >= current ? "next" : "prev");
       setPrev(current);
       setCurrent(clamped);
       setProgressKey((k) => k + 1);
@@ -175,12 +177,25 @@ export default function HeroSection() {
               const isActive = idx === current;
               const isExiting = idx === prev;
               if (!isActive && !isExiting) return null;
+
+              const isAnimating = prev !== null;
+              let slideClasses = styles.slide;
+              if (isActive) {
+                slideClasses += ` ${styles.active}`;
+                if (isAnimating) {
+                  slideClasses +=
+                    direction === "prev"
+                      ? ` ${styles.coverInFromLeft}`
+                      : ` ${styles.coverInFromRight}`;
+                }
+              } else if (isExiting) {
+                slideClasses += ` ${styles.exiting}`;
+              }
+
               return (
                 <div
                   key={slide.id}
-                  className={`${styles.slide}${isActive ? ` ${styles.active}` : ""}${
-                    isExiting ? ` ${styles.exiting}` : ""
-                  }`}
+                  className={slideClasses}
                   aria-hidden={!isActive}
                 >
                   <Image
@@ -195,8 +210,15 @@ export default function HeroSection() {
                     quality={82}
                   />
                   <div className={styles.slideOverlay} aria-hidden="true" />
-                  <div className={styles.captionBadge} aria-label={`Slide ${slide.number}: ${slide.caption}`}>
-                    <span className={styles.captionNumber}>{slide.number}</span>
+                  <div
+                    className={styles.captionBadge}
+                    aria-label={slide.caption}
+                  >
+                    {slide.number && (
+                      <span className={styles.captionNumber}>
+                        {slide.number}
+                      </span>
+                    )}
                     <span>{slide.caption}</span>
                   </div>
                 </div>
@@ -205,7 +227,11 @@ export default function HeroSection() {
           </div>
 
           {/* Progress Bars */}
-          <div className={styles.progressBars} role="tablist" aria-label="Slide navigation">
+          <div
+            className={styles.progressBars}
+            role="tablist"
+            aria-label="Slide navigation"
+          >
             {HERO_SLIDES.map((slide, idx) => (
               <button
                 key={slide.id}
@@ -226,28 +252,6 @@ export default function HeroSection() {
               </button>
             ))}
           </div>
-
-          {/* Prev / Next Arrow Buttons */}
-          <button
-            type="button"
-            className={`${styles.arrowBtn} ${styles.arrowPrev}`}
-            onClick={goPrev}
-            aria-label="Previous slide"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            className={`${styles.arrowBtn} ${styles.arrowNext}`}
-            onClick={goNext}
-            aria-label="Next slide"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
         </div>
       </div>
     </section>
