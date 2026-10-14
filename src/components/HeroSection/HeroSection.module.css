@@ -206,15 +206,18 @@
   /* GPU transform prep */
   will-change: transform;
   transform: translate3d(100%, 0, 0);
-  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+  z-index: 0;
 }
 
 .slide.active {
   transform: translate3d(0, 0, 0);
+  z-index: 2;
 }
 
 .slide.exiting {
-  transform: translate3d(-40%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+  z-index: 1;
 }
 
 /* ── Inner Image with Parallax Scale ── */

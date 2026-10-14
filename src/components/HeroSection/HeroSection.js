@@ -14,30 +14,30 @@ import styles from "./HeroSection.module.css";
 const HERO_SLIDES = [
   {
     id: 1,
-    src: "/images/hero/slide-1.webp",
-    alt: "Diagnostic and monitoring equipment in a modern clinical setting",
-    caption: "Diagnostic & Monitoring Equipment",
+    src: "/images/hero/hero_01.webp",
+    alt: "Pezu Standard Medics Concern - Certified Medical Supplies & Equipment",
+    caption: "Certified Medical Supplies",
     number: "01",
   },
   {
     id: 2,
-    src: "/images/hero/slide-2.webp",
-    alt: "Surgical and theatre instruments laid out professionally",
-    caption: "Surgical & Theatre Instruments",
+    src: "/images/hero/hero_02.webp",
+    alt: "Medical and surgical consumables, syringes, gloves, and theatre instruments",
+    caption: "Medical & Surgical Consumables",
     number: "02",
   },
   {
     id: 3,
-    src: "/images/hero/slide-3.webp",
-    alt: "Laboratory and rapid testing equipment",
+    src: "/images/hero/hero_03.webp",
+    alt: "Advanced laboratory testing and diagnostic equipment",
     caption: "Laboratory & Rapid Testing",
     number: "03",
   },
   {
     id: 4,
-    src: "/images/hero/slide-4.webp",
-    alt: "Hospital consumables and disposables stocked and ready",
-    caption: "Hospital Consumables & Disposables",
+    src: "/images/hero/hero_04.webp",
+    alt: "Operating theatre and clinical monitoring equipment",
+    caption: "Operating Theatre Equipment",
     number: "04",
   },
 ];
@@ -142,7 +142,7 @@ export default function HeroSection() {
             <span className={styles.subText}>
               Equipping hospitals, diagnostic centers, and clinics with verified
               surgical instruments, rapid diagnostics, and essential medical
-              supplies — ready for fast dispatch.
+              supplies, ready for fast dispatch.
             </span>
           </p>
 
