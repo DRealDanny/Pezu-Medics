@@ -55,7 +55,6 @@
 .categorySliderTrack {
   display: flex;
   align-items: center;
-  gap: 10px;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
@@ -65,10 +64,19 @@
   padding-block: 6px;
   padding-inline: 2px;
   flex: 1;
+  width: 100%;
 }
 
 .categorySliderTrack::-webkit-scrollbar {
   display: none;
+}
+
+.sliderTrackInner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  width: max-content;
 }
 
 /* Category Tab Pill */
@@ -160,41 +168,48 @@
   color: #ffffff;
 }
 
-/* Slider Nav Arrows (Desktop) */
-.sliderNavBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 80, 200, 0.12);
-  box-shadow: 0 2px 8px rgba(0, 60, 180, 0.06);
-  color: #475569;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: all 160ms ease;
+/* Edge Blur Overlays (Visual cue indicating hidden/overflow content on left or right) */
+.sliderBlurEdge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(42px, 8vw, 64px);
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0;
+  transition: opacity 220ms ease;
 }
 
-.sliderNavBtn:hover {
-  background: #ffffff;
-  color: #0071e3;
-  border-color: rgba(0, 113, 227, 0.35);
-  transform: scale(1.06);
-  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.16);
+.sliderBlurLeft {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--color-bg) 20%,
+    rgba(238, 244, 253, 0.85) 55%,
+    rgba(238, 244, 253, 0) 100%
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  -webkit-mask-image: linear-gradient(to right, black 25%, transparent 100%);
+  mask-image: linear-gradient(to right, black 25%, transparent 100%);
 }
 
-.sliderNavBtn:active {
-  transform: scale(0.96);
+.sliderBlurRight {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--color-bg) 20%,
+    rgba(238, 244, 253, 0.85) 55%,
+    rgba(238, 244, 253, 0) 100%
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  -webkit-mask-image: linear-gradient(to left, black 25%, transparent 100%);
+  mask-image: linear-gradient(to left, black 25%, transparent 100%);
 }
 
-@media (max-width: 768px) {
-  .sliderNavBtn {
-    display: none;
-  }
+.sliderBlurVisible {
+  opacity: 1;
 }
 
 .searchBarWrap {
@@ -719,6 +734,46 @@
 
   .paginationInfo {
     display: none; /* Remove redundant subtitle row on mobile */
+  }
+}
+
+/* Looping slide & stretch hint for Mobile & Tablet when category tabs overflow / are not fully visible */
+@media (max-width: 1024px) {
+  .sliderHintActive {
+    animation: mobileSlidePeek 3.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+    transform-origin: left center;
+    will-change: transform;
+  }
+
+  .sliderTrackInner:hover,
+  .sliderTrackInner:active {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes mobileSlidePeek {
+  0% {
+    transform: translateX(0) scaleX(1);
+  }
+  14% {
+    /* Gentle elastic stretch-slide pulling hidden right content into view */
+    transform: translateX(-24px) scaleX(1.025);
+  }
+  26% {
+    /* Smooth spring return */
+    transform: translateX(3px) scaleX(0.995);
+  }
+  38% {
+    /* Soft micro-settle */
+    transform: translateX(-6px) scaleX(1.008);
+  }
+  48% {
+    /* Rest state */
+    transform: translateX(0) scaleX(1);
+  }
+  100% {
+    /* Rest pause before next loop */
+    transform: translateX(0) scaleX(1);
   }
 }
 

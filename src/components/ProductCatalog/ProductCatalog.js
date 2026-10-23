@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import ViewToggle from "@/components/ViewToggle/ViewToggle";
 import { PRODUCT_CATEGORIES, getCategoryBadge } from "@/lib/categories";
@@ -184,13 +184,42 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
 
   const sliderRef = useRef(null);
   const activeCategory = searchQuery.trim() ? "all" : selectedCategory;
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
-  const scrollSlider = (direction) => {
+  const checkScroll = useCallback(() => {
     if (sliderRef.current) {
-      const scrollAmount = direction === "left" ? -260 : 260;
-      sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+      setCanScrollLeft(scrollLeft > 4);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 4);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+
+    checkScroll();
+    const timer = setTimeout(checkScroll, 120);
+
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+
+    let ro;
+    if (typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(() => {
+        checkScroll();
+      });
+      ro.observe(el);
+    }
+
+    return () => {
+      clearTimeout(timer);
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+      if (ro) ro.disconnect();
+    };
+  }, [checkScroll, products]);
 
   const handleCategoryClick = (catVal) => {
     setSelectedCategory(catVal);
@@ -203,8 +232,9 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
       if (activePill) {
         activePill.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
       }
+      checkScroll();
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, checkScroll]);
 
   return (
     <section id="our-product-price" className={styles.catalog} aria-label="Product catalog" style={{ scrollMarginTop: "80px" }}>
@@ -288,16 +318,13 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
 
         {/* ── Category Filter Slider Track ── */}
         <div className={styles.categorySliderWrapper}>
-          <button
-            type="button"
-            className={`${styles.sliderNavBtn} ${styles.sliderNavPrev}`}
-            onClick={() => scrollSlider("left")}
-            aria-label="Scroll categories left"
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
+          {/* Left soft blur indicator for scrollable content on left */}
+          <div
+            className={`${styles.sliderBlurEdge} ${styles.sliderBlurLeft}${
+              canScrollLeft ? ` ${styles.sliderBlurVisible}` : ""
+            }`}
+            aria-hidden="true"
+          />
 
           <div
             ref={sliderRef}
@@ -305,72 +332,75 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
             role="tablist"
             aria-label="Filter products by category"
           >
-            {/* All Categories Pill */}
-            <button
-              type="button"
-              role="tab"
-              aria-selected={activeCategory === "all"}
-              className={`${styles.categoryPill}${
-                activeCategory === "all" ? ` ${styles.categoryPillActive}` : ""
+            <div
+              className={`${styles.sliderTrackInner}${
+                canScrollRight ? ` ${styles.sliderHintActive}` : ""
               }`}
-              onClick={() => handleCategoryClick("all")}
             >
-              <span
-                className={styles.categoryDot}
-                style={{
-                  background: activeCategory === "all" ? "#ffffff" : "var(--color-accent)",
-                }}
-                aria-hidden="true"
-              />
-              <span className={styles.categoryPillText}>
-                {searchQuery.trim() ? "All Matches" : "All Categories"}
-              </span>
-              <span className={styles.categoryCountBadge}>
-                {searchQuery.trim() ? filteredProducts.length : products.length}
-              </span>
-            </button>
+              {/* All Categories Pill */}
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeCategory === "all"}
+                className={`${styles.categoryPill}${
+                  activeCategory === "all" ? ` ${styles.categoryPillActive}` : ""
+                }`}
+                onClick={() => handleCategoryClick("all")}
+              >
+                <span
+                  className={styles.categoryDot}
+                  style={{
+                    background: activeCategory === "all" ? "#ffffff" : "var(--color-accent)",
+                  }}
+                  aria-hidden="true"
+                />
+                <span className={styles.categoryPillText}>
+                  {searchQuery.trim() ? "All Matches" : "All Categories"}
+                </span>
+                <span className={styles.categoryCountBadge}>
+                  {searchQuery.trim() ? filteredProducts.length : products.length}
+                </span>
+              </button>
 
-            {/* Individual Category Pills */}
-            {PRODUCT_CATEGORIES.map((cat) => {
-              const isSelected = activeCategory === cat.full || activeCategory === cat.id;
-              const count = products.filter((p) => {
-                const b = getCategoryBadge(p.category);
-                return b.full === cat.full || b.id === cat.id;
-              }).length;
+              {/* Individual Category Pills */}
+              {PRODUCT_CATEGORIES.map((cat) => {
+                const isSelected = activeCategory === cat.full || activeCategory === cat.id;
+                const count = products.filter((p) => {
+                  const b = getCategoryBadge(p.category);
+                  return b.full === cat.full || b.id === cat.id;
+                }).length;
 
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={isSelected}
-                  className={`${styles.categoryPill}${
-                    isSelected ? ` ${styles.categoryPillActive}` : ""
-                  }`}
-                  onClick={() => handleCategoryClick(cat.full)}
-                >
-                  <span
-                    className={styles.categoryDot}
-                    style={{ background: isSelected ? "#ffffff" : cat.color }}
-                    aria-hidden="true"
-                  />
-                  <span className={styles.categoryPillText}>{cat.short}</span>
-                  <span className={styles.categoryCountBadge}>{count}</span>
-                </button>
-              );
-            })}
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isSelected}
+                    className={`${styles.categoryPill}${
+                      isSelected ? ` ${styles.categoryPillActive}` : ""
+                    }`}
+                    onClick={() => handleCategoryClick(cat.full)}
+                  >
+                    <span
+                      className={styles.categoryDot}
+                      style={{ background: isSelected ? "#ffffff" : cat.color }}
+                      aria-hidden="true"
+                    />
+                    <span className={styles.categoryPillText}>{cat.short}</span>
+                    <span className={styles.categoryCountBadge}>{count}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          <button
-            type="button"
-            className={`${styles.sliderNavBtn} ${styles.sliderNavNext}`}
-            onClick={() => scrollSlider("right")}
-            aria-label="Scroll categories right"
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
+          {/* Right soft blur indicator for scrollable content on right */}
+          <div
+            className={`${styles.sliderBlurEdge} ${styles.sliderBlurRight}${
+              canScrollRight ? ` ${styles.sliderBlurVisible}` : ""
+            }`}
+            aria-hidden="true"
+          />
         </div>
 
         {/* Content states */}
