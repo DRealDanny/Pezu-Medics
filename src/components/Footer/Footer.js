@@ -102,10 +102,8 @@ export default function Footer() {
               <div className={`${styles.col} ${styles.colAddress}`}>
                 <h3 className={styles.colTitle}>Address</h3>
                 <address className={styles.addressBlock}>
-                  24 Alubomimu street,<br />
-                  off Imaro Street,<br />
-                  Idumota, Lagos Island,<br />
-                  Nigeria
+                  24 Alubomimu street, off Imaro Street,<br />
+                  Idumota, Lagos Island, Nigeria
                 </address>
               </div>
 
@@ -114,10 +112,10 @@ export default function Footer() {
                 <h3 className={styles.colTitle}>Legal</h3>
                 <ul className={styles.linksList}>
                   <li>
-                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms &amp; Conditions</a>
                   </li>
                   <li>
-                    <a href="#terms">Terms &amp; Conditions</a>
+                    <a href="#refund">Refund Policy</a>
                   </li>
                 </ul>
               </div>
