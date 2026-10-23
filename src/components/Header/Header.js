@@ -98,12 +98,12 @@ export default function Header() {
         <Link
           href="/"
           className={`${styles.logoLink}${isHeaderSearchOpen ? ` ${styles.logoHiddenOnMobileSearch}` : ""}`}
-          aria-label="Pezu Standard Medical Concern"
+          aria-label="Pezu Standard Medics Concern"
         >
           <Image
-            src="/logo-mark.png"
-            alt="Pezu Standard Medical Concern"
-            width={204}
+            src="/brand-logo.png"
+            alt="Pezu Standard Medics Concern"
+            width={184}
             height={42}
             priority
             fetchPriority="high"

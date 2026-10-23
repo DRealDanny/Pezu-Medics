@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import ViewToggle from "@/components/ViewToggle/ViewToggle";
 import { PRODUCT_CATEGORIES, getCategoryBadge } from "@/lib/categories";
 import { useSearch } from "@/context/SearchContext";
 import initialSeedProducts from "@/data/products.json";
+import { animateProductCards } from "@/lib/scrollReveal";
 import styles from "./ProductCatalog.module.css";
 
 const ITEMS_PER_PAGE = 20;
@@ -182,11 +183,95 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
   }, [currentPage, totalPages]);
 
 
+  const sliderRef = useRef(null);
+  const sliderWrapperRef = useRef(null);
+  const toolbarRef = useRef(null);
+  const gridRef = useRef(null);
+  const isInitialMount = useRef(true);
+  const activeCategory = searchQuery.trim() ? "all" : selectedCategory;
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  // Animate product cards batch on scroll & filter change
+  useEffect(() => {
+    const cards = gridRef.current ? Array.from(gridRef.current.querySelectorAll("article")) : [];
+    const cleanup = animateProductCards(cards, {
+      isInitialLoad: isInitialMount.current,
+    });
+    return () => cleanup();
+  }, [displayedProducts, view]);
+
+  const checkScroll = useCallback(() => {
+    if (sliderRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+      setCanScrollLeft(scrollLeft > 4);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 4);
+    }
+  }, []);
+
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+
+    checkScroll();
+    const timer = setTimeout(checkScroll, 120);
+
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+
+    let ro;
+    if (typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(() => {
+        checkScroll();
+      });
+      ro.observe(el);
+    }
+
+    return () => {
+      clearTimeout(timer);
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+      if (ro) ro.disconnect();
+    };
+  }, [checkScroll, products]);
+
+  const handleCategoryClick = (catVal) => {
+    setSelectedCategory(catVal);
+    if (searchQuery) clearSearch();
+  };
+
+  useEffect(() => {
+    if (sliderRef.current) {
+      checkScroll();
+      // Never scroll on initial mount (prevents page jump/scroll on load)
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+        return;
+      }
+
+      // Confine horizontal scrolling strictly to the slider track (never scroll the page/window)
+      const activePill = sliderRef.current.querySelector(`.${styles.categoryPillActive}`);
+      if (activePill) {
+        const container = sliderRef.current;
+        const pillLeft = activePill.offsetLeft;
+        const pillRight = pillLeft + activePill.offsetWidth;
+        const containerLeft = container.scrollLeft;
+        const containerRight = containerLeft + container.clientWidth;
+
+        if (pillLeft < containerLeft) {
+          container.scrollTo({ left: Math.max(0, pillLeft - 16), behavior: "smooth" });
+        } else if (pillRight > containerRight) {
+          container.scrollTo({ left: pillRight - container.clientWidth + 16, behavior: "smooth" });
+        }
+      }
+    }
+  }, [selectedCategory, checkScroll]);
+
   return (
     <section id="our-product-price" className={styles.catalog} aria-label="Product catalog" style={{ scrollMarginTop: "80px" }}>
       <div className="container">
         {/* Toolbar */}
-        <div className={styles.toolbar}>
+        <div ref={toolbarRef} className={styles.toolbar}>
           <div className={styles.toolbarLeft}>
             <h1>Our Product Prices</h1>
             {status === "success" && (
@@ -194,65 +279,6 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
             )}
           </div>
           <div className={styles.toolbarRight}>
-            {/* Category Dropdown Filter */}
-            <div className={styles.categorySelectWrap}>
-              <svg
-                className={styles.categorySelectIcon}
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-              </svg>
-              <select
-                id="frontend-category-filter"
-                className={styles.categorySelect}
-                value={searchQuery.trim() ? "all" : selectedCategory}
-                onChange={(e) => {
-                  setSelectedCategory(e.target.value);
-                  if (searchQuery) clearSearch();
-                }}
-                aria-label="Filter products by category"
-              >
-                <option value="all">
-                  {searchQuery.trim()
-                    ? `All Categories (${filteredProducts.length} matches)`
-                    : `All Categories (${products.length})`}
-                </option>
-                {PRODUCT_CATEGORIES.map((cat) => {
-                  const count = products.filter((p) => {
-                    const b = getCategoryBadge(p.category);
-                    return b.full === cat.full || b.id === cat.id;
-                  }).length;
-                  return (
-                    <option key={cat.id} value={cat.full}>
-                      {cat.full} ({count})
-                    </option>
-                  );
-                })}
-              </select>
-              <svg
-                className={styles.selectChevron}
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </div>
-
             {/* Frontend Search Bar */}
             <div
               className={`${styles.searchBarWrap}${
@@ -321,6 +347,93 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
           </div>
         </div>
 
+        {/* ── Category Filter Slider Track ── */}
+        <div ref={sliderWrapperRef} className={styles.categorySliderWrapper}>
+          {/* Left soft blur indicator for scrollable content on left */}
+          <div
+            className={`${styles.sliderBlurEdge} ${styles.sliderBlurLeft}${
+              canScrollLeft ? ` ${styles.sliderBlurVisible}` : ""
+            }`}
+            aria-hidden="true"
+          />
+
+          <div
+            ref={sliderRef}
+            className={styles.categorySliderTrack}
+            role="tablist"
+            aria-label="Filter products by category"
+          >
+            <div
+              className={`${styles.sliderTrackInner}${
+                canScrollRight ? ` ${styles.sliderHintActive}` : ""
+              }`}
+            >
+              {/* All Categories Pill */}
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeCategory === "all"}
+                className={`${styles.categoryPill}${
+                  activeCategory === "all" ? ` ${styles.categoryPillActive}` : ""
+                }`}
+                onClick={() => handleCategoryClick("all")}
+              >
+                <span
+                  className={styles.categoryDot}
+                  style={{
+                    background: activeCategory === "all" ? "#ffffff" : "var(--color-accent)",
+                  }}
+                  aria-hidden="true"
+                />
+                <span className={styles.categoryPillText}>
+                  {searchQuery.trim() ? "All Matches" : "All Categories"}
+                </span>
+                <span className={styles.categoryCountBadge}>
+                  {searchQuery.trim() ? filteredProducts.length : products.length}
+                </span>
+              </button>
+
+              {/* Individual Category Pills */}
+              {PRODUCT_CATEGORIES.map((cat) => {
+                const isSelected = activeCategory === cat.full || activeCategory === cat.id;
+                const count = products.filter((p) => {
+                  const b = getCategoryBadge(p.category);
+                  return b.full === cat.full || b.id === cat.id;
+                }).length;
+
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isSelected}
+                    className={`${styles.categoryPill}${
+                      isSelected ? ` ${styles.categoryPillActive}` : ""
+                    }`}
+                    onClick={() => handleCategoryClick(cat.full)}
+                  >
+                    <span
+                      className={styles.categoryDot}
+                      style={{ background: isSelected ? "#ffffff" : cat.color }}
+                      aria-hidden="true"
+                    />
+                    <span className={styles.categoryPillText}>{cat.short}</span>
+                    <span className={styles.categoryCountBadge}>{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right soft blur indicator for scrollable content on right */}
+          <div
+            className={`${styles.sliderBlurEdge} ${styles.sliderBlurRight}${
+              canScrollRight ? ` ${styles.sliderBlurVisible}` : ""
+            }`}
+            aria-hidden="true"
+          />
+        </div>
+
         {/* Content states */}
         {status === "loading" && (
           <div className={styles.stateWrapper} aria-busy="true" aria-label="Loading products">
@@ -381,6 +494,7 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
             ) : (
               <>
                 <div
+                  ref={gridRef}
                   id="product-grid"
                   className={view === "grid" ? styles.gridLayout : styles.listLayout}
                   aria-label={view === "grid" ? "Products in grid view" : "Products in list view"}

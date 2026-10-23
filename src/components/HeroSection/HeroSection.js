@@ -125,44 +125,60 @@ export default function HeroSection() {
   return (
     <section className={styles.hero} aria-label="Hero section">
       <div className="container">
-        {/* ── Centered Editorial Block ── */}
-        <div className={styles.editorial}>
-          {/* H1 Heading */}
-          <h1 className={styles.heading}>
-            <span className={styles.headingText}>
-              Certified Medical Equipment &amp; Consumables,{" "}
-              <span className={styles.headingAccent}>Priced Transparently.</span>
-            </span>
-          </h1>
+        <div className={styles.heroGrid}>
+          {/* ── Centered Editorial Block ── */}
+          <div className={styles.editorial}>
+            {/* H1 Heading */}
+            <h1 className={styles.heading}>
+              <span className={styles.headingText}>
+                Certified Medical Equipment, Laboratory Products &amp;{" "}
+              </span>
+              <span className={styles.headingAccent}>
+                Surgical Consumables/<wbr />Disposables
+              </span>
+            </h1>
 
-          {/* Subheading */}
-          <p className={styles.subheading}>
-            <span className={styles.subText}>
-              Equipping hospitals, diagnostic centers, and clinics with verified
-              surgical instruments, rapid diagnostics, and essential medical
-              supplies, ready for fast dispatch.
-            </span>
-          </p>
+            {/* Subheading */}
+            <p className={styles.subheading}>
+              <span className={styles.subText}>
+                Equipping hospitals, diagnostic centers, and clinics with verified
+                surgical instruments, rapid diagnostics, and essential medical
+                supplies, ready for fast dispatch.
+              </span>
+            </p>
 
-          {/* CTA Row */}
-          <div className={styles.ctaRow}>
-            <div className={styles.ctaRowInner}>
-              <a
-                href="#our-product-price"
-                className={styles.ctaPrimary}
-                onClick={handleScrollToCatalog}
-                aria-label="Explore our product prices — scroll to catalog"
-              >
-                Explore Our Product Prices
-                <span className={styles.ctaArrow} aria-hidden="true">↓</span>
-              </a>
+            {/* CTA Row */}
+            <div className={styles.ctaRow}>
+              <div className={styles.ctaRowInner}>
+                <a
+                  href="#our-product-price"
+                  className={styles.ctaPrimary}
+                  onClick={handleScrollToCatalog}
+                  aria-label="Explore our product prices — scroll to catalog"
+                >
+                  <span>Explore Our Product Prices</span>
+                  <span className={styles.ctaArrow} aria-hidden="true">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* ── Wide Rectangular Slideshow ── */}
-      <div className={styles.slideshowOuter}>
+          {/* ── Wide Rectangular Slideshow ── */}
+          <div className={styles.slideshowOuter}>
         <div
           className={styles.slideshowFrame}
           onMouseEnter={() => setIsPaused(true)}
@@ -254,6 +270,8 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
   );
 }
