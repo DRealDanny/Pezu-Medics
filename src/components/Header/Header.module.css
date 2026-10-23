@@ -1,19 +1,22 @@
 /* Header */
 .header {
-  background: rgba(235, 245, 255, 0.72);
-  backdrop-filter: saturate(200%) blur(28px);
-  -webkit-backdrop-filter: saturate(200%) blur(28px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 1px 0 rgba(0, 80, 200, 0.06), 0 4px 24px rgba(0, 80, 200, 0.06);
+  background: rgba(240, 247, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(28px);
+  -webkit-backdrop-filter: saturate(180%) blur(28px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 1px 0 rgba(0, 80, 200, 0.05), 0 4px 20px rgba(0, 80, 200, 0.04);
   position: sticky;
   top: 0;
   z-index: 100;
-  transition: box-shadow var(--transition-base), background var(--transition-base);
+  transition: box-shadow var(--transition-base), background var(--transition-base), border-color var(--transition-base);
 }
 
 .header.scrolled {
-  background: rgba(225, 240, 255, 0.82);
-  box-shadow: 0 1px 0 rgba(0, 80, 200, 0.10), 0 8px 32px rgba(0, 80, 200, 0.10);
+  background: rgba(215, 234, 255, 0.96);
+  backdrop-filter: saturate(190%) blur(32px);
+  -webkit-backdrop-filter: saturate(190%) blur(32px);
+  border-bottom: 1px solid rgba(0, 113, 227, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 80, 200, 0.08), 0 10px 32px rgba(0, 80, 200, 0.12);
 }
 
 .headerInner {

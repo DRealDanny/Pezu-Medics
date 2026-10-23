@@ -1,23 +1,41 @@
-/* Footer – Glass Panel */
-.footer {
-  background: rgba(220, 235, 255, 0.55);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(255, 255, 255, 0.60);
-  box-shadow: 0 -4px 32px rgba(0, 80, 200, 0.06);
+/* ============================================================
+   FOOTER – Pure Vanilla CSS
+   Structured White Island Card from Logo to Copyright
+   ============================================================ */
+
+.footerWrap {
+  width: 100%;
   margin-top: auto;
+  padding-top: clamp(32px, 5vw, 64px);
+  padding-bottom: clamp(24px, 4vw, 40px);
 }
 
-.footerInner {
-  padding-block: var(--space-xl) var(--space-lg);
+.footerContainer {
+  padding-inline: clamp(16px, 3.5vw, 40px);
+}
+
+/* ── Main White / Glass Island Footer Card ── */
+.footerCard {
+  position: relative;
+  background: #ffffff;
+  border-radius: clamp(22px, 3vw, 32px);
+  padding: clamp(36px, 4.5vw, 56px) clamp(24px, 4vw, 56px) clamp(20px, 2.5vw, 28px);
+  border: 1px solid rgba(0, 80, 200, 0.08);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 10px 40px rgba(0, 60, 180, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.cardContent {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: var(--space-2xl);
+  grid-template-columns: 1.15fr 2fr;
+  gap: clamp(24px, 4vw, 60px);
   align-items: start;
 }
 
-/* ── Brand column ── */
-.footerBrand {
+/* ── Left Brand Column ── */
+.brandCol {
   display: flex;
   flex-direction: column;
 }
@@ -25,36 +43,66 @@
 .footerLogo {
   height: 34px;
   width: auto;
-  max-width: 175px;
+  max-width: 180px;
   object-fit: contain;
-  margin-bottom: 10px;
-  margin-left: -10px;
+  margin-bottom: 12px;
+  margin-left: -6px;
   display: block;
 }
 
 .brandBlurb {
   font-size: 0.8125rem;
-  color: var(--color-text-secondary);
-  line-height: 1.55;
-  max-width: 310px;
+  color: #64748b;
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0;
 }
 
-/* ── Contact column ── */
-.footerSection {
+.hoursBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 6px 14px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #166534;
+  width: fit-content;
+}
+
+.statusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.22);
+  flex-shrink: 0;
+}
+
+/* ── Right Multi-Column Grid ── */
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 2.2vw, 32px);
+}
+
+.col {
   display: flex;
   flex-direction: column;
 }
 
-.sectionTitle {
-  font-size: 0.75rem;
+.colTitle {
+  font-size: 0.8125rem;
   font-weight: 700;
-  color: var(--color-text-primary);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 14px;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+  margin: 0 0 14px 0;
 }
 
-.contactList {
+.linksList {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -63,141 +111,201 @@
   margin: 0;
 }
 
-.contactItem {
-  display: grid;
-  grid-template-columns: 54px 1fr;
-  align-items: baseline;
-  gap: 10px;
+.linksList li a {
   font-size: 0.8125rem;
-  line-height: 1.5;
-}
-
-.contactLabel {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: var(--color-text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-  user-select: none;
-}
-
-.contactValue {
-  color: var(--color-text-secondary);
-  font-size: 0.8125rem;
-  line-height: 1.5;
-}
-
-.contactLink {
-  color: var(--color-text-secondary);
-  font-size: 0.8125rem;
+  color: #64748b;
   text-decoration: none;
-  word-break: break-all;
-  transition: color var(--transition-fast);
+  transition: color 150ms ease;
+  line-height: 1.45;
+  display: inline-block;
 }
 
-.contactLink:hover,
-.contactLink:focus-visible {
-  color: var(--color-accent);
+.linksList li a:hover {
+  color: #0071e3;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-/* ── Bottom bar ── */
-.footerBottom {
-  border-top: 1px solid var(--color-border-light);
-  padding-block: 16px 20px;
-  display: flex;
+.contactLink {
+  font-size: 0.8125rem;
+  color: #64748b;
+  text-decoration: none;
+  word-break: break-word;
+  transition: color 150ms ease;
+  line-height: 1.45;
+}
+
+.contactLink:hover {
+  color: #0071e3;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.whatsappLink {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  font-size: 0.75rem;
-  color: var(--color-text-tertiary);
+  gap: 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #0071e3;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+}
+
+.whatsappLink:hover {
+  opacity: 0.82;
+  text-decoration: underline;
+}
+
+.addressBlock {
+  font-style: normal;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: #64748b;
+}
+
+
+
+/* ── Bottom Divider & Copyright ── */
+.footerBottom {
+  margin-top: clamp(28px, 3.5vw, 44px);
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
+  text-align: center;
 }
 
 .copyright {
   margin: 0;
+  font-size: 0.78125rem;
+  color: #94a3b8;
+  letter-spacing: -0.01em;
 }
 
-.legalLinks {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.legalLinks a {
-  color: var(--color-text-tertiary);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-.legalLinks a:hover,
-.legalLinks a:focus-visible {
-  color: var(--color-text-secondary);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.legalDot {
-  user-select: none;
-  opacity: 0.6;
-}
-
-/* ── Mobile Responsive (max-width: 640px) ── */
-@media (max-width: 640px) {
-  .footerInner {
+/* ── Tablet Responsive (max-width: 1024px) ── */
+@media (max-width: 1024px) {
+  .cardContent {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .brandBlurb {
+    max-width: 520px;
+  }
+
+  .linksGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+}
+
+/* ── Mobile Responsive (max-width: 768px) ── */
+@media (max-width: 768px) {
+  .footerLogo {
+    height: 36px;
+    max-width: 195px;
+    margin-bottom: 12px;
+  }
+
+  .linksGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 20px;
+  }
+
+  .footerCard {
+    border-radius: 20px;
+    padding: 28px 20px 18px;
+  }
+
+  .footerBottom {
+    margin-top: 22px;
+    padding-top: 14px;
+    padding-bottom: 6px;
+  }
+}
+
+/* ── Small Mobile Responsive (max-width: 480px) ── */
+@media (max-width: 480px) {
+  .footerWrap {
+    padding-top: 20px;
+    padding-bottom: 24px;
+  }
+
+  .footerContainer {
+    padding-inline: 12px;
+  }
+
+  .footerCard {
+    border-radius: 18px;
+    padding: 24px 16px 18px;
+  }
+
+  .cardContent {
     gap: 22px;
-    padding-block: 26px 18px;
   }
 
   .footerLogo {
-    height: 30px;
-    max-width: 155px;
-    margin-bottom: 8px;
-    margin-left: -10px;
+    height: 38px;
+    width: auto;
+    max-width: 205px;
+    margin-bottom: 10px;
+    margin-left: -4px;
   }
 
   .brandBlurb {
     font-size: 0.8125rem;
-    max-width: 100%;
     line-height: 1.5;
   }
 
-  .sectionTitle {
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+  .hoursBadge {
+    margin-top: 12px;
+    font-size: 0.71875rem;
+    padding: 5px 12px;
+  }
+
+  .linksGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 14px;
+  }
+
+  .colCategories {
+    order: 1;
+  }
+
+  .colLegal {
+    order: 2;
+  }
+
+  .colContact {
+    order: 3;
+    grid-column: 1 / -1;
+  }
+
+  .colAddress {
+    order: 4;
+    grid-column: 1 / -1;
+  }
+
+  .colTitle {
+    font-size: 0.78125rem;
     margin-bottom: 10px;
   }
 
-  .contactList {
-    gap: 9px;
-  }
-
-  .contactItem {
-    grid-template-columns: 50px 1fr;
-    gap: 8px;
-    line-height: 1.45;
-  }
-
-  .contactLabel {
-    font-size: 0.65625rem;
-    letter-spacing: 0.05em;
-  }
-
-  .contactValue,
-  .contactLink {
-    font-size: 0.78125rem; /* 12.5px - crisp, proportional, not huge */
+  .linksList li a,
+  .contactLink,
+  .addressBlock,
+  .whatsappLink {
+    font-size: 0.78125rem;
     line-height: 1.45;
   }
 
   .footerBottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    margin-top: 20px;
     padding-top: 14px;
-    padding-bottom: 68px;
+    padding-bottom: 14px;
+  }
+
+  .copyright {
     font-size: 0.71875rem;
+    line-height: 1.4;
   }
 }
