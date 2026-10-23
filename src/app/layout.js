@@ -23,6 +23,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={plusJakartaSans.variable}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if ('scrollRestoration' in history) {
+                  history.scrollRestoration = 'manual';
+                }
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
       <body className={plusJakartaSans.className}>
         <CurtainReveal />
         {children}

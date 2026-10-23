@@ -7,6 +7,26 @@ export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    // Disable automatic browser scroll restoration so website always starts from top on reload
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+      const handlePageShow = () => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      };
+
+      window.addEventListener("pageshow", handlePageShow);
+
+      return () => {
+        window.removeEventListener("pageshow", handlePageShow);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
     function handleScroll() {
       if (window.scrollY > 150) {
         setVisible(true);

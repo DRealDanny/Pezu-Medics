@@ -183,6 +183,7 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
 
 
   const sliderRef = useRef(null);
+  const isInitialMount = useRef(true);
   const activeCategory = searchQuery.trim() ? "all" : selectedCategory;
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -228,11 +229,28 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
 
   useEffect(() => {
     if (sliderRef.current) {
+      checkScroll();
+      // Never scroll on initial mount (prevents page jump/scroll on load)
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+        return;
+      }
+
+      // Confine horizontal scrolling strictly to the slider track (never scroll the page/window)
       const activePill = sliderRef.current.querySelector(`.${styles.categoryPillActive}`);
       if (activePill) {
-        activePill.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
+        const container = sliderRef.current;
+        const pillLeft = activePill.offsetLeft;
+        const pillRight = pillLeft + activePill.offsetWidth;
+        const containerLeft = container.scrollLeft;
+        const containerRight = containerLeft + container.clientWidth;
+
+        if (pillLeft < containerLeft) {
+          container.scrollTo({ left: Math.max(0, pillLeft - 16), behavior: "smooth" });
+        } else if (pillRight > containerRight) {
+          container.scrollTo({ left: pillRight - container.clientWidth + 16, behavior: "smooth" });
+        }
       }
-      checkScroll();
     }
   }, [selectedCategory, checkScroll]);
 
