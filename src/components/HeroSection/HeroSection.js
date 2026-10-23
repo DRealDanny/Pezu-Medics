@@ -130,8 +130,10 @@ export default function HeroSection() {
           {/* H1 Heading */}
           <h1 className={styles.heading}>
             <span className={styles.headingText}>
-              Certified Medical Equipment &amp; Consumables,{" "}
-              <span className={styles.headingAccent}>Priced Transparently.</span>
+              Certified Medical Equipment, Laboratory Products &amp;{" "}
+            </span>
+            <span className={styles.headingAccent}>
+              Surgical Consumables/<wbr />Disposables
             </span>
           </h1>
 

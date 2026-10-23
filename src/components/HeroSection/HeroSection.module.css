@@ -37,14 +37,19 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: clamp(12px, 2vw, 20px);
-  max-width: 780px;
+  gap: clamp(14px, 2vw, 22px);
+  max-width: 980px;
   margin-inline: auto;
   padding-inline: 20px;
 }
 
 /* Entrance animations – staggered offsets synced with curtain */
 .heading {
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
   opacity: 0;
   animation: heroFadeUp 0.65s cubic-bezier(0.76, 0, 0.24, 1) 0.20s both;
   will-change: opacity, transform;
@@ -87,16 +92,18 @@
 
 /* ── Main Heading ── */
 .headingText {
-  font-size: clamp(26px, 4.5vw, 52px);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  display: inline;
+  font-size: inherit;
+  font-weight: 800;
+  line-height: inherit;
+  letter-spacing: inherit;
   color: var(--color-text-primary, #1d1d1f);
-  max-width: 740px;
 }
 
 .headingAccent {
   color: var(--color-accent, #0071e3);
+  font-weight: 800;
+  display: inline-block;
 }
 
 /* ── Sub-heading ── */
@@ -374,6 +381,34 @@
 
 /* ── Responsive: Mobile ── */
 @media (max-width: 640px) {
+  .editorial {
+    gap: 12px;
+    padding-inline: 16px;
+  }
+
+  .heading {
+    font-size: clamp(28px, 6.4vw, 28px);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .headingAccent {
+    display: inline;
+  }
+
+  .subheading {
+    margin-top: 2px;
+    margin-bottom: 8px;
+  }
+
+  .subText {
+    font-size: 14.5px;
+    line-height: 1.46;
+    font-weight: 400;
+  }
+
   .slideshowFrame {
     aspect-ratio: 4 / 3;
     padding-inline: 0;
