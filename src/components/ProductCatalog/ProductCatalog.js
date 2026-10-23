@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import ViewToggle from "@/components/ViewToggle/ViewToggle";
 import { PRODUCT_CATEGORIES, getCategoryBadge } from "@/lib/categories";
@@ -182,6 +182,30 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
   }, [currentPage, totalPages]);
 
 
+  const sliderRef = useRef(null);
+  const activeCategory = searchQuery.trim() ? "all" : selectedCategory;
+
+  const scrollSlider = (direction) => {
+    if (sliderRef.current) {
+      const scrollAmount = direction === "left" ? -260 : 260;
+      sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  const handleCategoryClick = (catVal) => {
+    setSelectedCategory(catVal);
+    if (searchQuery) clearSearch();
+  };
+
+  useEffect(() => {
+    if (sliderRef.current) {
+      const activePill = sliderRef.current.querySelector(`.${styles.categoryPillActive}`);
+      if (activePill) {
+        activePill.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
+      }
+    }
+  }, [selectedCategory]);
+
   return (
     <section id="our-product-price" className={styles.catalog} aria-label="Product catalog" style={{ scrollMarginTop: "80px" }}>
       <div className="container">
@@ -194,65 +218,6 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
             )}
           </div>
           <div className={styles.toolbarRight}>
-            {/* Category Dropdown Filter */}
-            <div className={styles.categorySelectWrap}>
-              <svg
-                className={styles.categorySelectIcon}
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-              </svg>
-              <select
-                id="frontend-category-filter"
-                className={styles.categorySelect}
-                value={searchQuery.trim() ? "all" : selectedCategory}
-                onChange={(e) => {
-                  setSelectedCategory(e.target.value);
-                  if (searchQuery) clearSearch();
-                }}
-                aria-label="Filter products by category"
-              >
-                <option value="all">
-                  {searchQuery.trim()
-                    ? `All Categories (${filteredProducts.length} matches)`
-                    : `All Categories (${products.length})`}
-                </option>
-                {PRODUCT_CATEGORIES.map((cat) => {
-                  const count = products.filter((p) => {
-                    const b = getCategoryBadge(p.category);
-                    return b.full === cat.full || b.id === cat.id;
-                  }).length;
-                  return (
-                    <option key={cat.id} value={cat.full}>
-                      {cat.full} ({count})
-                    </option>
-                  );
-                })}
-              </select>
-              <svg
-                className={styles.selectChevron}
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </div>
-
             {/* Frontend Search Bar */}
             <div
               className={`${styles.searchBarWrap}${
@@ -319,6 +284,93 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
               <ViewToggle view={view} onChange={setView} />
             </div>
           </div>
+        </div>
+
+        {/* ── Category Filter Slider Track ── */}
+        <div className={styles.categorySliderWrapper}>
+          <button
+            type="button"
+            className={`${styles.sliderNavBtn} ${styles.sliderNavPrev}`}
+            onClick={() => scrollSlider("left")}
+            aria-label="Scroll categories left"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+
+          <div
+            ref={sliderRef}
+            className={styles.categorySliderTrack}
+            role="tablist"
+            aria-label="Filter products by category"
+          >
+            {/* All Categories Pill */}
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeCategory === "all"}
+              className={`${styles.categoryPill}${
+                activeCategory === "all" ? ` ${styles.categoryPillActive}` : ""
+              }`}
+              onClick={() => handleCategoryClick("all")}
+            >
+              <span
+                className={styles.categoryDot}
+                style={{
+                  background: activeCategory === "all" ? "#ffffff" : "var(--color-accent)",
+                }}
+                aria-hidden="true"
+              />
+              <span className={styles.categoryPillText}>
+                {searchQuery.trim() ? "All Matches" : "All Categories"}
+              </span>
+              <span className={styles.categoryCountBadge}>
+                {searchQuery.trim() ? filteredProducts.length : products.length}
+              </span>
+            </button>
+
+            {/* Individual Category Pills */}
+            {PRODUCT_CATEGORIES.map((cat) => {
+              const isSelected = activeCategory === cat.full || activeCategory === cat.id;
+              const count = products.filter((p) => {
+                const b = getCategoryBadge(p.category);
+                return b.full === cat.full || b.id === cat.id;
+              }).length;
+
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  className={`${styles.categoryPill}${
+                    isSelected ? ` ${styles.categoryPillActive}` : ""
+                  }`}
+                  onClick={() => handleCategoryClick(cat.full)}
+                >
+                  <span
+                    className={styles.categoryDot}
+                    style={{ background: isSelected ? "#ffffff" : cat.color }}
+                    aria-hidden="true"
+                  />
+                  <span className={styles.categoryPillText}>{cat.short}</span>
+                  <span className={styles.categoryCountBadge}>{count}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            type="button"
+            className={`${styles.sliderNavBtn} ${styles.sliderNavNext}`}
+            onClick={() => scrollSlider("right")}
+            aria-label="Scroll categories right"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
         </div>
 
         {/* Content states */}
