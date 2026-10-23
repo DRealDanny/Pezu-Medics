@@ -69,8 +69,10 @@
   height: 38px;
   padding: 6px 32px 6px 34px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   font-family: inherit;
   font-size: 0.8125rem;
   font-weight: 500;
@@ -82,12 +84,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 80, 200, 0.06);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
 }
 
 .categorySelect:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 113, 227, 0.40);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.10), 0 2px 12px rgba(0, 80, 200, 0.08);
 }
 
 .searchBarWrap {
@@ -110,18 +114,22 @@
   height: 38px;
   padding: 8px 32px 8px 36px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   font-family: inherit;
   font-size: 0.875rem;
   color: var(--color-text-primary);
   outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 80, 200, 0.06);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
 }
 
 .searchInput:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 113, 227, 0.40);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.10), 0 2px 12px rgba(0, 80, 200, 0.08);
 }
 
 /* Green when query matches products */
