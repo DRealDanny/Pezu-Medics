@@ -116,17 +116,23 @@
   transform: translateY(0);
 }
 
-/* Active Category Pill */
+/* Active Category Pill (Flat existing CSS brand blue) */
 .categoryPillActive {
-  background: linear-gradient(135deg, #0284c7 0%, #0071e3 100%) !important;
-  border-color: #0071e3 !important;
+  background: var(--color-accent, #0071e3) !important;
+  border-color: var(--color-accent, #0071e3) !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 18px rgba(0, 113, 227, 0.38), 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  box-shadow: none !important;
 }
 
 .categoryPillActive:hover {
-  background: linear-gradient(135deg, #0284c7 0%, #0062c4 100%) !important;
-  box-shadow: 0 6px 22px rgba(0, 113, 227, 0.46) !important;
+  background: var(--color-accent-hover, #0063cc) !important;
+  border-color: var(--color-accent-hover, #0063cc) !important;
+  box-shadow: none !important;
+  transform: translateY(-1px);
+}
+
+.categoryPillActive:active {
+  transform: translateY(0);
 }
 
 .categoryDot {
