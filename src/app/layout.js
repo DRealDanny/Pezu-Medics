@@ -1,4 +1,5 @@
 import { Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import CurtainReveal from "@/components/CurtainReveal";
 
@@ -24,7 +25,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={plusJakartaSans.variable}>
       <head>
-        <script
+        <Script
+          id="scroll-reset"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               try {

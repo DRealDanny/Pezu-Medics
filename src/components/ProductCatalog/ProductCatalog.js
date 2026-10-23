@@ -6,6 +6,7 @@ import ViewToggle from "@/components/ViewToggle/ViewToggle";
 import { PRODUCT_CATEGORIES, getCategoryBadge } from "@/lib/categories";
 import { useSearch } from "@/context/SearchContext";
 import initialSeedProducts from "@/data/products.json";
+import { animateProductCards } from "@/lib/scrollReveal";
 import styles from "./ProductCatalog.module.css";
 
 const ITEMS_PER_PAGE = 20;
@@ -183,10 +184,22 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
 
 
   const sliderRef = useRef(null);
+  const sliderWrapperRef = useRef(null);
+  const toolbarRef = useRef(null);
+  const gridRef = useRef(null);
   const isInitialMount = useRef(true);
   const activeCategory = searchQuery.trim() ? "all" : selectedCategory;
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+
+  // Animate product cards batch on scroll & filter change
+  useEffect(() => {
+    const cards = gridRef.current ? Array.from(gridRef.current.querySelectorAll("article")) : [];
+    const cleanup = animateProductCards(cards, {
+      isInitialLoad: isInitialMount.current,
+    });
+    return () => cleanup();
+  }, [displayedProducts, view]);
 
   const checkScroll = useCallback(() => {
     if (sliderRef.current) {
@@ -258,7 +271,7 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
     <section id="our-product-price" className={styles.catalog} aria-label="Product catalog" style={{ scrollMarginTop: "80px" }}>
       <div className="container">
         {/* Toolbar */}
-        <div className={styles.toolbar}>
+        <div ref={toolbarRef} className={styles.toolbar}>
           <div className={styles.toolbarLeft}>
             <h1>Our Product Prices</h1>
             {status === "success" && (
@@ -335,7 +348,7 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
         </div>
 
         {/* ── Category Filter Slider Track ── */}
-        <div className={styles.categorySliderWrapper}>
+        <div ref={sliderWrapperRef} className={styles.categorySliderWrapper}>
           {/* Left soft blur indicator for scrollable content on left */}
           <div
             className={`${styles.sliderBlurEdge} ${styles.sliderBlurLeft}${
@@ -481,6 +494,7 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
             ) : (
               <>
                 <div
+                  ref={gridRef}
                   id="product-grid"
                   className={view === "grid" ? styles.gridLayout : styles.listLayout}
                   aria-label={view === "grid" ? "Products in grid view" : "Products in list view"}

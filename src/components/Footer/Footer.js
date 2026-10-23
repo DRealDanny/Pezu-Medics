@@ -1,11 +1,22 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { animateFooterScrollReveal } from "@/lib/scrollReveal";
 import styles from "./Footer.module.css";
 
 const year = new Date().getFullYear();
 
 export default function Footer() {
+  const footerCardRef = useRef(null);
+
+  useEffect(() => {
+    if (footerCardRef.current) {
+      const cleanup = animateFooterScrollReveal(footerCardRef.current);
+      return () => cleanup();
+    }
+  }, []);
+
   const handleScrollToCatalog = (e) => {
     e.preventDefault();
     const target = document.getElementById("our-product-price");
@@ -17,7 +28,7 @@ export default function Footer() {
   return (
     <footer className={styles.footerWrap} role="contentinfo">
       <div className={`container ${styles.footerContainer}`}>
-        <div className={styles.footerCard}>
+        <div ref={footerCardRef} className={styles.footerCard}>
           <div className={styles.cardContent}>
             {/* ── Brand Column ── */}
             <div className={styles.brandCol}>

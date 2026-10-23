@@ -4,6 +4,17 @@
   flex: 1;
 }
 
+@keyframes catalogSectionFadeUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 /* ── Toolbar ── */
 .toolbar {
   display: flex;
@@ -12,6 +23,9 @@
   gap: var(--space-md);
   margin-bottom: var(--space-xl);
   flex-wrap: wrap;
+  opacity: 0;
+  animation: catalogSectionFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.50s both;
+  will-change: opacity, transform;
 }
 
 .toolbarLeft h1 {
@@ -50,6 +64,9 @@
   gap: 8px;
   width: 100%;
   margin-bottom: clamp(20px, 3vw, 32px);
+  opacity: 0;
+  animation: catalogSectionFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.62s both;
+  will-change: opacity, transform;
 }
 
 .categorySliderTrack {
@@ -792,6 +809,15 @@
     display: flex;
     align-items: center;
     gap: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolbar,
+  .categorySliderWrapper {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
