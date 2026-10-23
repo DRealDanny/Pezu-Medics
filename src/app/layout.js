@@ -125,7 +125,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en-NG" className={plusJakartaSans.variable}>
+    <html lang="en" className={plusJakartaSans.variable}>
       <head>
         <StructuredData />
         <Script
