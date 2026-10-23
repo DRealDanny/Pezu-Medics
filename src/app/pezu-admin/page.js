@@ -14,7 +14,7 @@ function BrandLogoIcon({ size = 32, className }) {
       src="/logo.png"
       alt="Pezu Medics Logo Mark"
       width={size}
-      height={Math.round((size * 235) / 308)}
+      height={size}
       className={className}
       style={{ objectFit: "contain", display: "inline-block", verticalAlign: "middle" }}
     />
