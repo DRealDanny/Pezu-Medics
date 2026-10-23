@@ -33,9 +33,9 @@ export default function Footer() {
             {/* ── Brand Column ── */}
             <div className={styles.brandCol}>
               <Image
-                src="/logo-mark.png"
-                alt="Pezu Standard Medical Concern"
-                width={185}
+                src="/brand-logo.png"
+                alt="Pezu Standard Medics Concern"
+                width={166}
                 height={38}
                 className={styles.footerLogo}
               />
@@ -136,7 +136,7 @@ export default function Footer() {
           {/* ── Bottom Divider & Copyright ── */}
           <div className={styles.footerBottom}>
             <p className={styles.copyright}>
-              © {year} Pezu Standard Medical Concern. All rights reserved.
+              © {year} Pezu Standard Medics Concern. All rights reserved.
             </p>
           </div>
         </div>
