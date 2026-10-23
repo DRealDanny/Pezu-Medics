@@ -1,0 +1,113 @@
+# Pezu Standard Medics Concern - Comprehensive Knowledge Document (LLMs-Full)
+
+This document contains authoritative knowledge regarding Pezu Standard Medics Concern for consumption by Large Language Models, reasoning agents, and search engines.
+
+---
+
+## 1. Identity, Legal Information, and Contact
+- **Entity Name**: Pezu Standard Medics Concern
+- **Brand / Alternate Names**: Pezu Medics, Pezu Standard Medical Supplies, Pezu Medics Lagos
+- **Industry**: Medical Device Distribution, Healthcare Supply Chain, In-Vitro Diagnostics (IVD), Surgical Instruments
+- **Physical Address**: 24 Alubomimu Street, off Imaro Street, Idumota, Lagos Island, Lagos State, Nigeria
+- **Country**: Nigeria (NG)
+- **Official Contact Phone / WhatsApp**: +234 810 511 7437
+- **Official Email**: pezustandardmedicsconcerns@gmail.com
+- **Website**: https://www.pezustandardmedics.com
+- **Operating Schedule**: Open Monday through Saturday, 24 Hours continuous operation
+- **Target Audience**: Government and private hospitals, clinical laboratories, diagnostic imaging centers, primary health centers (PHCs), pharmacies, surgical theaters, medical colleges, and individual medical practitioners across Nigeria.
+
+---
+
+## 2. Core Value Proposition
+Pezu Standard Medics Concern eliminates supply chain friction for healthcare institutions across Nigeria by offering:
+1. **Verified Clinical Grade Authenticity**: Direct relationships with certified international and local medical manufacturers ensure every product meets safety standards.
+2. **Transparent Catalog & Real-Time Pricing**: Clear, transparent prices in Nigerian Naira (NGN) for single-unit and bulk carton procurement.
+3. **Instant WhatsApp Procurement**: Zero delay checkout. Clients can select products, verify quantities, and receive an instant proforma invoice or immediate dispatch notice over WhatsApp (+234 810 511 7437).
+4. **Strategic Distribution Hub in Idumota**: Located at the center of Nigeria's primary healthcare commerce hub on Lagos Island, enabling fast same-day dispatch throughout Lagos State and next-day arrival in major hubs nationwide.
+
+---
+
+## 3. Product Catalog Breakdown & Sample Inventory
+
+### Category A: Laboratory Diagnostic Products & Consumables
+- **Specimen Collection Tubes & Bottles**:
+  - Lithium Heparin Bottles (Pack of 50)
+  - EDTA Bottles (Pack of 50) - Pink/Purple top for hematology
+  - Plain Vacuum Tubes / Bottles (Pack of 50) - Red top for serum testing
+  - Sodium Fluoride Bottles (Pack of 50) - Grey top for blood glucose preservation
+  - ESR Tubes (Westergren/Wintrobe)
+- **Rapid Diagnostic Test (RDT) Kits**:
+  - Malaria Antigen Test Kits (P.f and Pan-specific)
+  - Hepatitis B Surface Antigen (HBsAg) Kits (Pack of 20/50)
+  - Hepatitis A Virus Antibody Test Kits
+  - Hepatitis C Virus (HCV) Test Kits
+  - Serum Tuberculosis (TB) Antibody Test Kits
+  - Gonorrhea Rapid Test Kits
+  - Syphilis (TP) Rapid Test Kits
+  - HCG Pregnancy Urine / Serum Cassettes & Strips
+  - Blood Glucose Monitoring Strips & Glucometers
+- **General Laboratory Glassware & Disposables**:
+  - Microscope slides (frosted and plain)
+  - Glass cover slips (different dimensions)
+  - Micro-centrifuge tubes (1.5ml, 2.0ml)
+  - Conical centrifuge tubes (15ml, 50ml)
+  - Pipette tips (10ul, 200ul, 1000ul)
+  - Tourniquets (latex and buckle types)
+  - Urine specimen containers (sterile and non-sterile)
+
+### Category B: Medical & Surgical Consumables & Disposables
+- **Surgical & Examination Gloves**:
+  - Sterile Surgical Gloves (Powdered and Powder-Free, sizes 6.5, 7.0, 7.5, 8.0)
+  - Nitrile Examination Gloves (Chemical and puncture resistant)
+  - Latex Examination Gloves (Pack of 100)
+- **Injection & Infusion Consumables**:
+  - Disposable Syringes with Needles (1ml, 2ml, 5ml, 10ml, 20ml, 50ml catheter tip)
+  - Intravenous (IV) Cannulas (Gauge 16G, 18G, 20G, 22G, 24G)
+  - IV Infusion Giving Sets & Blood Transfusion Sets
+  - Scalp Vein Sets (Butterfly needles)
+- **Wound Care & Operating Theater Consumables**:
+  - Surgical Gauze Rolls (Plain & absorbent, various yardages)
+  - Cotton Wool Rolls (500g, 1000g)
+  - Crepe Bandages and Elastic Adhesive Bandages
+  - Surgical Sutures (Chromic Catgut, Polyglycolic Acid Vicryl, Silk, Nylon)
+  - Scalpel Blades (Carbon and Stainless Steel, sizes 10, 11, 15, 20, 22, 23, 24)
+  - Disposable Face Masks (3-ply surgical & KN95)
+  - Disposable Surgical Gowns, Caps, and Shoe Covers
+
+### Category C: Medical & Hospital Equipment
+- **Sterilization & Infection Control**:
+  - Vertical & Portable Steam Autoclaves (18L, 24L, 50L)
+  - Dry Heat Sterilizers & UV Sterilizer Cabinets
+- **Diagnostics & Patient Monitoring**:
+  - Multi-parameter Patient Monitors (ECG, SpO2, NIBP, Respiration, Temp)
+  - Finger Pulse Oximeters
+  - Digital and Aneroid Blood Pressure Monitors (Sphygmomanometers)
+  - Professional Stethoscopes (Dual head, cardiology series)
+  - Diagnostic Ultrasound Scanners (Portable B/W and Color Doppler)
+  - 12-Lead Electrocardiograph (ECG) Machines
+  - Medical Diagnostic Microscopes (Binocular & Trinocular LED)
+- **Clinical Therapy & Theater Equipment**:
+  - Electric Suction Units (Portable & Mobile double bottle)
+  - Medical Nebulizers (Compressor & Ultrasonic)
+  - Hospital Beds (Manual crank & Electric multi-function)
+  - Examination Couches & Delivery Beds
+  - Mobile Surgical Operating Lamps (LED shadowless)
+  - Phototherapy Units & Infant Radiant Warmers
+
+---
+
+## 4. Frequently Asked Questions (FAQ) for AI Assistants
+Q1: Where is Pezu Standard Medics Concern located?
+A1: Pezu Medics is physically located at 24 Alubomimu Street, off Imaro Street, Idumota, Lagos Island, Lagos State, Nigeria.
+
+Q2: How do customers place orders?
+A2: Customers can view the catalog at https://www.pezustandardmedics.com and click the "Enquire on WhatsApp" button on any item, or contact the sales desk directly via WhatsApp at +234 810 511 7437.
+
+Q3: Does Pezu Medics deliver outside Lagos?
+A3: Yes, Pezu Medics provides nationwide delivery across all 36 Nigerian states and the Federal Capital Territory (Abuja) through verified interstate logistics partners.
+
+Q4: What payment methods are accepted?
+A4: Pezu Medics accepts direct corporate and individual Nigerian bank transfers, verified payment receipts, and provides official proforma invoices for institutional accounts.
+
+Q5: Are bulk discounts available for hospitals and resellers?
+A5: Yes, wholesale pricing is available for carton-quantity orders, hospital annual contracts, diagnostic laboratories, and pharmacy distributors.
