@@ -821,4 +821,25 @@
   }
 }
 
+/* Pulsing highlight for product selected from search dropdown */
+@keyframes cardHighlightGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 113, 227, 0.6);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(0, 113, 227, 0.22);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 113, 227, 0);
+    transform: scale(1);
+  }
+}
+
+.highlightCard {
+  animation: cardHighlightGlow 1.2s cubic-bezier(0.16, 1, 0.3, 1) 2;
+  border-color: var(--color-accent) !important;
+}
+
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useMemo, useCallback } from "react";
+import { createContext, useContext, useState, useMemo, useCallback, useEffect } from "react";
 import initialProducts from "@/data/products.json";
 
 const SearchContext = createContext({
@@ -25,6 +25,38 @@ export function SearchProvider({ children }) {
   const [catalogProducts, setCatalogProducts] = useState(
     Array.isArray(initialProducts) ? initialProducts : []
   );
+
+  // Read initial search query from URL if navigated with ?search=... or ?q=...
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("search") || params.get("q");
+    if (q) {
+      setSearchQuery(q);
+      setSelectedCategory("all");
+      setIsHeaderSearchOpen(true);
+    }
+  }, []);
+
+  // Fetch fresh products in background to keep catalog synced
+  useEffect(() => {
+    let cancelled = false;
+    async function loadFreshProducts() {
+      try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+          const data = await res.json();
+          if (!cancelled && Array.isArray(data) && data.length > 0) {
+            setCatalogProducts(data);
+          }
+        }
+      } catch (_) {}
+    }
+    loadFreshProducts();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   /**
    * Search across all categories regardless of active category filter.

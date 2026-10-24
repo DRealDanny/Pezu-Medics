@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { animateFooterScrollReveal } from "@/lib/scrollReveal";
 import styles from "./Footer.module.css";
 
@@ -22,6 +23,25 @@ export default function Footer() {
     const target = document.getElementById("our-product-price");
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.location.href = "/#our-product-price";
+    }
+  };
+
+  const handleRefundClick = (e) => {
+    const target = document.getElementById("section-12");
+    if (target) {
+      e.preventDefault();
+      window.dispatchEvent(
+        new CustomEvent("terms:navigate-section", { detail: { id: "section-12" } })
+      );
+    }
+  };
+
+  const handleTermsClick = (e) => {
+    if (typeof window !== "undefined" && window.location.pathname === "/terms") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -123,10 +143,17 @@ export default function Footer() {
                 <h3 className={styles.colTitle}>Legal</h3>
                 <ul className={styles.linksList}>
                   <li>
-                    <a href="#terms">Terms &amp; Conditions</a>
+                    <Link href="/terms" onClick={handleTermsClick}>
+                      Terms &amp; Conditions
+                    </Link>
                   </li>
                   <li>
-                    <a href="#refund">Refund Policy</a>
+                    <Link
+                      href="/terms?section=section-12#section-12"
+                      onClick={handleRefundClick}
+                    >
+                      Refund Policy
+                    </Link>
                   </li>
                 </ul>
               </div>

@@ -1,0 +1,333 @@
+export const EFFECTIVE_DATE = "23rd October 2026";
+
+export const TERMS_SECTIONS = [
+  {
+    id: "section-1",
+    num: "01",
+    title: "Introduction and Acceptance",
+    paragraphs: [
+      "1.1 These Terms and Conditions (\"Terms\") govern your access to and use of the website, online store and related services operated by Pezu Standard Medics Concern Nig. (\"Pezu Standard Medics\", \"we\", \"us\" or \"our\").",
+      "1.2 By accessing our website or placing an order, you confirm that you have read and understood these Terms and agree to be bound by them.",
+      "1.3 If you do not agree to these Terms, please do not use our website or place an order.",
+      "1.4 These Terms should be read together with any other policies we expressly incorporate into them.",
+      "1.5 Nothing in these Terms excludes or limits any right you have under the Federal Competition and Consumer Protection Act 2018, the Nigeria Data Protection Act 2023, or any other law that cannot be excluded by contract.",
+    ],
+  },
+  {
+    id: "section-2",
+    num: "02",
+    title: "Definitions",
+    paragraphs: ["In these Terms:"],
+    list: [
+      "\"Customer\" or \"you\" means any individual or organisation that uses our website or places an order with us.",
+      "\"Order\" means a request by you to purchase Products through our website or any other authorised channel.",
+      "\"Products\" means the medical, surgical and laboratory products we offer for sale.",
+      "\"Regulated Products\" means Products whose sale is restricted by law or regulation, or which are intended for use only by qualified healthcare or laboratory professionals.",
+      "\"Business Day\" means any day other than a Saturday, Sunday or public holiday in Lagos State.",
+    ],
+  },
+  {
+    id: "section-3",
+    num: "03",
+    title: "About Us",
+    paragraphs: [
+      "3.1 Pezu Standard Medics Concern Nig. is registered with the Corporate Affairs Commission under registration number 7966286, with its registered address at 24 Alubomimu Street, off Imaro Street, Idumota, Lagos Island, Lagos State.",
+      "3.2 We supply medical, surgical and laboratory products through our website and other authorised sales channels.",
+      "3.3 We may update our product range and website content from time to time. Such updates will not affect Orders we have already accepted.",
+    ],
+  },
+  {
+    id: "section-4",
+    num: "04",
+    title: "Eligibility and Accounts",
+    paragraphs: [
+      "4.1 You must be at least 18 years old and legally capable of entering into a binding contract to place an Order.",
+      "4.2 If you place an Order on behalf of an organisation, you confirm that you are authorised to bind that organisation to these Terms.",
+    ],
+  },
+  {
+    id: "section-5",
+    num: "05",
+    title: "Regulated Products and Professional-Use Items",
+    paragraphs: [
+      "5.1 Certain Products may only be sold to licensed healthcare professionals, registered healthcare or laboratory facilities, or persons holding a valid prescription. These Products are identified on our website.",
+      "5.2 Before dispatching a Regulated Product, we may require proof of professional licence, facility registration or a valid prescription. We may decline or cancel an Order where adequate proof is not provided, and any payment for that Product will be refunded.",
+      "5.3 By ordering a Regulated Product, you confirm that you are lawfully entitled to purchase and use it and that any documents you provide are genuine.",
+      "5.4 Professional-use Products must be used only by, or under the supervision of, appropriately qualified persons.",
+    ],
+  },
+  {
+    id: "section-6",
+    num: "06",
+    title: "Product Information and Availability",
+    paragraphs: [
+      "6.1 We take reasonable care to ensure that product descriptions, images, specifications, prices and availability shown on our website are accurate.",
+      "6.2 Product images are for illustration. Minor variations in colour, packaging or appearance may occur due to screen settings or manufacturer changes. This does not permit us to supply Products that materially differ from their description.",
+      "6.3 We supply only Products that are registered with, or otherwise permitted by, the National Agency for Food and Drug Administration and Control (NAFDAC) and any other relevant regulatory authority.",
+      "6.4 Products with an expiry date will be supplied with a reasonable remaining shelf life, which will be no less than [6 months] unless we disclose otherwise before you complete your purchase.",
+      "6.5 All Products are subject to availability. If a Product becomes unavailable after you place an Order, we will notify you and offer a suitable alternative or a full refund for that Product.",
+    ],
+  },
+  {
+    id: "section-7",
+    num: "07",
+    title: "Medical Disclaimer",
+    paragraphs: [
+      "7.1 Information on our website is provided for general product information only. It is not medical advice and does not replace the judgement of a qualified healthcare professional.",
+      "7.2 You must read and follow the manufacturer's instructions, warnings and storage requirements for every Product.",
+      "7.3 If you are unsure whether a Product is suitable for you or your intended use, please consult a qualified healthcare professional before purchasing or using it.",
+    ],
+  },
+  {
+    id: "section-8",
+    num: "08",
+    title: "Pricing and Payment",
+    paragraphs: [
+      "8.1 All prices are displayed in Nigerian Naira (₦).",
+      "8.2 We may change our prices from time to time. A price change will not affect an Order we have already confirmed.",
+      "8.3 We accept bank transfers, debit and credit cards, authorised payment gateways and any other method communicated through our official channels.",
+      "8.4 You are responsible for ensuring that your payment details are accurate and that sufficient funds are available.",
+      "8.5 If a Product is listed at an obviously incorrect price due to a genuine error, we will contact you before dispatch. You may then choose to proceed at the correct price or cancel the Order for a full refund. We will never charge you an amount you have not agreed to.",
+    ],
+  },
+  {
+    id: "section-9",
+    num: "09",
+    title: "Orders and Contract Formation",
+    paragraphs: [
+      "9.1 When you place an Order, you make an offer to purchase the selected Products under these Terms.",
+      "9.2 Our automated email or message acknowledging your Order confirms only that we have received it. A binding contract is formed when we send you a dispatch confirmation or otherwise expressly confirm acceptance of your Order.",
+      "9.3 We may decline or cancel an Order before acceptance where:",
+    ],
+    list: [
+      "the Product is unavailable;",
+      "payment authorisation fails;",
+      "there is a genuine pricing or listing error;",
+      "we reasonably suspect fraud;",
+      "you have not provided documents required under clause 5; or",
+      "delivery cannot lawfully or reasonably be completed.",
+    ],
+    afterParagraphs: [
+      "9.4 If we cancel an Order you have paid for, we will refund the full amount paid within [14] Business Days.",
+      "9.5 We will notify you of any material change to or cancellation of your Order using the contact details you have provided.",
+    ],
+  },
+  {
+    id: "section-10",
+    num: "10",
+    title: "Bulk and Institutional Orders",
+    paragraphs: [
+      "10.1 Bulk orders, credit arrangements and supply agreements with hospitals, clinics, laboratories and other institutions may be subject to separate written terms.",
+      "10.2 Where separate terms apply, they will prevail over these Terms to the extent of any conflict.",
+    ],
+  },
+  {
+    id: "section-11",
+    num: "11",
+    title: "Shipping and Delivery",
+    paragraphs: [
+      "11.1 We will display available delivery options, estimated delivery times, delivery fees and any geographical restrictions before you complete your purchase.",
+      "11.2 You must provide a complete and accurate delivery address and reachable contact details.",
+      "11.3 Delivery dates are estimates unless we expressly guarantee them. If your delivery is delayed, we will keep you reasonably informed.",
+      "11.4 Products requiring temperature control will be packed and delivered in line with the manufacturer's storage requirements.",
+      "11.5 Risk of loss or damage passes to you on delivery. Ownership passes to you once we receive full payment.",
+      "11.6 Please inspect your Products on delivery. Visible damage, missing items or incorrect Products should be reported to us within [48 hours] of delivery, with photographs where possible.",
+      "11.7 If delivery fails because you provided incorrect details or were unavailable at the agreed time, we may charge a reasonable redelivery fee, which we will disclose to you in advance.",
+    ],
+  },
+  {
+    id: "section-12",
+    num: "12",
+    title: "Cancellations, Returns, Exchanges and Refunds",
+    paragraphs: [
+      "12.1 To request a cancellation, return, exchange or refund, please contact us through the details in clause 27.",
+      "12.2 **Faulty or incorrect Products.** If a Product is defective, damaged, incorrectly supplied or materially different from its description, you are entitled to a repair, replacement or full refund. Please notify us within [7] days of delivery or, for a defect that was not reasonably visible on delivery, within a reasonable time of discovering it. We will cover the cost of returning the Product.",
+      "12.3 **Change of mind.** You may return a Product you no longer want within [7] days of delivery, provided it is unused, unopened, in its original sealed packaging and accompanied by proof of purchase. You will bear the cost of returning it.",
+      "12.4 **Non-returnable Products.** For safety and hygiene reasons, the following cannot be returned for change of mind:",
+    ],
+    list: [
+      "sterile, single-use or hygiene Products where the seal or packaging has been opened;",
+      "temperature-controlled Products once they have left our control;",
+      "Products made or ordered to your specification; and",
+      "Regulated Products, once dispatched, except where faulty or incorrectly supplied.",
+    ],
+    afterParagraphs: [
+      "This clause does not affect your rights under clause 12.2.",
+      "12.5 Approved refunds will be made within [14] Business Days of approval, using your original payment method unless we agree otherwise with you. Your bank or payment provider may take additional time to credit the funds.",
+      "12.6 Nothing in this clause removes or restricts your statutory consumer rights.",
+    ],
+  },
+  {
+    id: "section-13",
+    num: "13",
+    title: "Product Recalls",
+    paragraphs: [
+      "13.1 If a Product we have supplied becomes subject to a recall or safety notice from the manufacturer or a regulator, we will make reasonable efforts to notify affected Customers using the contact details we hold.",
+      "13.2 You agree to follow any recall instructions we communicate. Recalled Products will be replaced or refunded in line with the recall terms and applicable law.",
+    ],
+  },
+  {
+    id: "section-14",
+    num: "14",
+    title: "Customer Conduct",
+    paragraphs: ["14.1 You agree not to:"],
+    list: [
+      "use our website for fraudulent, unlawful or deceptive purposes;",
+      "interfere with the security, availability or operation of our website;",
+      "attempt unauthorised access to our systems, accounts or customer information;",
+      "submit false orders, payment details, identity information or professional credentials;",
+      "copy or exploit our website content or intellectual property without authorisation; or",
+      "use automated systems to disrupt our website or collect information unlawfully.",
+    ],
+    afterParagraphs: [
+      "14.2 Where you breach this clause, we may take proportionate action, including restricting your access, cancelling affected Orders or reporting suspected unlawful conduct to the appropriate authorities.",
+    ],
+  },
+  {
+    id: "section-15",
+    num: "15",
+    title: "Intellectual Property",
+    paragraphs: [
+      "15.1 Our website design, logo, text, product photographs, graphics and original marketing materials are owned by or licensed to us.",
+      "15.2 You may use our website only for lawful personal or business purchasing.",
+      "15.3 You may not copy, distribute, modify, publish or commercially exploit our materials without our prior written permission, except as permitted by law.",
+      "15.4 Third-party trademarks, product names and images remain the property of their respective owners.",
+    ],
+  },
+  {
+    id: "section-16",
+    num: "16",
+    title: "Privacy and Personal Data",
+    paragraphs: [
+      "16.1 We collect and process personal information to process Orders and payments, arrange delivery, verify eligibility for Regulated Products, respond to enquiries, prevent fraud and meet our legal obligations.",
+      "16.2 Some information you share with us, such as prescriptions or details of the Products you buy, may relate to health. We treat such information as sensitive personal data and process it only as permitted under the Nigeria Data Protection Act 2023.",
+      "16.3 We will protect your information against unauthorised access, loss, misuse or disclosure using appropriate technical and organisational measures.",
+      "16.4 We may share relevant information with payment processors, delivery partners and technology providers only to the extent necessary to provide their services.",
+      "16.5 We will send marketing messages only where you have consented or where the law otherwise allows, and you may opt out at any time.",
+      "16.6 To exercise your data protection rights, contact us at [pezustandardmedicsconcerns@gmail.com](mailto:pezustandardmedicsconcerns@gmail.com). Further details are set out in our Privacy Policy.",
+    ],
+  },
+  {
+    id: "section-17",
+    num: "17",
+    title: "Third-Party Services and Links",
+    paragraphs: [
+      "17.1 Our website may link to or integrate with third-party websites, payment providers, delivery companies and other external services.",
+      "17.2 We do not control these third parties and are not responsible for their independent content, practices or availability, except where the law makes us responsible.",
+      "17.3 Please review the relevant third party's terms and privacy notices before using its services.",
+    ],
+  },
+  {
+    id: "section-18",
+    num: "18",
+    title: "Warranties",
+    paragraphs: [
+      "18.1 We warrant that Products supplied by us will match their description, be of satisfactory quality and comply with applicable regulatory standards.",
+      "18.2 Where a manufacturer provides its own warranty, we will pass on the relevant warranty information. A manufacturer's warranty is in addition to, and does not replace, your legal rights against us.",
+    ],
+  },
+  {
+    id: "section-19",
+    num: "19",
+    title: "Limitation of Liability",
+    paragraphs: [
+      "19.1 We are not liable for any indirect or consequential loss, or for loss of profit, business or revenue, except where such loss results from our breach of a legal obligation that cannot be excluded.",
+      "19.2 We are not liable for loss or injury caused by:",
+    ],
+    list: [
+      "use of a Product contrary to the manufacturer's instructions or our written guidance;",
+      "use of a professional-use Product by an unqualified person;",
+      "improper storage of a Product after delivery; or",
+      "false or inaccurate information or documents provided by you.",
+    ],
+    afterParagraphs: [
+      "19.3 Subject to clause 19.4, our total liability to you in connection with any Order is limited to the amount you paid for that Order.",
+      "19.4 Nothing in these Terms limits our liability for death or personal injury caused by our negligence, for fraud, or for any other liability that cannot lawfully be limited or excluded.",
+    ],
+  },
+  {
+    id: "section-20",
+    num: "20",
+    title: "Indemnity",
+    paragraphs: [
+      "You agree to indemnify us against any claims, losses or costs arising from your breach of these Terms, your misuse of a Product, or any false credentials, prescriptions or information you provide.",
+    ],
+  },
+  {
+    id: "section-21",
+    num: "21",
+    title: "Force Majeure",
+    paragraphs: [
+      "21.1 We will not be in breach of these Terms where performance is prevented or materially delayed by events beyond our reasonable control. These include natural disasters, severe weather, war, civil unrest, government restrictions, widespread network failures and major interruptions to essential services.",
+      "21.2 We will take reasonable steps to limit the effect of such events and will keep affected Customers informed.",
+      "21.3 This clause does not affect any refund or other obligation we owe you under mandatory law.",
+    ],
+  },
+  {
+    id: "section-22",
+    num: "22",
+    title: "Complaints and Dispute Resolution",
+    paragraphs: [
+      "22.1 Please send complaints to [pezustandardmedicsconcerns@gmail.com](mailto:pezustandardmedicsconcerns@gmail.com) with your invoice or Order number, a description of the issue and any supporting evidence.",
+      "22.2 We will acknowledge your complaint within [2] Business Days and aim to resolve it within [14] Business Days.",
+      "22.3 If we cannot resolve a dispute directly, either party may refer it to mediation at the Lagos Multi-Door Courthouse before commencing court proceedings.",
+      "22.4 Nothing in this clause prevents you from approaching the Federal Competition and Consumer Protection Commission, any other regulator, or a court of competent jurisdiction.",
+    ],
+  },
+  {
+    id: "section-23",
+    num: "23",
+    title: "Electronic Communications and Notices",
+    paragraphs: [
+      "23.1 You agree that we may communicate with you electronically, including by email, SMS and messaging apps, and that electronic communications satisfy any legal requirement that such communications be in writing.",
+      "23.2 Notices to us should be sent to the email address in clause 27. Notices to you will be sent to the contact details you provided.",
+    ],
+  },
+  {
+    id: "section-24",
+    num: "24",
+    title: "Amendments",
+    paragraphs: [
+      "24.1 We may update these Terms to reflect changes in our business, products, technology or legal obligations.",
+      "24.2 The latest version will be published on our website with an updated effective date.",
+      "24.3 Changes will not apply to Orders accepted before the change takes effect. Where a change materially affects an ongoing arrangement, we will give you notice in advance.",
+    ],
+  },
+  {
+    id: "section-25",
+    num: "25",
+    title: "Governing Law and Jurisdiction",
+    paragraphs: [
+      "25.1 These Terms are governed by the laws of the Federal Republic of Nigeria.",
+      "25.2 Subject to clause 22, the courts of Lagos State shall have jurisdiction over any dispute arising from these Terms, without prejudice to any right you have to bring proceedings before another court or authority of competent jurisdiction.",
+    ],
+  },
+  {
+    id: "section-26",
+    num: "26",
+    title: "General",
+    paragraphs: [
+      "26.1 **Severability.** If any provision of these Terms is found invalid or unenforceable, it will be severed, and the remaining provisions will continue in full force.",
+      "26.2 **Waiver.** Our failure or delay in enforcing any provision does not waive our right to enforce it later.",
+      "26.3 **Assignment.** We may transfer our rights and obligations under these Terms to a successor business, provided your rights are not reduced. You may not transfer your rights without our written consent.",
+      "26.4 **Entire agreement.** These Terms, together with the policies incorporated into them and any separate terms under clause 10, form the entire agreement between you and us regarding your use of our website and purchase of Products.",
+    ],
+  },
+  {
+    id: "section-27",
+    num: "27",
+    title: "Contact Details",
+    paragraphs: [
+      "For questions, complaints or requests relating to these Terms, please contact:",
+    ],
+    isContactCard: true,
+    contactInfo: {
+      companyName: "Pezu Standard Medics Concern Nig.",
+      address: "24 Alubomimu Street, off Imaro Street, Idumota, Lagos Island, Lagos State",
+      email: "pezustandardmedicsconcerns@gmail.com",
+      phone: "+234 810 511 7437",
+      phoneFormatted: "+234 810 511 7437",
+      website: "https://www.pezustandardmedics.com/",
+    },
+  },
+];

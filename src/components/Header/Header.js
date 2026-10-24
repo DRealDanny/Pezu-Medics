@@ -1,13 +1,19 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import { useSearch } from "@/context/SearchContext";
+import { getCategoryBadge } from "@/lib/categories";
 import styles from "./Header.module.css";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHomePage = pathname === "/";
+
   const {
     searchQuery,
     performGlobalSearch,
@@ -16,10 +22,23 @@ export default function Header() {
     setIsHeaderSearchOpen,
     searchMatchCount,
     hasQuery,
+    catalogProducts,
   } = useSearch();
 
   const searchContainerRef = useRef(null);
   const searchInputRef = useRef(null);
+
+  // Filter products for the mini dropdown when on non-home pages
+  const matchingProducts = useMemo(() => {
+    if (!hasQuery || !catalogProducts || catalogProducts.length === 0) return [];
+    const q = searchQuery.toLowerCase().trim();
+    return catalogProducts.filter((p) => {
+      const matchName = p.name?.toLowerCase().includes(q);
+      const matchCat = p.category?.toLowerCase().includes(q);
+      const matchDesc = p.description?.toLowerCase().includes(q);
+      return matchName || matchCat || matchDesc;
+    });
+  }, [hasQuery, searchQuery, catalogProducts]);
 
   // Track header shadow on scroll
   useEffect(() => {
@@ -46,8 +65,11 @@ export default function Header() {
       }
     };
 
-    // Scrolling the page closes the search box while retaining results
-    const handleScroll = () => {
+    // Scrolling the page closes the search box, but scrolling inside the dropdown should not close it
+    const handleScroll = (e) => {
+      if (e.target && searchContainerRef.current && searchContainerRef.current.contains(e.target)) {
+        return;
+      }
       setIsHeaderSearchOpen(false);
     };
 
@@ -83,21 +105,72 @@ export default function Header() {
     }
   };
 
+  const handleProductClick = (product) => {
+    setIsHeaderSearchOpen(false);
+    if (isHomePage) {
+      performGlobalSearch(product.name);
+      setTimeout(() => {
+        const card = document.getElementById(`product-${product.id}`);
+        if (card) {
+          card.scrollIntoView({ behavior: "smooth", block: "center" });
+          card.classList.add("highlightProductCard");
+          setTimeout(() => {
+            card.classList.remove("highlightProductCard");
+          }, 2800);
+          return;
+        }
+        const catalogEl = document.getElementById("our-product-price");
+        if (catalogEl) {
+          catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 120);
+    } else {
+      router.push(
+        `/?search=${encodeURIComponent(product.name)}&productId=${encodeURIComponent(product.id)}#our-product-price`
+      );
+    }
+  };
+
+  const handleViewAllClick = () => {
+    setIsHeaderSearchOpen(false);
+    if (isHomePage) {
+      performGlobalSearch(searchQuery);
+      const catalogEl = document.getElementById("our-product-price");
+      if (catalogEl) {
+        catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      router.push(
+        `/?search=${encodeURIComponent(searchQuery)}#our-product-price`
+      );
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const catalogEl = document.getElementById("our-product-price") || document.getElementById("product-catalog");
-    if (catalogEl) {
-      catalogEl.scrollIntoView({ behavior: "smooth" });
+    if (hasQuery) {
+      setIsHeaderSearchOpen(false);
+      if (isHomePage) {
+        performGlobalSearch(searchQuery);
+        const catalogEl = document.getElementById("our-product-price") || document.getElementById("product-catalog");
+        if (catalogEl) {
+          catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else {
+        router.push(
+          `/?search=${encodeURIComponent(searchQuery)}#our-product-price`
+        );
+      }
     }
   };
 
   return (
     <header className={`${styles.header}${scrolled ? ` ${styles.scrolled}` : ""}`} role="banner">
       <div className={`container ${styles.headerInner}`}>
-        {/* Brand logo (hidden on mobile only when search bar is actively expanded) */}
+        {/* Brand logo */}
         <Link
           href="/"
-          className={`${styles.logoLink}${isHeaderSearchOpen ? ` ${styles.logoHiddenOnMobileSearch}` : ""}`}
+          className={styles.logoLink}
           aria-label="Pezu Standard Medics Concern"
         >
           <Image
@@ -209,6 +282,199 @@ export default function Header() {
                 </span>
               )}
             </button>
+          )}
+
+          {/* Universal mini dropdown tab across the whole website */}
+          {isHeaderSearchOpen && hasQuery && (
+            <div
+              className={styles.miniDropdown}
+              role="dialog"
+              aria-label="Product Search Results"
+            >
+              {matchingProducts.length > 0 ? (
+                <>
+                  <div className={styles.dropdownHeader}>
+                    <span className={styles.dropdownHeaderTitle}>
+                      Matching Products
+                    </span>
+                    <span className={styles.dropdownHeaderBadge}>
+                      {matchingProducts.length}{" "}
+                      {matchingProducts.length === 1 ? "result" : "results"}
+                    </span>
+                  </div>
+
+                  <div className={styles.dropdownList} role="listbox">
+                    {matchingProducts.slice(0, 15).map((product) => {
+                      const badge = getCategoryBadge(product.category);
+                      return (
+                        <button
+                          key={product.id}
+                          type="button"
+                          className={styles.dropdownItem}
+                          onClick={() => handleProductClick(product)}
+                          role="option"
+                          aria-selected="false"
+                        >
+                          <div className={styles.itemThumb}>
+                            {product.image ? (
+                              <img
+                                src={product.image}
+                                alt={product.name}
+                                className={styles.itemImg}
+                              />
+                            ) : (
+                              <div className={styles.itemPlaceholderIcon}>
+                                <svg
+                                  width="18"
+                                  height="18"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <rect x="3" y="3" width="18" height="18" rx="3" />
+                                  <line x1="12" y1="8" x2="12" y2="16" />
+                                  <line x1="8" y1="12" x2="16" y2="12" />
+                                </svg>
+                              </div>
+                            )}
+                          </div>
+
+                          <div className={styles.itemInfo}>
+                            <div className={styles.itemName}>{product.name}</div>
+                            <div className={styles.itemMeta}>
+                              {badge && (
+                                <span
+                                  className={styles.itemCatBadge}
+                                  style={{
+                                    color: badge.color,
+                                    backgroundColor: badge.bg,
+                                    borderColor: badge.border,
+                                  }}
+                                >
+                                  {badge.short}
+                                </span>
+                              )}
+                              <span className={styles.itemPrice}>
+                                ₦{Number(product.price || 0).toLocaleString("en-US", {
+                                  minimumFractionDigits: 0,
+                                })}
+                              </span>
+                            </div>
+                          </div>
+
+                          <span className={styles.itemArrow} aria-hidden="true">
+                            <svg
+                              width="14"
+                              height="14"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div className={styles.dropdownFooter}>
+                    <button
+                      type="button"
+                      className={styles.dropdownViewAllBtn}
+                      onClick={handleViewAllClick}
+                    >
+                      <span>
+                        View all {matchingProducts.length} results in catalog
+                      </span>
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div
+                  className={styles.dropdownEmptyState}
+                  role="status"
+                  aria-live="polite"
+                >
+                  <div className={styles.emptyIconWrap}>
+                    <svg
+                      width="26"
+                      height="26"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      <line
+                        x1="8"
+                        y1="11"
+                        x2="14"
+                        y2="11"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </div>
+                  <div className={styles.emptyTitle}>No matching products</div>
+                  <p className={styles.emptyText}>
+                    No product matching &ldquo;<strong>{searchQuery}</strong>&rdquo; was
+                    found in our catalog across all categories.
+                  </p>
+                  <div className={styles.emptyActions}>
+                    <button
+                      type="button"
+                      className={styles.emptyClearBtn}
+                      onClick={handleClearQuery}
+                    >
+                      Clear search
+                    </button>
+                    <a
+                      href={`https://wa.me/2348105117437?text=${encodeURIComponent(
+                        `Hello Pezu Standard Medics, I searched for "${searchQuery}" on your website but could not find it. Do you have this product available?`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.emptyWhatsAppBtn}
+                    >
+                      <span>Enquire on WhatsApp</span>
+                      <svg
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <line x1="7" y1="17" x2="17" y2="7" />
+                        <polyline points="7 7 17 7 17 17" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>
