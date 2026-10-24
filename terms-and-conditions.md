@@ -38,12 +38,6 @@ In these Terms:
 
 4.2 If you place an Order on behalf of an organisation, you confirm that you are authorised to bind that organisation to these Terms.
 
-4.3 Where you create an account, you must provide accurate, complete and current information. You are responsible for keeping your login details confidential and for all activity carried out through your account.
-
-4.4 You must notify us promptly if you suspect unauthorised access to your account.
-
-4.5 We may suspend or restrict an account where we have reasonable grounds to suspect fraud, misuse, unlawful activity or a material breach of these Terms. Where practicable, we will tell you the reason.
-
 ## 5. Regulated Products and Professional-Use Items
 
 5.1 Certain Products may only be sold to licensed healthcare professionals, registered healthcare or laboratory facilities, or persons holding a valid prescription. These Products are identified on our website.
@@ -74,9 +68,9 @@ In these Terms:
 
 7.3 If you are unsure whether a Product is suitable for you or your intended use, please consult a qualified healthcare professional before purchasing or using it.
 
-## 8. Pricing, Taxes and Payment
+## 8. Pricing and Payment
 
-8.1 All prices are displayed in Nigerian Naira (₦). Each listing or the checkout page will state whether Value Added Tax, delivery fees or other charges are included.
+8.1 All prices are displayed in Nigerian Naira (₦).
 
 8.2 We may change our prices from time to time. A price change will not affect an Order we have already confirmed.
 
