@@ -1,10 +1,10 @@
 /* ============================================================
    TERMS & CONDITIONS PAGE — Pezu Medics
    Clean monochrome legal document styling with flat side panel,
-   dark grey active tabs with comfortable padding, and side-by-side subheadings.
+   light grey active tabs with comfortable padding, and responsive headings.
    ============================================================ */
 
-/* ── Page Shell (No blue tint, pure clean background) ── */
+/* ── Page Shell ── */
 .termsPage {
   min-height: 100vh;
   display: flex;
@@ -31,7 +31,7 @@
 
 /* ============================================================
    MOBILE & TABLET STICKY TOC ICON BUTTON (< 1024px)
-   Flat, clean, black/dark-grey active, no blue
+   Flat, clean, light grey active/hover
    ============================================================ */
 .mobileBarWrapper {
   display: none;
@@ -55,7 +55,7 @@
   background: #ffffff;
   border: none;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  color: #000000;
+  color: #0f172a;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,25 +65,25 @@
 }
 
 .mobileHamburgerBtn:hover {
-  color: #ffffff;
-  background: #27272a;
+  background: #e4e7ec;
+  color: #0f172a;
   transform: scale(1.05);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
 }
 
 .mobileHamburgerBtnActive {
-  color: #ffffff;
-  background: #27272a;
+  background: #e4e7ec;
+  color: #0f172a;
 }
 
 /* ============================================================
    MOBILE & TABLET DRAWER MODAL (< 1024px)
-   Flat and clean, no blue
+   Flat and clean
    ============================================================ */
 .drawerBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   z-index: 999;
@@ -107,7 +107,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 12px 0 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 12px 0 40px rgba(0, 0, 0, 0.12);
   animation: slideInLeft 0.26s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
 }
@@ -123,7 +123,7 @@
 
 .drawerHeader {
   padding: 18px 20px;
-  border-bottom: none; /* Flat, no border */
+  border-bottom: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -141,7 +141,7 @@
   height: 32px;
   border-radius: 8px;
   background: #f4f4f5;
-  color: #000000;
+  color: #0f172a;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,14 +150,14 @@
 .drawerTitle {
   font-size: 1rem;
   font-weight: 700;
-  color: #000000;
+  color: #0f172a;
   margin: 0;
   line-height: 1.2;
 }
 
 .drawerSubtitle {
   font-size: 0.75rem;
-  color: #71717a;
+  color: #64748b;
   font-weight: 500;
 }
 
@@ -170,14 +170,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000000;
+  color: #0f172a;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
 
 .drawerCloseBtn:hover {
-  background: #e4e4e7;
-  color: #000000;
+  background: #e2e8f0;
+  color: #0f172a;
 }
 
 .drawerNavList {
@@ -202,7 +202,7 @@
 
 /* ============================================================
    DESKTOP TOC SIDEBAR (>= 1024px)
-   Flat & clean, ALL borders removed, no blue
+   Flat & clean, all borders removed
    ============================================================ */
 .desktopSidebar {
   position: sticky;
@@ -214,9 +214,9 @@
 
 .tocCard {
   background: #ffffff;
-  border: none; /* No border on side panel */
+  border: none;
   border-radius: 16px;
-  box-shadow: none; /* Flat and clean */
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - 120px);
@@ -225,7 +225,7 @@
 
 .tocCardHeader {
   padding: 14px 14px 10px;
-  border-bottom: none; /* No border on side panel */
+  border-bottom: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -240,7 +240,7 @@
 }
 
 .tocHeaderIcon {
-  color: #000000; /* Black */
+  color: #0f172a;
   display: flex;
   align-items: center;
 }
@@ -248,15 +248,15 @@
 .tocHeaderTitle {
   font-size: 0.92rem;
   font-weight: 700;
-  color: #000000; /* Black */
+  color: #0f172a;
   letter-spacing: -0.01em;
 }
 
 .tocBadge {
   font-size: 0.72rem;
   font-weight: 600;
-  color: #000000; /* Black */
-  background: #f4f4f5; /* Flat subtle light grey */
+  color: #475569;
+  background: #f1f5f9;
   padding: 3px 8px;
   border-radius: 999px;
   white-space: nowrap;
@@ -281,9 +281,9 @@
   width: 100%;
   padding: 9px 30px 9px 34px;
   font-size: 0.82rem;
-  color: #000000;
+  color: #0f172a;
   background: #f4f4f5;
-  border: none; /* No border on side panel */
+  border: none;
   border-radius: 10px;
   outline: none;
   font-family: inherit;
@@ -293,11 +293,11 @@
 
 .searchInput:focus {
   background: #ffffff;
-  box-shadow: 0 0 0 2px #27272a; /* Dark grey focus ring, no blue */
+  box-shadow: 0 0 0 2px #cbd5e1;
 }
 
 .searchInput::placeholder {
-  color: #a1a1aa;
+  color: #94a3b8;
 }
 
 .clearSearchBtn {
@@ -313,7 +313,7 @@
 }
 
 .clearSearchBtn:hover {
-  color: #000000;
+  color: #0f172a;
 }
 
 /* ── Scrollable TOC Nav List ── */
@@ -341,12 +341,12 @@
   border-radius: 999px;
 }
 
-/* ── TOC Nav Item Button (Generous top & bottom padding) ── */
+/* ── TOC Nav Item Button (Good top & bottom padding) ── */
 .navItem {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px; /* Good padding at top and bottom */
+  padding: 12px 14px;
   background: transparent;
   border: none;
   border-radius: 10px;
@@ -354,7 +354,7 @@
   text-align: left;
   font-family: inherit;
   font-size: 0.83rem;
-  color: #3f3f46;
+  color: #475569;
   line-height: 1.35;
   transition: background 0.16s ease, color 0.16s ease;
   position: relative;
@@ -363,31 +363,31 @@
 }
 
 .navItem:hover {
-  background: #f4f4f5;
-  color: #000000;
+  background: #f1f5f9;
+  color: #0f172a;
 }
 
-/* ── Highlighted or Active Tab: Dark Grey with good padding ── */
+/* ── Highlighted or Active Tab: Light Grey with comfortable padding ── */
 .navItemActive {
-  background: #27272a !important; /* Dark grey */
-  color: #ffffff !important;
+  background: #e4e7ec !important; /* Soft, light grey */
+  color: #0f172a !important;
   font-weight: 600;
 }
 
 .navItemActive .navNum {
-  color: #ffffff !important;
+  color: #0f172a !important;
 }
 
 .navItemActive .activeDot {
-  background: #ffffff;
+  background: #475569;
   box-shadow: none;
 }
 
-/* ── Section Number in TOC: Black when inactive, White when active ── */
+/* ── Section Number in TOC ── */
 .navNum {
   font-size: 0.82rem;
   font-weight: 700;
-  color: #000000; /* Black */
+  color: #0f172a;
   background: transparent;
   border: none;
   padding: 0;
@@ -408,7 +408,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #ffffff;
+  background: #475569;
   flex-shrink: 0;
   box-shadow: none;
 }
@@ -427,29 +427,29 @@
   min-width: 0;
 }
 
-/* ── Page Header: Subheadings side by side across all screens ── */
+/* ── Page Header: Responsive Heading and Subheadings ── */
 .pageHeader {
-  margin-bottom: clamp(24px, 3.5vw, 36px);
+  margin-bottom: clamp(20px, 3vw, 32px);
 }
 
 .pageTitle {
-  font-size: clamp(2rem, 3.6vw, 2.75rem);
-  font-weight: 800;
+  font-size: clamp(1.65rem, 3.2vw, 2.5rem);
+  font-weight: 750;
   letter-spacing: -0.025em;
-  color: #000000; /* Black */
-  margin: 0 0 10px 0;
-  line-height: 1.15;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
 }
 
 .subheadingsRow {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 6px 10px;
+  gap: 10px 14px;
 }
 
 .pageSubtitle {
-  font-size: clamp(0.78rem, 2.4vw, 1.02rem);
+  font-size: clamp(0.92rem, 1.2vw, 1.05rem);
   color: #4b5563;
   font-weight: 500;
   margin: 0;
@@ -457,25 +457,25 @@
 }
 
 .subheadingDivider {
-  color: #9ca3af;
-  font-size: 0.8rem;
+  color: #94a3b8;
+  font-size: 0.85rem;
   user-select: none;
   line-height: 1;
 }
 
 .effectiveDate {
-  font-size: clamp(0.78rem, 2.3vw, 0.95rem);
+  font-size: clamp(0.88rem, 1.1vw, 0.95rem);
   color: #4b5563;
   margin: 0;
   line-height: 1.4;
 }
 
 .effectiveDate strong {
-  color: #000000; /* Black */
+  color: #0f172a;
   font-weight: 600;
 }
 
-/* ── Document Card (Flat & Clean, Neutral, No Blue) ── */
+/* ── Document Card (Flat & Clean, Neutral) ── */
 .docCard {
   background: #ffffff;
   border-radius: clamp(16px, 2.5vw, 24px);
@@ -502,11 +502,11 @@
   border-bottom: 1px solid #f1f5f9;
 }
 
-/* ── Section Title: Black ── */
+/* ── Section Title ── */
 .secTitle {
   font-size: clamp(1.15rem, 1.8vw, 1.35rem);
   font-weight: 700;
-  color: #000000; /* Black */
+  color: #0f172a;
   letter-spacing: -0.02em;
   line-height: 1.35;
   margin: 0 0 16px 0;
@@ -515,9 +515,9 @@
   gap: 8px;
 }
 
-/* ── Section Heading Number: Black, No Blue ── */
+/* ── Section Heading Number ── */
 .secNumber {
-  color: #000000; /* Black, no blue */
+  color: #0f172a;
   font-weight: 800;
   background: transparent;
   border: none;
@@ -528,7 +528,7 @@
 .secBody {
   font-size: clamp(0.92rem, 1.1vw, 0.98rem);
   line-height: 1.78;
-  color: #1f2937;
+  color: #334155;
 }
 
 .secBody p {
@@ -539,9 +539,9 @@
   margin-bottom: 0;
 }
 
-/* ── Clause Number: Black, No Blue ── */
+/* ── Clause Number ── */
 .clauseNum {
-  color: #000000; /* Black, no blue */
+  color: #0f172a;
   font-weight: 700;
   display: inline;
   background: transparent;
@@ -550,7 +550,7 @@
 }
 
 .boldText {
-  color: #000000; /* Black */
+  color: #0f172a;
   font-weight: 700;
 }
 
@@ -571,10 +571,10 @@
   line-height: 1.7;
 }
 
-/* ── List Letters (a, b, c): Black, No Blue ── */
+/* ── List Letters (a, b, c) ── */
 .listAlpha {
   font-weight: 700;
-  color: #000000; /* Black, no blue */
+  color: #0f172a;
   background: transparent;
   border: none;
   padding: 0;
@@ -588,7 +588,7 @@
   flex: 1;
 }
 
-/* ── Section 27: Contact Details (Flat Text, No Border) ── */
+/* ── Section 27: Contact Details ── */
 .contactList {
   list-style: none;
   padding: 0;
@@ -596,7 +596,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  color: #1f2937;
+  color: #334155;
   background: transparent;
   border: none;
 }
@@ -609,13 +609,13 @@
 }
 
 .contactList strong {
-  color: #000000; /* Black */
+  color: #0f172a;
   font-weight: 600;
   min-width: 160px;
 }
 
 .link {
-  color: #000000; /* Black, no blue */
+  color: #0f172a;
   text-decoration: underline;
   text-underline-offset: 3px;
   word-break: break-all;
@@ -624,20 +624,20 @@
 }
 
 .link:hover {
-  color: #4b5563; /* Dark grey hover, no blue */
+  color: #64748b;
 }
 
-/* ── ScrollToTop override for Terms Page (Black / Dark Grey) ── */
+/* ── ScrollToTop override for Terms Page ── */
 .termsPage :global(.scrollToTopBtn) {
-  color: #000000;
+  color: #0f172a;
   border-color: rgba(0, 0, 0, 0.12);
 }
 
 .termsPage :global(.scrollToTopBtn:hover) {
-  background: #27272a;
-  color: #ffffff;
-  border-color: #27272a;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  background: #e4e7ec;
+  color: #0f172a;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 /* ============================================================
@@ -668,24 +668,42 @@
     min-width: 100%;
   }
 
+  /* Compact, comfortable mobile heading */
+  .pageHeader {
+    margin-bottom: 18px;
+  }
+
+  .pageTitle {
+    font-size: 1.45rem; /* Balanced, not too big for mobile screen */
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  /* Well-placed, clean mobile subheadings without awkward wrapping or hanging dots */
   .subheadingsRow {
-    gap: 4px 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 
-  .pageSubtitle,
+  .subheadingDivider {
+    display: none;
+  }
+
+  .pageSubtitle {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.4;
+  }
+
   .effectiveDate {
-    font-size: 0.76rem;
-  }
-}
-
-@media (max-width: 420px) {
-  .subheadingsRow {
-    gap: 2px 5px;
+    font-size: 0.82rem;
+    color: #64748b;
+    line-height: 1.4;
   }
 
-  .pageSubtitle,
-  .effectiveDate {
-    font-size: 0.65rem;
-    letter-spacing: -0.01em;
+  .effectiveDate strong {
+    color: #334155;
   }
 }

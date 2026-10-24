@@ -7,9 +7,9 @@ export const TERMS_SECTIONS = [
     title: "Introduction and Acceptance",
     paragraphs: [
       "1.1 These Terms and Conditions (\"Terms\") govern your access to and use of the website, online store and related services operated by Pezu Standard Medics Concern Nig. (\"Pezu Standard Medics\", \"we\", \"us\" or \"our\").",
-      "1.2 By accessing our website, creating an account or placing an order, you confirm that you have read and understood these Terms and agree to be bound by them.",
+      "1.2 By accessing our website or placing an order, you confirm that you have read and understood these Terms and agree to be bound by them.",
       "1.3 If you do not agree to these Terms, please do not use our website or place an order.",
-      "1.4 These Terms should be read together with our Privacy Policy and any other policies we expressly incorporate into them.",
+      "1.4 These Terms should be read together with any other policies we expressly incorporate into them.",
       "1.5 Nothing in these Terms excludes or limits any right you have under the Federal Competition and Consumer Protection Act 2018, the Nigeria Data Protection Act 2023, or any other law that cannot be excluded by contract.",
     ],
   },
@@ -43,9 +43,6 @@ export const TERMS_SECTIONS = [
     paragraphs: [
       "4.1 You must be at least 18 years old and legally capable of entering into a binding contract to place an Order.",
       "4.2 If you place an Order on behalf of an organisation, you confirm that you are authorised to bind that organisation to these Terms.",
-      "4.3 Where you create an account, you must provide accurate, complete and current information. You are responsible for keeping your login details confidential and for all activity carried out through your account.",
-      "4.4 You must notify us promptly if you suspect unauthorised access to your account.",
-      "4.5 We may suspend or restrict an account where we have reasonable grounds to suspect fraud, misuse, unlawful activity or a material breach of these Terms. Where practicable, we will tell you the reason.",
     ],
   },
   {
@@ -84,9 +81,9 @@ export const TERMS_SECTIONS = [
   {
     id: "section-8",
     num: "08",
-    title: "Pricing, Taxes and Payment",
+    title: "Pricing and Payment",
     paragraphs: [
-      "8.1 All prices are displayed in Nigerian Naira (₦). Each listing or the checkout page will state whether Value Added Tax, delivery fees or other charges are included.",
+      "8.1 All prices are displayed in Nigerian Naira (₦).",
       "8.2 We may change our prices from time to time. A price change will not affect an Order we have already confirmed.",
       "8.3 We accept bank transfers, debit and credit cards, authorised payment gateways and any other method communicated through our official channels.",
       "8.4 You are responsible for ensuring that your payment details are accurate and that sufficient funds are available.",
