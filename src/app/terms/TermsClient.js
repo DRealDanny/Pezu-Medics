@@ -116,14 +116,32 @@ export default function TermsClient() {
       behavior: "smooth",
     });
 
-    // Update URL hash quietly without jump
-    if (window.history && window.history.replaceState) {
-      window.history.replaceState(null, "", `#${id}`);
-    }
-
     setTimeout(() => {
       isScrollingByClick.current = false;
     }, 700);
+  }, []);
+
+  // Guarantee the page always starts from the top on load and reload
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+
+      // If there is any residual hash from previous navigation, strip it cleanly
+      if (window.location.hash) {
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+
+      // Scroll immediately to top
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+      const timer = setTimeout(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      }, 10);
+
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   // Scrollspy: update active section on scroll
@@ -179,16 +197,6 @@ export default function TermsClient() {
     }
   }, [activeId]);
 
-  // Handle URL hash on initial load
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.location.hash) {
-      const hashId = window.location.hash.replace("#", "");
-      if (TERMS_SECTIONS.some((s) => s.id === hashId)) {
-        setTimeout(() => scrollToSection(hashId), 200);
-      }
-    }
-  }, [scrollToSection]);
-
   // Lock body scroll and handle Escape key when mobile drawer is open
   useEffect(() => {
     if (isDrawerOpen) {
@@ -242,75 +250,60 @@ export default function TermsClient() {
         </div>
       </aside>
 
-      {/* ── Mobile & Tablet Drawer Modal ── */}
-      {isDrawerOpen && (
+      {/* ── Mobile & Tablet Open Canvas Drawer ── */}
+      <div
+        className={`${styles.drawerBackdrop} ${
+          isDrawerOpen ? styles.drawerBackdropOpen : styles.drawerBackdropClosed
+        }`}
+        onClick={() => setIsDrawerOpen(false)}
+        role="presentation"
+        aria-hidden={!isDrawerOpen}
+      >
         <div
-          className={styles.drawerBackdrop}
-          onClick={() => setIsDrawerOpen(false)}
-          role="presentation"
+          id="terms-mobile-drawer"
+          className={`${styles.drawerSheet} ${
+            isDrawerOpen ? styles.drawerSheetOpen : styles.drawerSheetClosed
+          }`}
+          onClick={(e) => e.stopPropagation()}
+          role="dialog"
+          aria-modal={isDrawerOpen ? "true" : undefined}
+          aria-label="Table of Contents"
         >
-          <div
-            id="terms-mobile-drawer"
-            className={styles.drawerSheet}
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Table of Contents"
-          >
-            <div className={styles.drawerHeader}>
-              <div className={styles.drawerHeaderLeft}>
-                <span className={styles.drawerHeaderIcon}>
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="8" y1="6" x2="21" y2="6" />
-                    <line x1="8" y1="12" x2="21" y2="12" />
-                    <line x1="8" y1="18" x2="21" y2="18" />
-                    <line x1="3" y1="6" x2="3.01" y2="6" />
-                    <line x1="3" y1="12" x2="3.01" y2="12" />
-                    <line x1="3" y1="18" x2="3.01" y2="18" />
-                  </svg>
-                </span>
-                <div>
-                  <h3 className={styles.drawerTitle}>Table of Contents</h3>
-                  <span className={styles.drawerSubtitle}>{TERMS_SECTIONS.length} Sections</span>
-                </div>
-              </div>
-              <button
-                type="button"
-                className={styles.drawerCloseBtn}
-                onClick={() => setIsDrawerOpen(false)}
-                aria-label="Close Table of Contents"
-              >
+          <div className={styles.drawerHeader}>
+            <div className={styles.drawerHeaderLeft}>
+              <span className={styles.drawerHeaderIcon}>
                 <svg
-                  width="20"
-                  height="20"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.2"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
+                  <line x1="8" y1="6" x2="21" y2="6" />
+                  <line x1="8" y1="12" x2="21" y2="12" />
+                  <line x1="8" y1="18" x2="21" y2="18" />
+                  <line x1="3" y1="6" x2="3.01" y2="6" />
+                  <line x1="3" y1="12" x2="3.01" y2="12" />
+                  <line x1="3" y1="18" x2="3.01" y2="18" />
                 </svg>
-              </button>
+              </span>
+              <div>
+                <h3 className={styles.drawerTitle}>Table of Contents</h3>
+                <span className={styles.drawerSubtitle}>{TERMS_SECTIONS.length} Sections</span>
+              </div>
             </div>
-
-            {/* Quick Filter Search */}
-            <div className={styles.searchBox}>
+            <button
+              type="button"
+              className={styles.drawerCloseBtn}
+              onClick={() => setIsDrawerOpen(false)}
+              aria-label="Close Table of Contents"
+            >
               <svg
-                className={styles.searchIcon}
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -318,57 +311,76 @@ export default function TermsClient() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
-              <input
-                type="text"
-                placeholder="Search sections..."
-                value={filterQuery}
-                onChange={(e) => setFilterQuery(e.target.value)}
-                className={styles.searchInput}
-              />
-              {filterQuery && (
-                <button
-                  type="button"
-                  onClick={() => setFilterQuery("")}
-                  className={styles.clearSearchBtn}
-                  aria-label="Clear search"
-                >
-                  ×
-                </button>
-              )}
-            </div>
-
-            {/* Nav List */}
-            <nav
-              ref={mobileNavRef}
-              className={styles.drawerNavList}
-              aria-label="Mobile sections"
-            >
-              {filteredSections.map((sec) => {
-                const isActive = activeId === sec.id;
-                return (
-                  <button
-                    key={sec.id}
-                    type="button"
-                    onClick={() => scrollToSection(sec.id)}
-                    className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
-                    aria-current={isActive ? "true" : undefined}
-                  >
-                    <span className={styles.navNum}>{sec.num}</span>
-                    <span className={styles.navText}>{sec.title}</span>
-                    {isActive && <span className={styles.activeDot} />}
-                  </button>
-                );
-              })}
-              {filteredSections.length === 0 && (
-                <div className={styles.noResults}>No matching sections found</div>
-              )}
-            </nav>
+            </button>
           </div>
+
+          {/* Quick Filter Search */}
+          <div className={styles.searchBox}>
+            <svg
+              className={styles.searchIcon}
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search sections..."
+              value={filterQuery}
+              onChange={(e) => setFilterQuery(e.target.value)}
+              className={styles.searchInput}
+            />
+            {filterQuery && (
+              <button
+                type="button"
+                onClick={() => setFilterQuery("")}
+                className={styles.clearSearchBtn}
+                aria-label="Clear search"
+              >
+                ×
+              </button>
+            )}
+          </div>
+
+          {/* Nav List */}
+          <nav
+            ref={mobileNavRef}
+            className={styles.drawerNavList}
+            aria-label="Mobile sections"
+          >
+            {filteredSections.map((sec, idx) => {
+              const isActive = activeId === sec.id;
+              return (
+                <button
+                  key={sec.id}
+                  type="button"
+                  onClick={() => scrollToSection(sec.id)}
+                  className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
+                  style={{ "--item-idx": Math.min(idx, 15) }}
+                  aria-current={isActive ? "true" : undefined}
+                >
+                  <span className={styles.navNum}>{sec.num}</span>
+                  <span className={styles.navText}>{sec.title}</span>
+                  {isActive && <span className={styles.activeDot} />}
+                </button>
+              );
+            })}
+            {filteredSections.length === 0 && (
+              <div className={styles.noResults}>No matching sections found</div>
+            )}
+          </nav>
         </div>
-      )}
+      </div>
 
       {/* ── Main Layout: Sticky Desktop TOC (Left) + Document Card (Right) ── */}
       <div className={styles.mainGrid}>
