@@ -557,16 +557,22 @@
 /* ── Responsive Styling ── */
 @media (max-width: 768px) {
   .searchFormExpanded {
-    width: 290px;
+    width: 280px;
   }
 
   .brandLogo {
     height: 38px;
-    max-width: 190px;
+    max-width: 180px;
   }
 }
 
 @media (max-width: 640px) {
+  .headerInner {
+    gap: 10px;
+    min-height: 68px;
+    padding-block: 12px;
+  }
+
   .searchBtnText {
     display: none;
   }
@@ -583,43 +589,108 @@
     border-radius: 50%;
   }
 
-  .logoHiddenOnMobileSearch {
-    display: none !important;
+  .brandLogo {
+    height: 32px;
+    max-width: 145px;
+    flex-shrink: 0;
+  }
+
+  .searchContainer {
+    flex: 1;
+    min-width: 0;
+    justify-content: flex-end;
   }
 
   .searchFormExpanded {
     width: 100%;
-    height: 42px;
+    max-width: 220px;
+    height: 38px;
+    padding: 0 8px 0 10px;
   }
 
-  .searchContainer {
-    width: auto;
+  .searchIcon {
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
   }
 
-  .headerInner:has(.searchFormExpanded) .searchContainer {
-    width: 100%;
+  .searchInput {
+    font-size: 0.8125rem;
+  }
+
+  .searchInput::placeholder {
+    font-size: 0.775rem;
+  }
+
+  .clearBtn {
+    width: 24px;
+    height: 24px;
   }
 
   .miniDropdown {
     position: fixed;
-    top: 76px;
+    top: 68px;
     left: 12px;
     right: 12px;
     width: auto;
     max-width: none;
-    max-height: calc(100vh - 96px);
+    max-height: calc(100vh - 84px);
+    z-index: 105;
   }
 }
 
 @media (max-width: 480px) {
   .headerInner {
-    min-height: 68px;
-    padding-block: 12px;
+    min-height: 64px;
+    padding-block: 10px;
+    gap: 8px;
   }
 
   .brandLogo {
-    height: 32px;
-    max-width: 165px;
+    height: 29px;
+    max-width: 130px;
+  }
+
+  .searchFormExpanded {
+    max-width: 200px;
+    height: 36px;
+    padding: 0 6px 0 9px;
+  }
+}
+
+@media (max-width: 375px) {
+  .headerInner {
+    gap: 6px;
+  }
+
+  .brandLogo {
+    height: 26px;
+    max-width: 115px;
+  }
+
+  .searchFormExpanded {
+    max-width: 175px;
+    height: 35px;
+    padding: 0 5px 0 8px;
+  }
+
+  .searchIcon {
+    width: 13px;
+    height: 13px;
+    margin-right: 4px;
+  }
+
+  .searchInput {
+    font-size: 0.75rem;
+  }
+
+  .searchInput::placeholder {
+    font-size: 0.72rem;
+  }
+
+  .clearBtn {
+    width: 22px;
+    height: 22px;
   }
 }
 

@@ -167,10 +167,10 @@ export default function Header() {
   return (
     <header className={`${styles.header}${scrolled ? ` ${styles.scrolled}` : ""}`} role="banner">
       <div className={`container ${styles.headerInner}`}>
-        {/* Brand logo (hidden on mobile only when search bar is actively expanded) */}
+        {/* Brand logo */}
         <Link
           href="/"
-          className={`${styles.logoLink}${isHeaderSearchOpen ? ` ${styles.logoHiddenOnMobileSearch}` : ""}`}
+          className={styles.logoLink}
           aria-label="Pezu Standard Medics Concern"
         >
           <Image
