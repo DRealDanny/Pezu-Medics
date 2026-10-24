@@ -468,13 +468,16 @@ export default function TermsClient() {
 
         {/* ── Document Column (Right) ── */}
         <div className={styles.docColumn}>
-          {/* ── Page Header: Subheading without badge, Effective Date only ── */}
+          {/* ── Page Header: Subheadings side by side across all screens ── */}
           <header className={styles.pageHeader}>
             <h1 className={styles.pageTitle}>Terms and Conditions</h1>
-            <p className={styles.pageSubtitle}>Official Policy &amp; Legal Terms</p>
-            <p className={styles.effectiveDate}>
-              <strong>Effective date:</strong> {EFFECTIVE_DATE}
-            </p>
+            <div className={styles.subheadingsRow}>
+              <span className={styles.pageSubtitle}>Official Policy &amp; Legal Terms</span>
+              <span className={styles.subheadingDivider} aria-hidden="true">•</span>
+              <span className={styles.effectiveDate}>
+                <strong>Effective date:</strong> {EFFECTIVE_DATE}
+              </span>
+            </div>
           </header>
 
           {/* ── Flat & Clean Document Container ── */}
