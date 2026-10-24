@@ -1,358 +1,175 @@
 /* ============================================================
-   TERMS & CONDITIONS PAGE STYLES
-   Pezu Medics – Glass & Modern Medical Design System
+   TERMS & CONDITIONS PAGE — Pezu Medics
+   Flat, clean legal document styling.
    ============================================================ */
 
+/* ── Page Shell ── */
 .termsPage {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .mainContent {
   flex: 1;
-  padding-top: calc(80px + var(--space-xl));
-  padding-bottom: var(--space-2xl);
+  padding-top: clamp(28px, 4vw, 48px);
+  padding-bottom: clamp(56px, 8vw, 96px);
 }
 
-/* ── Breadcrumb & Navigation Bar ── */
-.topNavRow {
+/* ── Outer Page Wrap & Centered Container ── */
+.pageWrap {
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--space-lg);
-  flex-wrap: wrap;
-  gap: var(--space-sm);
+  justify-content: center;
+  padding-inline: clamp(16px, 3.5vw, 40px);
+  box-sizing: border-box;
 }
 
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
+.inner {
+  width: 100%;
+  max-width: 900px;
 }
 
-.breadcrumbLink {
-  color: var(--color-accent);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color var(--transition-fast);
+/* ── Page Header: Heading Only ── */
+.pageHeader {
+  margin-bottom: clamp(20px, 3vw, 32px);
 }
 
-.breadcrumbLink:hover {
-  color: var(--color-accent-hover);
-  text-decoration: underline;
-}
-
-.breadcrumbSeparator {
-  color: var(--color-text-tertiary);
-  user-select: none;
-}
-
-.breadcrumbCurrent {
-  color: var(--color-text-primary);
-  font-weight: 600;
-}
-
-.backBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 9999px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--blur-sm);
-  -webkit-backdrop-filter: var(--blur-sm);
-  border: 1px solid var(--glass-border);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-fast);
-  text-decoration: none;
-}
-
-.backBtn:hover {
-  background: #ffffff;
-  color: var(--color-accent);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
-}
-
-/* ── Hero Banner ── */
-.heroCard {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.92) 0%,
-    rgba(238, 244, 253, 0.85) 100%
-  );
-  backdrop-filter: var(--blur-md);
-  -webkit-backdrop-filter: var(--blur-md);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl) var(--space-2xl);
-  box-shadow: var(--shadow-glass-md);
-  margin-bottom: var(--space-xl);
-  position: relative;
-  overflow: hidden;
-}
-
-.heroCard::before {
-  content: "";
-  position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(
-    circle,
-    rgba(0, 113, 227, 0.12) 0%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 9999px;
-  background: var(--color-tag-bg);
-  color: var(--color-tag-text);
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--space-md);
-}
-
-.badgeDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--color-accent);
-}
-
-.title {
-  font-size: clamp(2rem, 4vw, 2.75rem);
+.pageTitle {
+  font-size: clamp(2rem, 3.8vw, 2.75rem);
   font-weight: 800;
-  line-height: 1.15;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-sm);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+  margin: 0;
 }
 
-.subtitle {
-  font-size: 1.05rem;
-  color: var(--color-text-secondary);
-  max-width: 650px;
-  line-height: 1.5;
-  margin-bottom: var(--space-md);
+/* ── Flat White Document Card ── */
+.docCard {
+  background: #ffffff;
+  border-radius: clamp(16px, 2.5vw, 24px);
+  padding: clamp(28px, 4.5vw, 52px) clamp(20px, 4vw, 48px);
+  border: 1px solid rgba(0, 80, 200, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 60, 180, 0.04);
 }
 
-.metaInfo {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  font-size: 0.84rem;
-  color: var(--color-text-tertiary);
-  flex-wrap: wrap;
+/* ── Sections ── */
+.section {
+  padding-block: clamp(20px, 3vw, 28px);
 }
 
-.metaItem {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.section:first-child {
+  padding-top: 0;
 }
 
-/* ── Content Card ── */
-.contentCard {
-  background: var(--color-surface-raised);
-  backdrop-filter: var(--blur-lg);
-  -webkit-backdrop-filter: var(--blur-lg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-2xl);
-  box-shadow: var(--shadow-glass-lg);
-  margin-bottom: var(--space-xl);
-}
-
-.placeholderBanner {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-md);
-  background: linear-gradient(
-    135deg,
-    rgba(219, 234, 254, 0.5) 0%,
-    rgba(240, 246, 255, 0.7) 100%
-  );
-  border: 1px dashed rgba(0, 113, 227, 0.35);
-  border-radius: var(--radius-md);
-  padding: var(--space-lg);
-  margin-bottom: var(--space-xl);
-}
-
-.placeholderIcon {
-  color: var(--color-accent);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.placeholderText h4 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-text-primary);
-  margin-bottom: 4px;
-}
-
-.placeholderText p {
-  font-size: 0.88rem;
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-}
-
-/* ── Sections Area (Ready for user content) ── */
-.termsSection {
-  margin-bottom: var(--space-xl);
-  padding-bottom: var(--space-lg);
-  border-bottom: 1px solid rgba(0, 80, 200, 0.08);
-}
-
-.termsSection:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
+.section:last-child {
   padding-bottom: 0;
 }
 
-.sectionHeader {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-sm);
+.sectionDivider {
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.sectionNumber {
-  font-size: 0.9rem;
-  font-weight: 800;
-  color: var(--color-accent);
-}
-
-.sectionTitle {
-  font-size: 1.25rem;
+/* ── Section Title: Flat and Clean ── */
+.secTitle {
+  font-size: clamp(1.15rem, 1.8vw, 1.3rem);
   font-weight: 700;
-  color: var(--color-text-primary);
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  margin: 0 0 14px 0;
 }
 
-.sectionBody {
-  font-size: 0.95rem;
+/* ── Section Body Typography ── */
+.secBody {
+  font-size: clamp(0.9rem, 1.1vw, 0.95rem);
+  line-height: 1.75;
+  color: #334155;
+}
+
+.secBody p {
+  margin-bottom: 14px;
+}
+
+.secBody p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Flat Clean Lists ── */
+.secList {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.secListItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   line-height: 1.7;
-  color: var(--color-text-secondary);
 }
 
-.sectionBody p + p {
-  margin-top: var(--space-sm);
-}
-
-/* ── Support & Inquiries Box ── */
-.inquiriesCard {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.85) 0%,
-    rgba(238, 244, 253, 0.9) 100%
-  );
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-xl);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-lg);
-  box-shadow: var(--shadow-sm);
-  flex-wrap: wrap;
-}
-
-.inquiriesContent h3 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--color-text-primary);
-  margin-bottom: 4px;
-}
-
-.inquiriesContent p {
-  font-size: 0.88rem;
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-}
-
-.inquiriesActions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-}
-
-.contactBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 18px;
-  border-radius: 9999px;
-  background: var(--color-accent);
-  color: #ffffff;
-  font-size: 0.875rem;
+.listAlpha {
   font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.28);
-  transition: all var(--transition-fast);
+  color: #475569;
+  flex-shrink: 0;
 }
 
-.contactBtn:hover {
-  background: var(--color-accent-hover);
-  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.4);
-  transform: translateY(-1px);
+.listText {
+  flex: 1;
 }
 
-.whatsappBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 18px;
-  border-radius: 9999px;
-  background: #25d366;
-  color: #ffffff;
-  font-size: 0.875rem;
+/* ── Flat Clean Contact Details (Section 21) ── */
+.contactList {
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #334155;
+}
+
+.contactList li {
+  line-height: 1.6;
+}
+
+.contactList strong {
+  color: #0f172a;
   font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
-  transition: all var(--transition-fast);
 }
 
-.whatsappBtn:hover {
-  background: #20bd5a;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.38);
-  transform: translateY(-1px);
+.link {
+  color: #0071e3;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  word-break: break-all;
+  transition: color 0.15s ease;
 }
 
-/* ── Responsive adjustments ── */
-@media (max-width: 768px) {
-  .mainContent {
-    padding-top: calc(70px + var(--space-md));
-    padding-bottom: var(--space-xl);
+.link:hover {
+  color: #005bb5;
+}
+
+/* ============================================================
+   RESPONSIVE (Mobile)
+   ============================================================ */
+
+@media (max-width: 540px) {
+  .pageWrap {
+    padding-inline: 14px;
   }
 
-  .heroCard {
-    padding: var(--space-lg) var(--space-md);
+  .docCard {
+    border-radius: 14px;
+    padding: 22px 16px;
   }
 
-  .contentCard {
-    padding: var(--space-lg) var(--space-md);
-  }
-
-  .inquiriesCard {
-    flex-direction: column;
-    align-items: flex-start;
+  .contactList {
+    padding-left: 18px;
   }
 }
