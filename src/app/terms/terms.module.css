@@ -656,6 +656,24 @@
   .mobileBarWrapper {
     display: block;
   }
+
+  /* ── Centered Heading and Subheadings on Mobile & Tablet ── */
+  .pageHeader {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .pageTitle {
+    font-size: clamp(1.85rem, 3.6vw, 2.25rem);
+    text-align: center;
+    margin: 0 auto 8px auto;
+    line-height: 1.2;
+  }
+
+  .subheadingsRow {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @media (max-width: 640px) {
@@ -668,23 +686,27 @@
     min-width: 100%;
   }
 
-  /* Compact, comfortable mobile heading */
   .pageHeader {
-    margin-bottom: 18px;
+    text-align: center;
+    margin-bottom: 20px;
   }
 
+  /* ── Increased heading on mobile a little bit to look good ── */
   .pageTitle {
-    font-size: 1.45rem; /* Balanced, not too big for mobile screen */
+    font-size: clamp(1.65rem, 5.2vw, 1.85rem);
     letter-spacing: -0.02em;
-    line-height: 1.25;
-    margin-bottom: 6px;
+    line-height: 1.22;
+    margin: 0 auto 8px auto;
+    text-align: center;
   }
 
-  /* Well-placed, clean mobile subheadings without awkward wrapping or hanging dots */
+  /* ── Subheadings broken onto separate lines, centered and clean ── */
   .subheadingsRow {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
   }
 
   .subheadingDivider {
@@ -692,15 +714,19 @@
   }
 
   .pageSubtitle {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     color: #64748b;
     line-height: 1.4;
+    text-align: center;
+    margin: 0;
   }
 
   .effectiveDate {
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     color: #64748b;
     line-height: 1.4;
+    text-align: center;
+    margin: 0;
   }
 
   .effectiveDate strong {
