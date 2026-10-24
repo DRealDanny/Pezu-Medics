@@ -61,8 +61,12 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
           const card = document.getElementById(`product-${productId}`);
           if (card) {
             card.scrollIntoView({ behavior: "smooth", block: "center" });
-            card.classList.add(styles.highlightCard);
-            setTimeout(() => card.classList.remove(styles.highlightCard), 2800);
+            card.classList.add(styles.highlightCard || "highlightProductCard");
+            card.classList.add("highlightProductCard");
+            setTimeout(() => {
+              card.classList.remove(styles.highlightCard || "highlightProductCard");
+              card.classList.remove("highlightProductCard");
+            }, 2800);
             return;
           }
         }

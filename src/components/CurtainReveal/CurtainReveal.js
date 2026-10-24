@@ -1,11 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import styles from "./CurtainReveal.module.css";
 
 export default function CurtainReveal() {
   const [isDone, setIsDone] = useState(false);
   const [animKey, setAnimKey] = useState(0);
+  const pathname = usePathname();
+  const prevPathname = useRef(pathname);
+
+  // Trigger curtain reveal animation whenever user navigates to a new page (e.g. /terms or /)
+  useEffect(() => {
+    if (prevPathname.current !== pathname) {
+      prevPathname.current = pathname;
+      setIsDone(false);
+      setAnimKey((prev) => prev + 1);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     // Accessibility: Instant bypass for users preferring reduced motion

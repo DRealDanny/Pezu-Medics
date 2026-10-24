@@ -107,31 +107,59 @@ export default function Header() {
 
   const handleProductClick = (product) => {
     setIsHeaderSearchOpen(false);
-    router.push(
-      `/?search=${encodeURIComponent(product.name)}&productId=${encodeURIComponent(product.id)}#our-product-price`
-    );
+    if (isHomePage) {
+      performGlobalSearch(product.name);
+      setTimeout(() => {
+        const card = document.getElementById(`product-${product.id}`);
+        if (card) {
+          card.scrollIntoView({ behavior: "smooth", block: "center" });
+          card.classList.add("highlightProductCard");
+          setTimeout(() => {
+            card.classList.remove("highlightProductCard");
+          }, 2800);
+          return;
+        }
+        const catalogEl = document.getElementById("our-product-price");
+        if (catalogEl) {
+          catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 120);
+    } else {
+      router.push(
+        `/?search=${encodeURIComponent(product.name)}&productId=${encodeURIComponent(product.id)}#our-product-price`
+      );
+    }
   };
 
   const handleViewAllClick = () => {
     setIsHeaderSearchOpen(false);
-    router.push(
-      `/?search=${encodeURIComponent(searchQuery)}#our-product-price`
-    );
+    if (isHomePage) {
+      performGlobalSearch(searchQuery);
+      const catalogEl = document.getElementById("our-product-price");
+      if (catalogEl) {
+        catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      router.push(
+        `/?search=${encodeURIComponent(searchQuery)}#our-product-price`
+      );
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!isHomePage) {
-      if (hasQuery) {
-        setIsHeaderSearchOpen(false);
+    if (hasQuery) {
+      setIsHeaderSearchOpen(false);
+      if (isHomePage) {
+        performGlobalSearch(searchQuery);
+        const catalogEl = document.getElementById("our-product-price") || document.getElementById("product-catalog");
+        if (catalogEl) {
+          catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else {
         router.push(
           `/?search=${encodeURIComponent(searchQuery)}#our-product-price`
         );
-      }
-    } else {
-      const catalogEl = document.getElementById("our-product-price") || document.getElementById("product-catalog");
-      if (catalogEl) {
-        catalogEl.scrollIntoView({ behavior: "smooth" });
       }
     }
   };
@@ -256,8 +284,8 @@ export default function Header() {
             </button>
           )}
 
-          {/* Mini dropdown tab when on another page that's not the homepage */}
-          {!isHomePage && isHeaderSearchOpen && hasQuery && (
+          {/* Universal mini dropdown tab across the whole website */}
+          {isHeaderSearchOpen && hasQuery && (
             <div
               className={styles.miniDropdown}
               role="dialog"
