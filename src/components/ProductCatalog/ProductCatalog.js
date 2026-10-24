@@ -44,6 +44,38 @@ export default function ProductCatalog({ initialProducts: propProducts }) {
     }
   }, []);
 
+  /* ── Deep link handler: Search query & Product highlight ── */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const searchParam = params.get("search") || params.get("q");
+    const productId = params.get("productId") || params.get("product");
+
+    if (searchParam && performGlobalSearch) {
+      performGlobalSearch(searchParam);
+    }
+
+    if (searchParam || productId || window.location.hash === "#our-product-price") {
+      const timer = setTimeout(() => {
+        if (productId) {
+          const card = document.getElementById(`product-${productId}`);
+          if (card) {
+            card.scrollIntoView({ behavior: "smooth", block: "center" });
+            card.classList.add(styles.highlightCard);
+            setTimeout(() => card.classList.remove(styles.highlightCard), 2800);
+            return;
+          }
+        }
+        const catalogEl = document.getElementById("our-product-price");
+        if (catalogEl) {
+          catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 400);
+
+      return () => clearTimeout(timer);
+    }
+  }, [performGlobalSearch]);
+
   useEffect(() => {
     let cancelled = false;
     let activeFetchId = 0;
