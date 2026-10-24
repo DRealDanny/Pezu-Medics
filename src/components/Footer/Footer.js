@@ -28,6 +28,23 @@ export default function Footer() {
     }
   };
 
+  const handleRefundClick = (e) => {
+    const target = document.getElementById("section-12");
+    if (target) {
+      e.preventDefault();
+      window.dispatchEvent(
+        new CustomEvent("terms:navigate-section", { detail: { id: "section-12" } })
+      );
+    }
+  };
+
+  const handleTermsClick = (e) => {
+    if (typeof window !== "undefined" && window.location.pathname === "/terms") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <footer className={styles.footerWrap} role="contentinfo">
       <div className={`container ${styles.footerContainer}`}>
@@ -126,10 +143,17 @@ export default function Footer() {
                 <h3 className={styles.colTitle}>Legal</h3>
                 <ul className={styles.linksList}>
                   <li>
-                    <Link href="/terms">Terms &amp; Conditions</Link>
+                    <Link href="/terms" onClick={handleTermsClick}>
+                      Terms &amp; Conditions
+                    </Link>
                   </li>
                   <li>
-                    <a href="#refund">Refund Policy</a>
+                    <Link
+                      href="/terms?section=section-12#section-12"
+                      onClick={handleRefundClick}
+                    >
+                      Refund Policy
+                    </Link>
                   </li>
                 </ul>
               </div>

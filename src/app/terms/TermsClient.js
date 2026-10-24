@@ -121,28 +121,71 @@ export default function TermsClient() {
     }, 700);
   }, []);
 
-  // Guarantee the page always starts from the top on load and reload
+  // Guarantee the page starts from top on normal load/reload,
+  // but honors deep links to specific sections (e.g. Refund Policy -> section-12)
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if ("scrollRestoration" in window.history) {
-        window.history.scrollRestoration = "manual";
-      }
+    if (typeof window === "undefined") return;
 
-      // If there is any residual hash from previous navigation, strip it cleanly
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    const hash = window.location.hash ? window.location.hash.replace("#", "") : "";
+    const params = new URLSearchParams(window.location.search);
+    const paramSection = params.get("section");
+    const targetId = hash.startsWith("section-")
+      ? hash
+      : paramSection && paramSection.startsWith("section-")
+      ? paramSection
+      : null;
+
+    if (targetId) {
+      const timer = setTimeout(() => {
+        scrollToSection(targetId);
+        // Clean URL after scrolling so future manual reloads start from the top
+        try {
+          window.history.replaceState(null, "", window.location.pathname);
+        } catch (_) {}
+      }, 200);
+      return () => clearTimeout(timer);
+    } else {
+      // Standard visit or reload: start at absolute top
       if (window.location.hash) {
         window.history.replaceState(null, "", window.location.pathname);
       }
-
-      // Scroll immediately to top
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-
       const timer = setTimeout(() => {
         window.scrollTo({ top: 0, left: 0, behavior: "instant" });
       }, 10);
-
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [scrollToSection]);
+
+  // Listen for custom navigate events (e.g. from Footer Refund Policy when on /terms)
+  // and hashchange events
+  useEffect(() => {
+    const handleCustomNav = (e) => {
+      if (e.detail?.id) {
+        scrollToSection(e.detail.id);
+      }
+    };
+
+    const handleHashChange = () => {
+      const hash = window.location.hash ? window.location.hash.replace("#", "") : "";
+      if (hash && hash.startsWith("section-")) {
+        window.history.replaceState(null, "", window.location.pathname);
+        scrollToSection(hash);
+      }
+    };
+
+    window.addEventListener("terms:navigate-section", handleCustomNav);
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("terms:navigate-section", handleCustomNav);
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, [scrollToSection]);
 
   // Scrollspy: update active section on scroll
   useEffect(() => {
@@ -363,6 +406,7 @@ export default function TermsClient() {
               return (
                 <button
                   key={sec.id}
+                  data-section-id={sec.id}
                   type="button"
                   onClick={() => scrollToSection(sec.id)}
                   className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
