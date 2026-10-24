@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { animateFooterScrollReveal } from "@/lib/scrollReveal";
 import styles from "./Footer.module.css";
 
@@ -22,6 +23,8 @@ export default function Footer() {
     const target = document.getElementById("our-product-price");
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.location.href = "/#our-product-price";
     }
   };
 
@@ -123,7 +126,7 @@ export default function Footer() {
                 <h3 className={styles.colTitle}>Legal</h3>
                 <ul className={styles.linksList}>
                   <li>
-                    <a href="#terms">Terms &amp; Conditions</a>
+                    <Link href="/terms">Terms &amp; Conditions</Link>
                   </li>
                   <li>
                     <a href="#refund">Refund Policy</a>
