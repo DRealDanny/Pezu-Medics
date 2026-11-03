@@ -1,5 +1,1189 @@
 [
   {
+    "id": "1792972544623",
+    "name": "Baby Bed",
+    "price": 85000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972518943",
+    "name": "Sony Printer for Scan",
+    "price": 1400000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972439262",
+    "name": "Blood Warmer",
+    "price": 220000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972368794",
+    "name": "Autoclave Steriliser",
+    "price": 900000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972348185",
+    "name": "Walking Frame",
+    "price": 50000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972250314",
+    "name": "Crash Cart",
+    "price": 500000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972231680",
+    "name": "Semi Automated Chemistry Analyzer",
+    "price": 1500000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972204473",
+    "name": "Spectrophotometer",
+    "price": 380000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972175310",
+    "name": "12 Bucket Centrifuge",
+    "price": 110000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972141331",
+    "name": "Diffibrillator",
+    "price": 950000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972101058",
+    "name": "Infant Warmer",
+    "price": 2200000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972067888",
+    "name": "Scan Trolley",
+    "price": 400000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972050035",
+    "name": "3 Channel ECG Machine",
+    "price": 350000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792972012657",
+    "name": "Abs Baby Cort",
+    "price": 350000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971986454",
+    "name": "Emergency Trolley",
+    "price": 600000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971951263",
+    "name": "Lead Aprons",
+    "price": 80000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971928707",
+    "name": "Coagulation Analyzer",
+    "price": 1500000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971877121",
+    "name": "Syringe Pump",
+    "price": 320000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971843335",
+    "name": "Oxygen Concentrator Double Bottle",
+    "price": 520000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971771584",
+    "name": "Oxygen Cylinder",
+    "price": 90000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971702718",
+    "name": "Water Bath",
+    "price": 160000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971677978",
+    "name": "Delivery Bed",
+    "price": 200000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971539163",
+    "name": "Drip Stand",
+    "price": 20000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971508562",
+    "name": "Suction Machine - Double Bottle",
+    "price": 200000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971448668",
+    "name": "Hematocrit Centrifuge",
+    "price": 1200000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971396116",
+    "name": "Hematology Analyzer",
+    "price": 3600000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971365900",
+    "name": "Blood Bank Refrigerator",
+    "price": 1200000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971335666",
+    "name": "Hydraulic Operating Light",
+    "price": 2000000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971277732",
+    "name": "Portable Autoclave Machine",
+    "price": 230000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971249093",
+    "name": "Operating Light",
+    "price": 2300000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971218437",
+    "name": "Surgical Stool With Backrest",
+    "price": 40000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971190068",
+    "name": "Accompany Chair",
+    "price": 160000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971163543",
+    "name": "Plastic Bedside Locker",
+    "price": 60000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971135716",
+    "name": "Surgeon Stool",
+    "price": 30000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971109496",
+    "name": "Suction Machine Single Bottle",
+    "price": 85000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792971037197",
+    "name": "Mouth piece for Spirometer",
+    "price": 700,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 100",
+    "image": ""
+  },
+  {
+    "id": "1792970988189",
+    "name": "Nebulizer Machine",
+    "price": 35000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792970938700",
+    "name": "Plastic Heamotocrit Reader",
+    "price": 20000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792970908478",
+    "name": "Microscope With Battery",
+    "price": 200000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792970737463",
+    "name": "Plastic Vacuum Extractor",
+    "price": 110000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792970688243",
+    "name": "Peak Flow Meter",
+    "price": 15000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792970628541",
+    "name": "Hospital Mattress",
+    "price": 45000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792970588711",
+    "name": "Overbed Table",
+    "price": 40000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792970215882",
+    "name": "EDTA VACUTAINER -5ml",
+    "price": 6000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 100 pcs\nA carton of 10 packs",
+    "image": ""
+  },
+  {
+    "id": "1792970123410",
+    "name": "Cryo Tube-1.8ml",
+    "price": 24000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 500",
+    "image": ""
+  },
+  {
+    "id": "1792969992854",
+    "name": "Yankauer Handle/Suction Tip",
+    "price": 2000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 20",
+    "image": ""
+  },
+  {
+    "id": "1792969916690",
+    "name": "Hearing Aid (Rechargeable)",
+    "price": 20000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792969855618",
+    "name": "50ml Syringe",
+    "price": 16500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 25",
+    "image": ""
+  },
+  {
+    "id": "1792969808486",
+    "name": "Clinicel",
+    "price": 150000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 6",
+    "image": ""
+  },
+  {
+    "id": "1792969777667",
+    "name": "E N.T Diagnostic Set (Ear.Nose.Throat)",
+    "price": 40000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792969715243",
+    "name": "ECG Paper",
+    "price": 3500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 10",
+    "image": ""
+  },
+  {
+    "id": "1792969646303",
+    "name": "KN95 Facemask",
+    "price": 4500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 40",
+    "image": ""
+  },
+  {
+    "id": "1792969593243",
+    "name": "Plaster of Paris (POP) Bandages",
+    "price": 8500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 12",
+    "image": ""
+  },
+  {
+    "id": "1792969506876",
+    "name": "Couch Roll",
+    "price": 4500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 6",
+    "image": ""
+  },
+  {
+    "id": "1792969448003",
+    "name": "Beard Cover",
+    "price": 6000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 100 pcs",
+    "image": ""
+  },
+  {
+    "id": "1792969360965",
+    "name": "ACCU ANSWER 4 in 1 MACHINE",
+    "price": 55000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792969282330",
+    "name": "SMI BRAND - VIICRY SUTURES",
+    "price": 35000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 12",
+    "image": ""
+  },
+  {
+    "id": "1792969237204",
+    "name": "Cotton Absorbent Gauze -Small",
+    "price": 6500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792969202463",
+    "name": "Cotton Absorbent Gauze -BIG",
+    "price": 21000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792969159092",
+    "name": "Delivery Set- Boite \"D\" Accouchement",
+    "price": 28000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A set of 14",
+    "image": ""
+  },
+  {
+    "id": "1792968835827",
+    "name": "Plain Bottle Vacutainer",
+    "price": 6000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 100 pcs \nA carton of 10 packs",
+    "image": ""
+  },
+  {
+    "id": "1792968744574",
+    "name": "Thermal Paper Type V",
+    "price": 120000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 10",
+    "image": ""
+  },
+  {
+    "id": "1792968703539",
+    "name": "Mersilene Tape",
+    "price": 80000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792968614149",
+    "name": "Fuji Film",
+    "price": 200000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 100",
+    "image": ""
+  },
+  {
+    "id": "1792968536750",
+    "name": "Air Mattress",
+    "price": 35000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792968480159",
+    "name": "Wax Plates",
+    "price": 4500,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 10",
+    "image": ""
+  },
+  {
+    "id": "1792963106758",
+    "name": "Tourniquet",
+    "price": 1000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 50",
+    "image": ""
+  },
+  {
+    "id": "1792963054314",
+    "name": "Baby Scale",
+    "price": 15000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792962958671",
+    "name": "BP Bladder",
+    "price": 4000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792962922768",
+    "name": "BP Bulb and Valve",
+    "price": 3000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792962865325",
+    "name": "BP Cuff Sphyg",
+    "price": 5500,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792962815021",
+    "name": "BP Gauge Sphyg",
+    "price": 7500,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792962718138",
+    "name": "Eusol Solution - 2 liters",
+    "price": 3000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 6",
+    "image": ""
+  },
+  {
+    "id": "1792962686347",
+    "name": "Eusol Solution -100ml",
+    "price": 1000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 2",
+    "image": ""
+  },
+  {
+    "id": "1792956067967",
+    "name": "KN95 Mask with Respirator",
+    "price": 8500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 20",
+    "image": ""
+  },
+  {
+    "id": "1792956032671",
+    "name": "Centrifuge Tube",
+    "price": 15000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792955970692",
+    "name": "Condom Catheter",
+    "price": 20000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 50",
+    "image": ""
+  },
+  {
+    "id": "1792955915021",
+    "name": "Insulin Pen",
+    "price": 18000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 5",
+    "image": ""
+  },
+  {
+    "id": "1792955872712",
+    "name": "Providone Iodine -100ml",
+    "price": 2500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792955854333",
+    "name": "Providone Iodine(2ltrs)",
+    "price": 32500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 6",
+    "image": ""
+  },
+  {
+    "id": "1792955813617",
+    "name": "Nightingale  Towel Underpads",
+    "price": 3000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 5",
+    "image": ""
+  },
+  {
+    "id": "1792955698691",
+    "name": "HME Filters",
+    "price": 1800,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1 \nA carton of 200",
+    "image": ""
+  },
+  {
+    "id": "1792955590751",
+    "name": "Silicon Scar Gel",
+    "price": 35000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792955563884",
+    "name": "ASTM LEVEL 3 MASK(Tie on)",
+    "price": 6000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 50",
+    "image": ""
+  },
+  {
+    "id": "1792955500370",
+    "name": "Pulse Oximeter (Children)",
+    "price": 10000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792955472037",
+    "name": "Wrist Digital Blood Pressure Machine",
+    "price": 15000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792955450103",
+    "name": "Obstetrical  Pinnard Stethoscope",
+    "price": 4000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792955371972",
+    "name": "Nasal Aspirator",
+    "price": 6000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792955345617",
+    "name": "Disposable Laparotomy Sponges",
+    "price": 55000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 50",
+    "image": ""
+  },
+  {
+    "id": "1792955295514",
+    "name": "Ryle's Tube",
+    "price": 5000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792955250600",
+    "name": "Reusable Pressure Infusor Bag",
+    "price": 25000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792955179352",
+    "name": "Stomach Tube",
+    "price": 500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792955136567",
+    "name": "Transpore",
+    "price": 55000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 6",
+    "image": ""
+  },
+  {
+    "id": "1792955106719",
+    "name": "HIV Oral Quick Self Test",
+    "price": 1800,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 1 \nA box of 25",
+    "image": ""
+  },
+  {
+    "id": "1792955051544",
+    "name": "Nelaton Catheter",
+    "price": 500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 50(short)\nA pack of 100 (long)",
+    "image": ""
+  },
+  {
+    "id": "1792955000103",
+    "name": "Tens Machine",
+    "price": 70000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792954931176",
+    "name": "Infrared Bulb for Physiotherapy",
+    "price": 30000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792954702823",
+    "name": "Vaseline Gauze",
+    "price": 3000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 10",
+    "image": ""
+  },
+  {
+    "id": "1792954641165",
+    "name": "Hexatulle Gauze",
+    "price": 35000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792954562447",
+    "name": "Cell Preservation Solutions",
+    "price": 80000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 25",
+    "image": ""
+  },
+  {
+    "id": "1792954482818",
+    "name": "Ovulation Test Kit",
+    "price": 2000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792954382872",
+    "name": "Cyto Brush/Cervical Brush",
+    "price": 25000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 100",
+    "image": ""
+  },
+  {
+    "id": "1792954339710",
+    "name": "Alcohol/Breathalyzer Probe Cover",
+    "price": 7500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 20",
+    "image": ""
+  },
+  {
+    "id": "1792954279365",
+    "name": "Dengue Rapid Test Cassette",
+    "price": 65000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 40",
+    "image": ""
+  },
+  {
+    "id": "1792954202765",
+    "name": "Hemostatic Sponges",
+    "price": 40000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 10",
+    "image": ""
+  },
+  {
+    "id": "1792954128078",
+    "name": "3H VIRAL TEST CASSETTE - HIV, HEPATITIS B and C",
+    "price": 6500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792954016537",
+    "name": "Spinal Needle Pencil Point",
+    "price": 35000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 100 pcs",
+    "image": ""
+  },
+  {
+    "id": "1792953980472",
+    "name": "Urometer/Urine Meter",
+    "price": 10000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792953941147",
+    "name": "Compression Socks",
+    "price": 10000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 2",
+    "image": ""
+  },
+  {
+    "id": "1792953692523",
+    "name": "Spinal- Epidural  Kits",
+    "price": 9500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792953580740",
+    "name": "Uric Acid Test Strips",
+    "price": 25000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 25.",
+    "image": ""
+  },
+  {
+    "id": "1792953550189",
+    "name": "Total Cholesterol Test Strips - Accu answer",
+    "price": 41000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 25",
+    "image": ""
+  },
+  {
+    "id": "1792953517664",
+    "name": "Accu Answer Glucose Strips",
+    "price": 15000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 50",
+    "image": ""
+  },
+  {
+    "id": "1792953409697",
+    "name": "Drug Envelope",
+    "price": 2000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1000 pcs\nA carton of 25 packs",
+    "image": ""
+  },
+  {
+    "id": "1792953286573",
+    "name": "Laryngeal Mask Airway",
+    "price": 12000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792953234268",
+    "name": "Slide Tray",
+    "price": 6500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792953157615",
+    "name": "Skin Stapler Remover",
+    "price": 3000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1 \nA box of 20",
+    "image": ""
+  },
+  {
+    "id": "1792953064478",
+    "name": "Ultrasound Printer Paper (Type 1)",
+    "price": 60000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 10.",
+    "image": ""
+  },
+  {
+    "id": "1792952939619",
+    "name": "Softban Natural Orthopedic Padding",
+    "price": 6500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 12",
+    "image": ""
+  },
+  {
+    "id": "1792952831831",
+    "name": "Finger Splints",
+    "price": 5500,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792952719765",
+    "name": "Clavicle Brace",
+    "price": 9000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792952679436",
+    "name": "Footup Ankle Support",
+    "price": 15000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792952525647",
+    "name": "Knee Cap with Patella Ring",
+    "price": 9000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792952453767",
+    "name": "Ankle Binder",
+    "price": 6000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792952370341",
+    "name": "Waist Trimmer / Tummy Trimmer",
+    "price": 8500,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792951897059",
+    "name": "Adjustable Cervical Semi-Rigid Collar",
+    "price": 8000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792951841226",
+    "name": "Adjustable Foam Cervical Collar",
+    "price": 8000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792951793939",
+    "name": "Armsling Pouch",
+    "price": 9000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792951738581",
+    "name": "Hip Protection Straf",
+    "price": 20000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792951706380",
+    "name": "Bone Cement",
+    "price": 85000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 10",
+    "image": ""
+  },
+  {
+    "id": "1792951308488",
+    "name": "Disposable Facemask",
+    "price": 1500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 50 pcs\nA carton of 100 packs",
+    "image": ""
+  },
+  {
+    "id": "1792951257759",
+    "name": "Disposable Labcoat",
+    "price": 25000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 10",
+    "image": ""
+  },
+  {
+    "id": "1792951165417",
+    "name": "Oxygen Mask",
+    "price": 1500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792950993616",
+    "name": "Ambu bag",
+    "price": 20000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792950930613",
+    "name": "Hand Held Pulse Oximeter",
+    "price": 80000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1.",
+    "image": ""
+  },
+  {
+    "id": "1792950834757",
+    "name": "Haemoglobin Meter",
+    "price": 60000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
+    "image": ""
+  },
+  {
+    "id": "1792950795298",
+    "name": "Ultrasound Gel",
+    "price": 10000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A gallon of 5liters.",
+    "image": ""
+  },
+  {
+    "id": "1792950751458",
+    "name": "Yoga/ Exercise Mat",
+    "price": 18000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A pack of 1.",
+    "image": ""
+  },
+  {
+    "id": "1792950716066",
+    "name": "Sterilization Pouches",
+    "price": 25000,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "A roll of  1",
+    "image": ""
+  },
+  {
+    "id": "1792950656486",
+    "name": "Inhaler Spacer",
+    "price": 18000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1.",
+    "image": ""
+  },
+  {
+    "id": "1792950594762",
+    "name": "High Power Head Lamp",
+    "price": 25000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1.",
+    "image": ""
+  },
+  {
+    "id": "1792950562186",
+    "name": "Universal Blood Pressure Cuff",
+    "price": 6000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1.",
+    "image": ""
+  },
+  {
+    "id": "1792950523195",
+    "name": "Mesh Nebulizer",
+    "price": 15000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1.",
+    "image": ""
+  },
+  {
+    "id": "1792950481157",
+    "name": "Breast Pump",
+    "price": 20000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1.",
+    "image": ""
+  },
+  {
+    "id": "1792950383768",
+    "name": "Wound Dressing Pack",
+    "price": 4500,
+    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "description": "",
+    "image": ""
+  },
+  {
+    "id": "1792950241890",
+    "name": "ALL ANBIO KITS",
+    "price": 50000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 25.",
+    "image": ""
+  },
+  {
+    "id": "1792950132849",
+    "name": "VENCHECKER",
+    "price": 50000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 20.",
+    "image": ""
+  },
+  {
+    "id": "1792949828486",
+    "name": "GIMA 4 in 1 TEST KIT- HIV, SYPHILIS, HEPATITIS C AND B.",
+    "price": 30000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 20.",
+    "image": ""
+  },
+  {
     "id": "lab-01",
     "name": "Littium Heparine Bottle",
     "price": 4500,
@@ -146,7 +1330,7 @@
   {
     "id": "lab-19",
     "name": "Capillary Tube Vitrex",
-    "price": 30000,
+    "price": 40000,
     "category": "LABORATORY PRODUCTS",
     "description": "Pack of 10",
     "image": ""
@@ -162,7 +1346,7 @@
   {
     "id": "lab-21",
     "name": "Urine Bottle",
-    "price": 3500,
+    "price": 3000,
     "category": "LABORATORY PRODUCTS",
     "description": "Pack of 25",
     "image": ""
@@ -188,7 +1372,7 @@
     "name": "Malaria Strip",
     "price": 10000,
     "category": "LABORATORY PRODUCTS",
-    "description": "Pack",
+    "description": "Pack of 25",
     "image": ""
   },
   {
@@ -202,7 +1386,7 @@
   {
     "id": "eq-02",
     "name": "Ward Screen",
-    "price": 80000,
+    "price": 70000,
     "category": "MEDICAL EQUIPMENT",
     "description": "",
     "image": ""
@@ -426,7 +1610,7 @@
   {
     "id": "cons-013",
     "name": "Zinc Oxied Plasters 1 Inchs",
-    "price": 6500,
+    "price": 7000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "A Pack Of 12",
     "image": ""
@@ -434,7 +1618,7 @@
   {
     "id": "cons-014",
     "name": "Zinc Oxied Plasters 2inchs",
-    "price": 9800,
+    "price": 10000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "A Pack Of 12",
     "image": ""
@@ -448,19 +1632,11 @@
     "image": ""
   },
   {
-    "id": "cons-016",
-    "name": "Skin Stapler",
-    "price": 8000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "A Pack Of 1pcs",
-    "image": ""
-  },
-  {
     "id": "cons-017",
-    "name": "Nurse Cap",
-    "price": 2500,
+    "name": "Nurse Cap/Hairnet",
+    "price": 1500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "A Pack Of 100pcs",
+    "description": "A pack of 100pcs\nA carton of 20 packs",
     "image": ""
   },
   {
@@ -474,7 +1650,7 @@
   {
     "id": "cons-019",
     "name": "Surgical Chromic Sutures",
-    "price": 7000,
+    "price": 6000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "A Pack Of 12pcs",
     "image": ""
@@ -498,7 +1674,7 @@
   {
     "id": "cons-022",
     "name": "Latex Exam Gloves Non Sterile",
-    "price": 35000,
+    "price": 40000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "A Pack Of 100pcs 10 Packs In A Carton (₦3,500 Per Unit/Pack)",
     "image": ""
@@ -618,7 +1794,7 @@
   {
     "id": "cons-037",
     "name": "2ml Syringe",
-    "price": 3800,
+    "price": 3500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "A Pack Of 100pcs",
     "image": ""
@@ -626,7 +1802,7 @@
   {
     "id": "cons-038",
     "name": "5ml Syringe",
-    "price": 4000,
+    "price": 3700,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "A Pack Of 100pcs",
     "image": ""
@@ -650,7 +1826,7 @@
   {
     "id": "cons-041",
     "name": "20ml Syringe",
-    "price": 14500,
+    "price": 13000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "A Pack Of 80pcs",
     "image": ""
@@ -778,17 +1954,17 @@
   {
     "id": "cons-057",
     "name": "Providon Iodine 2 Litters By 5%",
-    "price": 156000,
+    "price": 192000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "A Pack Of 6 (₦26,000 Per Unit/Pack)",
+    "description": "A Pack Of 6 (₦32,000 Per Unit/Pack)",
     "image": ""
   },
   {
     "id": "cons-058",
     "name": "Providon Iodine By 10%",
-    "price": 174000,
+    "price": 195000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "A Pack Of 6 (₦29,000 Per Unit/Pack)",
+    "description": "A Pack Of 6 (₦32,500 Per Unit/Pack)",
     "image": ""
   },
   {
@@ -796,7 +1972,7 @@
     "name": "Providon Iodine 100ml",
     "price": 100000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "₦2,000 Per Unit/Pack",
+    "description": "₦2,500 Per Unit/Pack",
     "image": ""
   },
   {
@@ -842,9 +2018,9 @@
   {
     "id": "cons-065",
     "name": "Folley Catheter",
-    "price": 8000,
+    "price": 7000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 10",
     "image": ""
   },
   {
@@ -852,7 +2028,7 @@
     "name": "Silicone Folley Catheter",
     "price": 24000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 10",
     "image": ""
   },
   {
@@ -868,7 +2044,7 @@
     "name": "Disposable Underwear(Adult Diapers)",
     "price": 15000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 20- Medium \nA pack of 18- Large\nA pack of 14- XL\nA pack of 12 -2XL",
     "image": ""
   },
   {
@@ -876,7 +2052,7 @@
     "name": "Swab Stick",
     "price": 6500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -892,15 +2068,15 @@
     "name": "Mouth Piece/Tubo Esp",
     "price": 70000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
     "id": "cons-072",
-    "name": "Typhoid Rapid Diagnosti Test",
-    "price": 16000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "name": "Typhoid Rapid Diagnostic Test kit",
+    "price": 12000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack 20",
     "image": ""
   },
   {
@@ -948,7 +2124,7 @@
     "name": "ID Bracelet",
     "price": 9000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -970,9 +2146,9 @@
   {
     "id": "cons-081",
     "name": "Omnipaque-CT Contrast",
-    "price": 75000,
+    "price": 55000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "350mg-55,000\n300mg-45,000",
     "image": ""
   },
   {
@@ -994,9 +2170,9 @@
   {
     "id": "cons-084",
     "name": "Capillary Tubes",
-    "price": 15000,
+    "price": 13000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 10",
     "image": ""
   },
   {
@@ -1011,7 +2187,7 @@
     "id": "cons-086",
     "name": "Malaria Rapid Test Kits",
     "price": 14000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "category": "LABORATORY PRODUCTS",
     "description": "",
     "image": ""
   },
@@ -1019,8 +2195,8 @@
     "id": "cons-087",
     "name": "Urinalysis Test Strips",
     "price": 14000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 100",
     "image": ""
   },
   {
@@ -1092,7 +2268,7 @@
     "name": "Blood Sugar Strips-One Touch",
     "price": 10000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50",
     "image": ""
   },
   {
@@ -1107,7 +2283,7 @@
     "id": "cons-098",
     "name": "Health Scale",
     "price": 12000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "category": "MEDICAL EQUIPMENT",
     "description": "",
     "image": ""
   },
@@ -1124,7 +2300,7 @@
     "name": "Spinal Needle",
     "price": 25000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50",
     "image": ""
   },
   {
@@ -1154,7 +2330,7 @@
   {
     "id": "cons-104",
     "name": "Vaginal Speculum",
-    "price": 800,
+    "price": 600,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "",
     "image": ""
@@ -1162,9 +2338,9 @@
   {
     "id": "cons-105",
     "name": "Normal Saline",
-    "price": 1200,
+    "price": 12000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A carton of 20 packs",
     "image": ""
   },
   {
@@ -1172,7 +2348,7 @@
     "name": "Primapores",
     "price": 55000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 20 pcs",
     "image": ""
   },
   {
@@ -1186,7 +2362,7 @@
   {
     "id": "cons-108",
     "name": "Disposable Electro Surgical Control Pencil",
-    "price": 4000,
+    "price": 3000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "",
     "image": ""
@@ -1218,9 +2394,9 @@
   {
     "id": "cons-112",
     "name": "Disposable ECG Electrodes",
-    "price": 15000,
+    "price": 6500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50",
     "image": ""
   },
   {
@@ -1258,7 +2434,7 @@
   {
     "id": "cons-117",
     "name": "Non-Woven Shoe Cover",
-    "price": 4500,
+    "price": 4000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "",
     "image": ""
@@ -1299,7 +2475,7 @@
     "id": "cons-122",
     "name": "Typhoid Rapid Test Cassette",
     "price": 25000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "category": "LABORATORY PRODUCTS",
     "description": "",
     "image": ""
   },
@@ -1307,7 +2483,7 @@
     "id": "cons-123",
     "name": "HBA 1c Rapid Quantitative Test",
     "price": 78000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "category": "LABORATORY PRODUCTS",
     "description": "",
     "image": ""
   },
@@ -1323,16 +2499,16 @@
     "id": "cons-125",
     "name": "LH Rapid Quantitative Test (Finecare)",
     "price": 89000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "category": "LABORATORY PRODUCTS",
     "description": "",
     "image": ""
   },
   {
     "id": "cons-126",
     "name": "HIV Determine",
-    "price": 89000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "price": 65000,
+    "category": "LABORATORY PRODUCTS",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -1348,23 +2524,23 @@
     "name": "Bio-Dress Bandages",
     "price": 40000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 20 pcs",
     "image": ""
   },
   {
     "id": "cons-129",
     "name": "Chromic Suture",
-    "price": 7000,
+    "price": 6000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 12 pcs",
     "image": ""
   },
   {
     "id": "cons-130",
     "name": "Nylon Sutures",
-    "price": 4000,
+    "price": 3000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -1380,15 +2556,15 @@
     "name": "Proplene Suturess",
     "price": 20000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 12 pcs",
     "image": ""
   },
   {
     "id": "cons-133",
     "name": "Monocryl Sutures",
-    "price": 15000,
+    "price": 20000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 12 pcs",
     "image": ""
   },
   {
@@ -1396,7 +2572,7 @@
     "name": "Smi Brand-Nylon Sutures",
     "price": 30000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 12 pcs",
     "image": ""
   },
   {
@@ -1425,7 +2601,7 @@
   },
   {
     "id": "cons-138",
-    "name": "Romo Vac/Exudrain/Closed Drainage Systemwound D",
+    "name": "Romo Vac/Exudrain/Closed Drainage System",
     "price": 15000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "",
@@ -1434,9 +2610,9 @@
   {
     "id": "cons-139",
     "name": "Jadelle Implant",
-    "price": 40000,
+    "price": 35000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 10 pcs",
     "image": ""
   },
   {
@@ -1459,7 +2635,7 @@
     "id": "cons-142",
     "name": "Oxygen Regulator",
     "price": 20000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "category": "MEDICAL EQUIPMENT",
     "description": "",
     "image": ""
   },
@@ -1489,10 +2665,10 @@
   },
   {
     "id": "cons-146",
-    "name": "Ρε Ταρε (Medical Use)",
+    "name": "PE TAPE(MEDICAL USE)",
     "price": 15000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 6",
     "image": ""
   },
   {
@@ -1529,10 +2705,10 @@
   },
   {
     "id": "cons-151",
-    "name": "Adult Diaper",
-    "price": 13000,
+    "name": "Adult Diaper(Clip)",
+    "price": 10000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 10 pcs",
     "image": ""
   },
   {
@@ -1548,31 +2724,31 @@
     "name": "Surgical Sutures (Vicryl)",
     "price": 10000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 12 pcs",
     "image": ""
   },
   {
     "id": "cons-154",
     "name": "Breathalyzer",
     "price": 60000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "category": "MEDICAL EQUIPMENT",
     "description": "",
     "image": ""
   },
   {
     "id": "cons-155",
     "name": "Disposable Needles",
-    "price": 3000,
+    "price": 2500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
     "id": "cons-156",
     "name": "Scalp Vein Butterfly Needle",
-    "price": 5000,
+    "price": 4500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -1586,9 +2762,9 @@
   {
     "id": "cons-158",
     "name": "Vaginal Speculum",
-    "price": 1500,
+    "price": 60000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A carton of 100 pcs",
     "image": ""
   },
   {
@@ -1596,7 +2772,7 @@
     "name": "Alcohol Pads/Swipes",
     "price": 3000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -1604,7 +2780,7 @@
     "name": "Disposable ECG Electordes",
     "price": 14000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -1650,7 +2826,7 @@
   {
     "id": "cons-166",
     "name": "Copper T Contraceptive Device",
-    "price": 3000,
+    "price": 2000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "",
     "image": ""
@@ -1673,10 +2849,10 @@
   },
   {
     "id": "cons-169",
-    "name": "Hand Held Fetal Doppler",
-    "price": 50000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "name": "Fetal Doppler",
+    "price": 30000,
+    "category": "MEDICAL EQUIPMENT",
+    "description": "A pack of 1",
     "image": ""
   },
   {
@@ -1706,9 +2882,9 @@
   {
     "id": "cons-173",
     "name": "I.V. Cannula With Injection Port And Wings",
-    "price": 9000,
+    "price": 6500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50 pcs",
     "image": ""
   },
   {
@@ -1716,7 +2892,7 @@
     "name": "Pregancy Test Strip",
     "price": 3500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50 pcs",
     "image": ""
   },
   {
@@ -1729,18 +2905,18 @@
   },
   {
     "id": "cons-176",
-    "name": "Medical Personal Scale",
-    "price": 15000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "name": "Camry Bathroom Scale",
+    "price": 40000,
+    "category": "MEDICAL EQUIPMENT",
     "description": "",
     "image": ""
   },
   {
     "id": "cons-177",
     "name": "Sterile Antibiotic Tulle",
-    "price": 25000,
+    "price": 20000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 10",
     "image": ""
   },
   {
@@ -1756,15 +2932,15 @@
     "name": "I.V Infusion Set/Giving Set",
     "price": 7000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50 pcs",
     "image": ""
   },
   {
     "id": "cons-180",
     "name": "5ml Syrings (Sterile)",
-    "price": 3900,
+    "price": 3700,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -1780,7 +2956,7 @@
     "name": "One Touch Select Plus Glucose Strips",
     "price": 30000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50 pcs",
     "image": ""
   },
   {
@@ -1788,7 +2964,7 @@
     "name": "Specimen Bags",
     "price": 9000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50 pcs",
     "image": ""
   },
   {
@@ -1828,7 +3004,7 @@
     "name": "Band Aid Adhesive Strip Plaster",
     "price": 2000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -1852,13 +3028,13 @@
     "name": "Colostomy Bag",
     "price": 35000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 20 pcs",
     "image": ""
   },
   {
     "id": "cons-192",
     "name": "Intubating Stylet",
-    "price": 4000,
+    "price": 5500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "",
     "image": ""
@@ -1868,7 +3044,7 @@
     "name": "Nitrile Gloves (Color Black)",
     "price": 4500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -1883,14 +3059,6 @@
     "id": "cons-195",
     "name": "Biohazard Waste Bag",
     "price": 400,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
-    "image": ""
-  },
-  {
-    "id": "cons-196",
-    "name": "Medical Crutches",
-    "price": 23000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "",
     "image": ""
@@ -1922,17 +3090,17 @@
   {
     "id": "cons-200",
     "name": "Extension Tube",
-    "price": 1500,
+    "price": 1000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 25",
     "image": ""
   },
   {
     "id": "cons-201",
     "name": "Sofra-Tulle",
-    "price": 25000,
+    "price": 20000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 10",
     "image": ""
   },
   {
@@ -1964,7 +3132,7 @@
     "name": "Micropore Tape",
     "price": 60000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 12- 1 inches \nA pack of 6- 2,3,4 inches",
     "image": ""
   },
   {
@@ -1986,8 +3154,8 @@
   {
     "id": "cons-208",
     "name": "Nebulizer Compressor",
-    "price": 60000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "price": 40000,
+    "category": "MEDICAL EQUIPMENT",
     "description": "",
     "image": ""
   },
@@ -2004,7 +3172,7 @@
     "name": "Zinc Oxide Adhesive Plasters",
     "price": 10000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 10",
     "image": ""
   },
   {
@@ -2043,7 +3211,7 @@
     "id": "cons-215",
     "name": "Physiotherapy Electric Light",
     "price": 45000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "category": "MEDICAL EQUIPMENT",
     "description": "",
     "image": ""
   },
@@ -2067,7 +3235,7 @@
     "id": "cons-218",
     "name": "Clinical Thermometer",
     "price": 1800,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
+    "category": "MEDICAL EQUIPMENT",
     "description": "",
     "image": ""
   },
@@ -2105,10 +3273,10 @@
   },
   {
     "id": "cons-223",
-    "name": "Orthopedic Bandage",
+    "name": "Orthopedic Bandage/ Soffban",
     "price": 7000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 12",
     "image": ""
   },
   {
@@ -2116,7 +3284,7 @@
     "name": "Prime Cast Fiber Casting Tape",
     "price": 55000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "Size 3-40,000,\nSize 4-43,000,\nSize 5-48,000,\nSize 6 -55,000\n\nAll prices is for a box of 10",
     "image": ""
   },
   {
@@ -2132,7 +3300,7 @@
     "name": "Adhesive Strips Plaster",
     "price": 2000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100",
     "image": ""
   },
   {
@@ -2146,9 +3314,9 @@
   {
     "id": "cons-228",
     "name": "Pen Needles",
-    "price": 9000,
+    "price": 11000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100",
     "image": ""
   },
   {
@@ -2162,7 +3330,7 @@
   {
     "id": "cons-230",
     "name": "Cervix Set",
-    "price": 115000,
+    "price": 90000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "",
     "image": ""
@@ -2172,31 +3340,23 @@
     "name": "Aboplaster",
     "price": 10000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
-    "image": ""
-  },
-  {
-    "id": "cons-232",
-    "name": "Portable Vein Finder",
-    "price": 50000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 6",
     "image": ""
   },
   {
     "id": "cons-233",
     "name": "Universal Bottle Without Spoon",
-    "price": 4000,
+    "price": 3000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 25\n.",
     "image": ""
   },
   {
     "id": "cons-234",
     "name": "Pregnancy Test Strip (Urine)",
-    "price": 4000,
+    "price": 3000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50",
     "image": ""
   },
   {
@@ -2244,7 +3404,7 @@
     "name": "Blue Nitrile Examination Gloves Power Free",
     "price": 4500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100 pcs",
     "image": ""
   },
   {
@@ -2274,9 +3434,9 @@
   {
     "id": "cons-244",
     "name": "Disposable Surgical Face Masks",
-    "price": 2000,
+    "price": 1500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50",
     "image": ""
   },
   {
@@ -2396,7 +3556,7 @@
     "name": "Wooden Tongue Depressor",
     "price": 4000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100",
     "image": ""
   },
   {
@@ -2418,9 +3578,9 @@
   {
     "id": "cons-262",
     "name": "Round Boil Plasters",
-    "price": 2200,
+    "price": 1500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100",
     "image": ""
   },
   {
@@ -2442,7 +3602,7 @@
   {
     "id": "cons-265",
     "name": "Nurse Clip Cap",
-    "price": 3000,
+    "price": 1500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "",
     "image": ""
@@ -2450,7 +3610,7 @@
   {
     "id": "cons-266",
     "name": "Skin Stapler",
-    "price": 8000,
+    "price": 6500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
     "description": "",
     "image": ""
@@ -2506,33 +3666,25 @@
   {
     "id": "cons-273",
     "name": "Accu Check Test Strips",
-    "price": 16000,
+    "price": 14000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
-    "image": ""
-  },
-  {
-    "id": "cons-274",
-    "name": "Pulse Oximeter",
-    "price": 10000,
-    "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 50",
     "image": ""
   },
   {
     "id": "cons-275",
     "name": "Reinforced Surgical Gown",
-    "price": 4500,
+    "price": 3500,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 1 \nA carton of 50",
     "image": ""
   },
   {
     "id": "cons-276",
-    "name": "Ε.Ο.Τ.Α Bottles",
+    "name": "Ε.D.Τ.Α Bottles",
     "price": 3000,
     "category": "MEDICAL AND SURGICAL, LABORATORIES CONSUMABLES AND DISPOSABLES",
-    "description": "",
+    "description": "A pack of 100",
     "image": ""
   },
   {
