@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { getCategoryBadge } from "@/lib/categories";
 import styles from "./CartDrawer.module.css";
@@ -18,6 +18,50 @@ function CartItemPlaceholder({ name }) {
   );
 }
 
+const WHATSAPP_PHONE = "2348105117437";
+
+function generateOrderMessage(cart, totalCount, totalAmount) {
+  const orderRef = `PZM-${Date.now().toString().slice(-6)}`;
+  const dateStr = new Date().toLocaleDateString("en-NG", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  const lines = [
+    "Hello Pezu Standard Medics, I would like to place an order:",
+    "",
+    `*Order Ref:* #${orderRef}`,
+    `*Date:* ${dateStr}`,
+    "--------------------------------------",
+    "*ORDERED ITEMS:*",
+  ];
+
+  cart.forEach((item, index) => {
+    const unitPrice = Number(item.price || 0);
+    const itemTotal = unitPrice * (item.quantity || 1);
+    lines.push(
+      `${index + 1}. *${item.name}*`,
+      `   Qty: ${item.quantity || 1}`,
+      `   Unit Price: ₦${unitPrice.toLocaleString("en-US", { minimumFractionDigits: 2 })}`,
+      `   Subtotal: ₦${itemTotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}`
+    );
+  });
+
+  lines.push(
+    "--------------------------------------",
+    `*Total Items:* ${totalCount}`,
+    `*Total Price:* ₦${Number(totalAmount || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}`,
+    "--------------------------------------",
+    "",
+    "Please confirm product availability and dispatch details."
+  );
+
+  return lines.join("\n");
+}
+
 export default function CartDrawer() {
   const {
     cart,
@@ -32,6 +76,34 @@ export default function CartDrawer() {
   } = useCart();
 
   const drawerRef = useRef(null);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  // Reset confirmation whenever drawer closes
+  useEffect(() => {
+    if (!isCartOpen) {
+      setShowConfirm(false);
+    }
+  }, [isCartOpen]);
+
+  const handleProceedToWhatsApp = () => {
+    const message = generateOrderMessage(cart, totalCount, totalAmount);
+    const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+
+    clearCart();
+    setShowConfirm(false);
+    setIsCartOpen(false);
+
+    const isMobile =
+      typeof navigator !== "undefined" &&
+      (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+        (typeof window !== "undefined" && window.innerWidth <= 768));
+
+    if (isMobile) {
+      window.location.assign(whatsappUrl);
+    } else {
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    }
+  };
 
   // Close drawer on Escape key press
   useEffect(() => {
@@ -333,38 +405,90 @@ export default function CartDrawer() {
               <span className={styles.totalAmount}>{formattedTotal}</span>
             </div>
 
-            {/* Bottom Actions */}
-            <div className={styles.footerActions}>
-              <button
-                type="button"
-                onClick={handleClose}
-                className={styles.continueShoppingBtn}
-              >
-                Continue Shopping
-              </button>
-              <button
-                type="button"
-                id="cart-checkout-btn"
-                className={styles.checkoutBtn}
-                title="Proceed to checkout"
-              >
-                <span>Checkout</span>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
+            {/* Bottom Actions or Confirmation Assurance */}
+            {showConfirm ? (
+              <div className={styles.confirmBox}>
+                <div className={styles.confirmHeader}>
+                  <div className={styles.confirmIconWrap}>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="8" x2="12" y2="12" />
+                      <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className={styles.confirmTitle}>Confirm Order Checkout</h4>
+                    <p className={styles.confirmSubtitle}>
+                      Proceed to send your order of <strong>{totalCount} {totalCount === 1 ? "item" : "items"}</strong> ({formattedTotal}) to our WhatsApp sales desk?
+                    </p>
+                  </div>
+                </div>
+
+                <div className={styles.confirmActions}>
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirm(false)}
+                    className={styles.confirmCancelBtn}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    id="confirm-whatsapp-proceed-btn"
+                    onClick={handleProceedToWhatsApp}
+                    className={styles.confirmProceedBtn}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                    <span>Proceed to WhatsApp</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className={styles.footerActions}>
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className={styles.continueShoppingBtn}
                 >
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </button>
-            </div>
+                  Continue Shopping
+                </button>
+                <button
+                  type="button"
+                  id="cart-checkout-btn"
+                  onClick={() => setShowConfirm(true)}
+                  className={styles.checkoutBtn}
+                  title="Proceed to checkout"
+                >
+                  <span>Checkout</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </button>
+              </div>
+            )}
           </div>
         )}
       </aside>

@@ -552,6 +552,124 @@
   transform: scale(0.98);
 }
 
+
+/* ── Confirmation Assurance Box ── */
+.confirmBox {
+  background: #ffffff;
+  border: 1.5px solid rgba(0, 113, 227, 0.25);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 18px rgba(0, 80, 200, 0.08);
+  animation: confirmFadeIn 0.2s ease-out;
+}
+
+@keyframes confirmFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.confirmHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.confirmIconWrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 113, 227, 0.10);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.confirmTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 3px;
+}
+
+.confirmSubtitle {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.confirmSubtitle strong {
+  color: var(--color-text-primary);
+}
+
+.confirmActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.confirmCancelBtn {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.confirmCancelBtn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: var(--color-text-primary);
+}
+
+.confirmProceedBtn {
+  flex: 1.8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: #25d366;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(37, 211, 102, 0.30);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.confirmProceedBtn:hover {
+  background: #1eb956;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(37, 211, 102, 0.40);
+}
+
+.confirmProceedBtn:active {
+  transform: scale(0.98);
+}
+
 /* Mobile Responsive */
 @media (max-width: 640px) {
   .drawer {
@@ -605,5 +723,22 @@
   .checkoutBtn {
     padding: 11px 12px;
     font-size: 0.8125rem;
+  }
+  .confirmBox {
+    padding: 12px 14px;
+  }
+
+  .confirmActions {
+    gap: 8px;
+  }
+
+  .confirmCancelBtn {
+    padding: 10px 8px;
+    font-size: 0.775rem;
+  }
+
+  .confirmProceedBtn {
+    padding: 10px 10px;
+    font-size: 0.775rem;
   }
 }
