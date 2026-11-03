@@ -62,10 +62,62 @@ function generateOrderMessage(cart, totalCount, totalAmount) {
   return lines.join("\n");
 }
 
+/* ── Manually editable quantity input inside stepper ── */
+function CartItemQuantityInput({ item, updateQuantity }) {
+  const [inputValue, setInputValue] = useState(String(item.quantity || 1));
+
+  useEffect(() => {
+    setInputValue(String(item.quantity || 1));
+  }, [item.quantity]);
+
+  const handleChange = (e) => {
+    const val = e.target.value.replace(/[^0-9]/g, "");
+    setInputValue(val);
+    const parsed = parseInt(val, 10);
+    if (!isNaN(parsed) && parsed > 0) {
+      updateQuantity(item.id, Math.min(parsed, 9999));
+    }
+  };
+
+  const handleBlur = () => {
+    const parsed = parseInt(inputValue, 10);
+    if (isNaN(parsed) || parsed <= 0) {
+      setInputValue("1");
+      updateQuantity(item.id, 1);
+    } else {
+      const sanitized = Math.min(parsed, 9999);
+      setInputValue(String(sanitized));
+      updateQuantity(item.id, sanitized);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.target.blur();
+    }
+  };
+
+  return (
+    <input
+      type="text"
+      inputMode="numeric"
+      pattern="[0-9]*"
+      className={styles.quantityInput}
+      value={inputValue}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
+      aria-label={`Quantity for ${item.name}`}
+      title="Type to enter quantity manually"
+    />
+  );
+}
+
 export default function CartDrawer() {
   const {
     cart,
     removeFromCart,
+    updateQuantity,
     incrementQuantity,
     decrementQuantity,
     clearCart,
@@ -363,9 +415,10 @@ export default function CartDrawer() {
                             </svg>
                           </button>
 
-                          <span className={styles.quantityValue} aria-label={`Quantity: ${item.quantity}`}>
-                            {item.quantity || 1}
-                          </span>
+                          <CartItemQuantityInput
+                            item={item}
+                            updateQuantity={updateQuantity}
+                          />
 
                           <button
                             type="button"
