@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+"use client";
+
+import { useState } from "react";
 import styles from "./ProductCard.module.css";
 import { getCategoryBadge } from "@/lib/categories";
+import { useCart } from "@/context/CartContext";
 
 /* ── Placeholder image ── */
 function PlaceholderImage({ name }) {
@@ -16,25 +19,13 @@ function PlaceholderImage({ name }) {
   );
 }
 
-const WHATSAPP_PHONE = "2348105117437";
-
 /**
  * ProductCard
  * @param {{ product: object, view: "grid" | "list" }} props
  */
 export default function ProductCard({ product, view }) {
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    // Detect desktop safely on client mount without SSR mismatch
-    const isMobileDevice =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      ) ||
-      (window.matchMedia && window.matchMedia("(max-width: 768px)").matches);
-
-    setIsDesktop(!isMobileDevice);
-  }, []);
+  const { addToCart } = useCart();
+  const [isAdded, setIsAdded] = useState(false);
 
   const { id, name, price, category, description } = product || {};
   const formattedPrice = `₦${Number(price || 0).toLocaleString("en-US", {
@@ -45,46 +36,63 @@ export default function ProductCard({ product, view }) {
   const cleanDescription = (description || "").trim();
   const categoryBadge = getCategoryBadge(category);
 
-  // Pre-filled WhatsApp message housing Name, Price, and Description
-  const messageLines = [
-    "Hello Pezu Standard Medics, I would like to make an enquiry:",
-    "",
-    `*Product:* ${name || "Medical Product"}`,
-    `*Price:* ${formattedPrice}`,
-  ];
-
-  if (cleanDescription) {
-    messageLines.push(`*Description:* ${cleanDescription}`);
-  }
-
-  messageLines.push("");
-  messageLines.push("Is this product available for order/dispatch?");
-
-  const whatsappMessage = messageLines.join("\n");
-  const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-    whatsappMessage
-  )}`;
-
-  const handleEnquireClick = (e) => {
+  const handleAddToCart = (e) => {
     e.stopPropagation();
-
-    // On mobile devices, direct same-window navigation triggers WhatsApp
-    // immediately without Chrome creating a blank tab or showing a gray preview box.
-    const isMobileDevice =
-      typeof navigator !== "undefined" &&
-      (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      ) ||
-        (typeof window !== "undefined" &&
-          (window.innerWidth <= 768 ||
-            ("ontouchstart" in window && window.innerWidth <= 1024))));
-
-    if (isMobileDevice) {
-      e.preventDefault();
-      window.location.assign(whatsappUrl);
-    }
+    e.preventDefault();
+    addToCart(product);
+    setIsAdded(true);
+    setTimeout(() => {
+      setIsAdded(false);
+    }, 1200);
   };
 
+  const renderActionButton = () => (
+    <button
+      type="button"
+      className={`${styles.cta}${isAdded ? ` ${styles.ctaAdded}` : ""}`}
+      onClick={handleAddToCart}
+      aria-label={`Add ${name} to cart`}
+    >
+      {isAdded ? (
+        <>
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            className={styles.ctaIcon}
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span>Added</span>
+        </>
+      ) : (
+        <>
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            className={styles.ctaIcon}
+          >
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          <span>Add To Cart</span>
+        </>
+      )}
+    </button>
+  );
 
   if (view === "list") {
     return (
@@ -118,16 +126,7 @@ export default function ProductCard({ product, view }) {
           </div>
           <div className={styles.cardListMeta}>
             <span className={styles.price}>{formattedPrice}</span>
-            <a
-              href={whatsappUrl}
-              target={isDesktop ? "_blank" : undefined}
-              rel={isDesktop ? "noopener noreferrer" : undefined}
-              className={styles.cta}
-              onClick={handleEnquireClick}
-              aria-label={`Enquire about ${name}`}
-            >
-              Enquire
-            </a>
+            {renderActionButton()}
           </div>
         </div>
       </article>
@@ -166,16 +165,7 @@ export default function ProductCard({ product, view }) {
         )}
         <div className={styles.cardFooter}>
           <span className={styles.price}>{formattedPrice}</span>
-          <a
-            href={whatsappUrl}
-            target={isDesktop ? "_blank" : undefined}
-            rel={isDesktop ? "noopener noreferrer" : undefined}
-            className={styles.cta}
-            onClick={handleEnquireClick}
-            aria-label={`Enquire about ${name}`}
-          >
-            Enquire
-          </a>
+          {renderActionButton()}
         </div>
       </div>
     </article>

@@ -130,7 +130,7 @@ export default function StructuredData() {
             "name": "How do I place an order or get an official quotation from Pezu Medics?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Browse our online catalog at pezustandardmedics.com and click 'Enquire on WhatsApp' on any product, or contact our sales and dispatch desk directly on WhatsApp at +234 810 511 7437 or email pezustandardmedicsconcerns@gmail.com for instant proforma invoices and order confirmation."
+              "text": "Browse our online catalog at pezustandardmedics.com and click 'Add To Cart' on any product, or contact our sales and dispatch desk directly on WhatsApp at +234 810 511 7437 or email pezustandardmedicsconcerns@gmail.com for instant proforma invoices and order confirmation."
             }
           },
           {

@@ -130,8 +130,9 @@
 }
 
 .cta {
+  font-family: inherit;
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-accent);
   padding: 6px 14px;
   border-radius: 20px;
@@ -140,13 +141,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
   text-decoration: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 .cta:hover {
@@ -158,6 +160,17 @@
   background-color: var(--color-accent-hover, #0077ed);
   color: #fff;
   transform: scale(0.97);
+}
+
+.ctaAdded {
+  background-color: #059669 !important;
+  border-color: #059669 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);
+}
+
+.ctaIcon {
+  flex-shrink: 0;
 }
 
 /* List card – Glass Panel */

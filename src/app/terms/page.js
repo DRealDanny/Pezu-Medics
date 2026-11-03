@@ -2,6 +2,7 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchProvider } from "@/context/SearchContext";
+import { CartProvider } from "@/context/CartContext";
 import TermsClient from "./TermsClient";
 import styles from "./terms.module.css";
 
@@ -17,14 +18,16 @@ export const metadata = {
 export default function TermsPage() {
   return (
     <SearchProvider>
-      <div className={styles.termsPage}>
-        <Header />
-        <main className={styles.mainContent}>
-          <TermsClient />
-        </main>
-        <Footer />
-        <ScrollToTop />
-      </div>
+      <CartProvider>
+        <div className={styles.termsPage}>
+          <Header />
+          <main className={styles.mainContent}>
+            <TermsClient />
+          </main>
+          <Footer />
+          <ScrollToTop />
+        </div>
+      </CartProvider>
     </SearchProvider>
   );
 }

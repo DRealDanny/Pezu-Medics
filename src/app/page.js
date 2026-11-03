@@ -4,17 +4,20 @@ import ProductCatalog from "@/components/ProductCatalog/ProductCatalog";
 import HeroSection from "@/components/HeroSection/HeroSection";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchProvider } from "@/context/SearchContext";
+import { CartProvider } from "@/context/CartContext";
 
 export default function HomePage() {
   return (
     <SearchProvider>
-      <Header />
-      <main>
-        <HeroSection />
-        <ProductCatalog />
-      </main>
-      <Footer />
-      <ScrollToTop />
+      <CartProvider>
+        <Header />
+        <main>
+          <HeroSection />
+          <ProductCatalog />
+        </main>
+        <Footer />
+        <ScrollToTop />
+      </CartProvider>
     </SearchProvider>
   );
 }
