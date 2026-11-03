@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSearch } from "@/context/SearchContext";
 import { useCart } from "@/context/CartContext";
 import { getCategoryBadge } from "@/lib/categories";
+import CartDrawer from "@/components/CartDrawer/CartDrawer";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -168,7 +169,8 @@ export default function Header() {
   };
 
   return (
-    <header className={`${styles.header}${scrolled ? ` ${styles.scrolled}` : ""}`} role="banner">
+    <>
+      <header className={`${styles.header}${scrolled ? ` ${styles.scrolled}` : ""}`} role="banner">
       <div className={`container ${styles.headerInner}`}>
         {/* Brand logo */}
         <Link
@@ -520,5 +522,7 @@ export default function Header() {
         </div>
       </div>
     </header>
+    <CartDrawer />
+    </>
   );
 }

@@ -7,6 +7,8 @@ const CartContext = createContext({
   addToCart: () => {},
   removeFromCart: () => {},
   updateQuantity: () => {},
+  incrementQuantity: () => {},
+  decrementQuantity: () => {},
   clearCart: () => {},
   totalCount: 0,
   totalAmount: 0,
@@ -47,6 +49,23 @@ export function CartProvider({ children }) {
       console.warn("Failed to persist cart to storage:", e);
     }
   }, [cart, isLoaded]);
+
+  // Synchronize cart across browser tabs
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === CART_STORAGE_KEY && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (Array.isArray(parsed)) {
+            setCart(parsed);
+          }
+        } catch (_) {}
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   const addToCart = useCallback((product, quantity = 1) => {
     if (!product || !product.id) return;
@@ -95,6 +114,32 @@ export function CartProvider({ children }) {
     );
   }, [removeFromCart]);
 
+  const incrementQuantity = useCallback((productId) => {
+    setCart((prev) =>
+      prev.map((item) =>
+        String(item.id) === String(productId)
+          ? { ...item, quantity: (item.quantity || 1) + 1 }
+          : item
+      )
+    );
+  }, []);
+
+  const decrementQuantity = useCallback((productId) => {
+    setCart((prev) => {
+      const target = prev.find((item) => String(item.id) === String(productId));
+      if (!target) return prev;
+      if ((target.quantity || 1) <= 1) {
+        // If 1, decrementing removes the item from cart
+        return prev.filter((item) => String(item.id) !== String(productId));
+      }
+      return prev.map((item) =>
+        String(item.id) === String(productId)
+          ? { ...item, quantity: (item.quantity || 1) - 1 }
+          : item
+      );
+    });
+  }, []);
+
   const clearCart = useCallback(() => {
     setCart([]);
   }, []);
@@ -117,6 +162,8 @@ export function CartProvider({ children }) {
         addToCart,
         removeFromCart,
         updateQuantity,
+        incrementQuantity,
+        decrementQuantity,
         clearCart,
         totalCount,
         totalAmount,
@@ -136,4 +183,3 @@ export function useCart() {
   }
   return context;
 }
-
